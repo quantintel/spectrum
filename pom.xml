@@ -56,6 +56,8 @@
 
         <sourceDirectory>${basedir}/app</sourceDirectory>
 
+
+
         <resources>
             <resource>
                 <directory>${basedir}/conf</directory>
@@ -72,6 +74,11 @@
 
         <pluginManagement>
             <plugins>
+                <plugin>
+                    <groupId>net.alchim31.maven</groupId>
+                    <artifactId>scala-maven-plugin</artifactId>
+                    <version>3.2.0</version>
+                </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-compiler-plugin</artifactId>
@@ -484,26 +491,20 @@
             <url>http://repo1.maven.org/maven2/</url>
         </repository>
 
-
-
-        <!--
         <repository>
-            <id>akka-releases</id>
-            <url>http://nexus-teleapp.homelinux.com:8081/nexus/content/repositories/akka-releases</url>
+            <id>scala-tools.org</id>
+            <name>Scala-tools Maven2 Repository</name>
+            <url>http://scala-tools.org/repo-releases</url>
         </repository>
--->
+
     </repositories>
 
     <pluginRepositories>
-        <!--
         <pluginRepository>
-            <id>typesafe-releases-plugins</id>
-            <url>http://nexus-teleapp.homelinux.com:8081/nexus/content/repositories/typesafe-releases-plugins/</url>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
+            <id>scala-tools.org</id>
+            <name>Scala-tools Maven2 Repository</name>
+            <url>http://scala-tools.org/repo-releases</url>
         </pluginRepository>
-        -->
     </pluginRepositories>
 
 </project>
