@@ -38,13 +38,13 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.quantintel</groupId>
-    <artifactId>sprectrum-parent</artifactId>
+    <groupId>com.quantintel.ql</groupId>
+    <artifactId>quantintel-parent</artifactId>
 
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
 
-    <name>sprectrum-parent</name>
+    <name>quantintel-parent</name>
 
     <url>http://www.quantintel.org</url>
 
@@ -485,10 +485,25 @@
         </repository>
 
 
+
+        <!--
+        <repository>
+            <id>akka-releases</id>
+            <url>http://nexus-teleapp.homelinux.com:8081/nexus/content/repositories/akka-releases</url>
+        </repository>
+-->
     </repositories>
 
     <pluginRepositories>
-
+        <!--
+        <pluginRepository>
+            <id>typesafe-releases-plugins</id>
+            <url>http://nexus-teleapp.homelinux.com:8081/nexus/content/repositories/typesafe-releases-plugins/</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </pluginRepository>
+        -->
     </pluginRepositories>
 
 </project>
