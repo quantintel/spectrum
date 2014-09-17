@@ -1,6 +1,6 @@
 package org.quantintel.ql.time
 
-import org.teleapp.ql.time.Weekday._
+import org.quantintel.ql.time.Weekday._
 import scala.collection.mutable
 
 

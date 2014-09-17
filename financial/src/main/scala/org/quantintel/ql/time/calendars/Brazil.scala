@@ -20,9 +20,9 @@
 
 package org.quantintel.ql.time.calendars
 
-import org.teleapp.ql.time.Month._
-import org.teleapp.ql.time.Weekday._
-import org.teleapp.ql.time.{Calendar, Date, Western}
+import org.quantintel.ql.time.Month._
+import org.quantintel.ql.time.Weekday._
+import org.quantintel.ql.time.{Calendar, Date, Western}
 
 
 object BrazilEnum extends Enumeration {
@@ -78,7 +78,7 @@ object BrazilEnum extends Enumeration {
  */
 object Brazil {
 
-  import org.teleapp.ql.time.calendars.BrazilEnum._
+  import org.quantintel.ql.time.calendars.BrazilEnum._
 
   def apply : Calendar = new Settlement
 

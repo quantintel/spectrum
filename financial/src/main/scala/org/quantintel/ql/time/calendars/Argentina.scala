@@ -20,11 +20,11 @@
 
 package org.quantintel.ql.time.calendars
 
-import org.teleapp.ql.time.{Calendar, Western, Date}
-import org.teleapp.ql.time.Month.Month
-import org.teleapp.ql.time.Month._
-import org.teleapp.ql.time.Weekday.Weekday
-import org.teleapp.ql.time.Weekday._
+import org.quantintel.ql.time.{Calendar, Western, Date}
+import org.quantintel.ql.time.Month.Month
+import org.quantintel.ql.time.Month._
+import org.quantintel.ql.time.Weekday.Weekday
+import org.quantintel.ql.time.Weekday._
 
 
 object ArgentinaEnum extends Enumeration {
@@ -69,7 +69,7 @@ object ArgentinaEnum extends Enumeration {
  */
 object Argentina {
 
-  import org.teleapp.ql.time.calendars.ArgentinaEnum._
+  import org.quantintel.ql.time.calendars.ArgentinaEnum._
 
   def apply : Calendar = new MERVAL
 

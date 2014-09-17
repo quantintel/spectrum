@@ -20,9 +20,9 @@
 
 package org.quantintel.ql.time.calendars
 
-import org.teleapp.ql.time.Month._
-import org.teleapp.ql.time.Weekday._
-import org.teleapp.ql.time.{Date, Western, Calendar}
+import org.quantintel.ql.time.Month._
+import org.quantintel.ql.time.Weekday._
+import org.quantintel.ql.time.{Date, Western, Calendar}
 
 
 object ChinaEnum extends Enumeration {
@@ -58,7 +58,7 @@ object ChinaEnum extends Enumeration {
  */
 object China  {
 
-  import org.teleapp.ql.time.calendars.ChinaEnum._
+  import org.quantintel.ql.time.calendars.ChinaEnum._
 
   def apply : Calendar = new SSE
 

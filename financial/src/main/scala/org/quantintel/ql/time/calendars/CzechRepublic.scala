@@ -20,9 +20,9 @@
 
 package org.quantintel.ql.time.calendars
 
-import org.teleapp.ql.time.Month._
-import org.teleapp.ql.time.Weekday._
-import org.teleapp.ql.time.{Date, Western, Calendar}
+import org.quantintel.ql.time.Month._
+import org.quantintel.ql.time.Weekday._
+import org.quantintel.ql.time.{Date, Western, Calendar}
 
 
 object CzechRepublicEnum extends Enumeration {
@@ -60,7 +60,7 @@ object CzechRepublicEnum extends Enumeration {
  */
 object CzechRepublic  {
 
-  import org.teleapp.ql.time.calendars.CzechRepublicEnum._
+  import org.quantintel.ql.time.calendars.CzechRepublicEnum._
 
   def apply : Calendar = new PSE
 

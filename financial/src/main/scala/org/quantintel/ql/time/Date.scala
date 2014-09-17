@@ -4,8 +4,8 @@ import java.text.SimpleDateFormat
 import java.util.{Calendar => JCalendar}
 
 
-import org.teleapp.ql.time.Month._
-import org.teleapp.ql.time.Weekday._
+import org.quantintel.ql.time.Month._
+import org.quantintel.ql.time.Weekday._
 
 class Date (var month: Month, var dayOfMonth: Int,  var year: Int) {
 
