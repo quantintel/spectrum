@@ -1,19 +1,22 @@
 Spectrum
 ========
 
-A Scala port of various open source quantitative and financial software libraries.
+A series of capability distributions packaged as libraries.
+
+    The initial focus will be in the Financial/Quantitative area
+    
 
 ##Problem:
 
-Rarely is a non-trivial quantitative or financial computing problem solved with
+Rarely is a non-trivial computing problem solved with
 a single library.  More often then not development teams are required to use 
-several libraries and as such go through the effort of integrating the functionality 
+several libraries, and as such go through the effort of integrating the functionality 
 while ensuring consistency, transparency and accuracy of the results. 
 
 The challenge with this approach is one of incomplete coverage and diversity
 among teams.  It would be unlikely for multiple teams acting independently to 
 integrate any arbitrary set of libraries in the same fashion.  Even the same 
-team of people over long period of time are likely to adopt different styles
+team of people over long periods of time are likely to adopt different styles
 and approaches.  Finally, most teams need to deal with tactical priorities
 and as such integrate only what they need at a given point in time, further
 impacting consistency and transparency.
@@ -23,7 +26,7 @@ impacting consistency and transparency.
 One option would be to write a monolithic library with staggering breadth of scope
 but doing so would clearly be a daunting task.  Spectrum takes a decidedly
 more pragmatic approach.  Spectrum consists of a series of libraries written in Scala
-which implement the functionality available in popular open source quantitative and financial 
+which implement the functionality available in popular open source functional area
 libraries.  They are not exact ports nor are they forks of the libraries from
 which they were inspired.  They do however faithfully implement the algorithms and 
 are similar enough to track and subsequently incorporate functionality that 
@@ -36,7 +39,7 @@ A fork of the existing code bases would result in significant design and standar
 variation making the resulting code base challenging to support and maintain.
 
 That said, the goal is for Spectrum to be familiar to those who have used any of
-the libraries from which Spectrum is inspired while producing a distribution
+the libraries from which Spectrum is inspired while at the same tim producing a distribution
 that is easily maintained, consistent, transparent and accurate.
 
 ##Usability and integration:
