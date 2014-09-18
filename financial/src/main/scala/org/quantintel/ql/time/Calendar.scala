@@ -21,7 +21,6 @@ abstract class Calendar {
   private val removedHolidays = new mutable.HashSet[Date]
 
   def name : String
-  def easterMonday(y: Int) : Int
 
   def isBusinessDay(d: Date) : Boolean = {
     if (addedHolidays.contains(d)) false
@@ -40,7 +39,7 @@ abstract class Calendar {
 
   /**
    * Adds a date to the set of holidays for the given calendar
-   * @param d
+   * @param d date to be added
    */
   def addHoliday(d: Date): Unit = {
     removedHolidays.remove(d)
@@ -49,7 +48,7 @@ abstract class Calendar {
 
   /**
    * Remove the date from the set of holidays for a given calendar
-   * @param d
+   * @param d date to be removed
    */
   def removeHoliday(d: Date): Unit = {
     addedHolidays.remove(d)
@@ -111,7 +110,7 @@ abstract class Western extends Calendar {
    * @param y the year
    * @return offset
    */
-  override final def easterMonday(y : Int) : Int = {
+  final def easterMonday(y : Int) : Int = {
     easterMondayData(y - 1901)
   }
 
@@ -165,7 +164,7 @@ abstract class Orthodox extends Calendar {
    * @param y the year
    * @return offset
    */
-  override final def easterMonday(y : Int) : Int = {
+  final def easterMonday(y : Int) : Int = {
     easterMondayData(y - 1901)
   }
 
