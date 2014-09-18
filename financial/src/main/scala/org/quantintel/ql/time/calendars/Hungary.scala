@@ -13,12 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *
- * Scala Finance is based in part on:
+ * Spectrum Finance is based in part on:
  *        QuantLib. http://quantlib.org/
  *
  */
 
 package org.quantintel.ql.time.calendars
+
+import org.quantintel.ql.time.Month._
+import org.quantintel.ql.time.Weekday._
+import org.quantintel.ql.time.{Western, Date, Calendar}
 
 object HungaryEnum extends Enumeration {
   type HungaryEnum = Value
@@ -52,5 +56,45 @@ object HungaryEnum extends Enumeration {
  * @author Paul Bernard
  */
 object Hungary {
+
+  def apply : Calendar = new Hungary
+
+  import org.quantintel.ql.time.calendars.HungaryEnum._
+
+  def apply(market: HungaryEnum) : Calendar = {
+    market match {
+      case HUNGARY => new Hungary
+      case _ => throw new Exception("Valid units = 1")
+    }
+  }
+
+  private class Hungary extends Western {
+
+    override def name = "Hungary"
+
+    override def isBusinessDay(date: Date): Boolean = {
+
+      val w: Weekday = date.weekday
+      val d: Int = date.dayOfMonth
+      val dd = date.dayOfYear
+      val m: Month = date.month
+      val y: Int = date.year
+      val em: Int = easterMonday(y)
+
+      if (isWeekend(w)
+        || (dd == em)     // Easter Monday
+        || (dd == em+49)  // Whit Monday
+        || (d == 1  && m == JANUARY)   // New Year's Day
+        || (d == 15  && m == MARCH) // National Day
+        || (d == 1  && m == MAY)  // Labour Day
+        || (d == 20  && m == AUGUST)   // Constitution Day
+        || (d == 23  && m == OCTOBER) // Republic DaY
+        || (d == 1  && m == NOVEMBER)  // All Saints Day
+        || (d == 25 && m == DECEMBER)  // Christmas
+        || (d == 26 && m == DECEMBER))  // 2nd Day of Christmas
+        false else true
+
+    }
+  }
 
 }

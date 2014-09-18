@@ -13,12 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *
- * Scala Finance is based in part on:
+ * Spectrum Finance is based in part on:
  *        QuantLib. http://quantlib.org/
  *
  */
 
 package org.quantintel.ql.time.calendars
+
+import org.quantintel.ql.time.Month._
+import org.quantintel.ql.time.Weekday._
+import org.quantintel.ql.time.{Date, Western, Calendar}
 
 object IcelandEnum extends Enumeration {
   type IcelandEnum = Value
@@ -55,5 +59,47 @@ object IcelandEnum extends Enumeration {
  * @author Paul Bernard
  */
 object Iceland {
+
+  def apply: Calendar = new Iceland
+
+  import org.quantintel.ql.time.calendars.IcelandEnum._
+
+  def apply(market: IcelandEnum): Calendar = {
+    market match {
+      case ICEX => new Iceland
+      case _ => throw new Exception("Valid units = 1")
+    }
+  }
+
+  private class Iceland extends Western {
+
+    override def name = "Iceland stock exchange"
+
+    override def isBusinessDay(date: Date): Boolean = {
+
+      val w: Weekday = date.weekday
+      val d: Int = date.dayOfMonth
+      val dd = date.dayOfYear
+      val m: Month = date.month
+      val y: Int = date.year
+      val em: Int = easterMonday(y)
+
+      if (isWeekend(w)
+        || ((d == 1 || ((d == 2 || d == 3) && w == MONDAY))  && m == JANUARY)  // New Year's Day (possibly moved to Monday)
+        || (dd == em - 4) // Holy Thursday
+        || (dd == em - 3) // Good Friday
+        || (dd == em) // Easter MONDAY
+        || (d >= 19 && d <= 25 && w == THURSDAY && m == APRIL) // First day of Summer
+        || (dd == em + 38) // Ascension THURSDAY
+        || (dd == em + 49)  // Pentecost MONDAY
+        || (d == 1 && m == MAY)  // Labour Day
+        || (d == 17 && m == JUNE) // Independence Day
+        || (d <= 7 && w == MONDAY && m == AUGUST) // Commerce Day
+        || (d == 25 && m == DECEMBER) // Christmas
+        || (d == 26 && m == DECEMBER)) // Boxing Day
+      false else true
+
+    }
+  }
 
 }

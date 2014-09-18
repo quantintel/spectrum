@@ -13,12 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *
- * Scala Finance is based in part on:
+ * Spectrum Finance is based in part on:
  *        QuantLib. http://quantlib.org/
  *
  */
 
 package org.quantintel.ql.time.calendars
+
+import org.quantintel.ql.time.Month._
+import org.quantintel.ql.time.Weekday._
+import org.quantintel.ql.time.{Date, Western, Calendar}
 
 object IndiaEnum extends Enumeration {
 
@@ -71,5 +75,86 @@ object IndiaEnum extends Enumeration {
  * @author Paul Bernard
  */
 object India {
+
+  def apply: Calendar = new Nse
+
+  import org.quantintel.ql.time.calendars.IndiaEnum._
+
+  def apply(market: IndiaEnum): Calendar = {
+    market match {
+      case NSE => new Nse
+      case _ => throw new Exception("Valid units = 1")
+    }
+  }
+
+  private class Nse extends Western {
+
+    override def name = "National Stock Exchange of India"
+
+    override def isBusinessDay(date: Date): Boolean = {
+
+      val w: Weekday = date.weekday
+      val d: Int = date.dayOfMonth
+      val dd = date.dayOfYear
+      val m: Month = date.month
+      val y: Int = date.year
+      val em: Int = easterMonday(y)
+
+      if (isWeekend(w)
+        || (d == 26 && m == JANUARY)    // Republic Day
+        || (dd == em-3)                  // Good Friday
+        || (d == 14 && m == APRIL)      // Ambedkar Jayanti
+        || (d == 15 && m == AUGUST)     // Independence Day
+        || (d == 2 && m == OCTOBER)     // Gandhi Jayanti
+        || (d == 25 && m == DECEMBER))   // Christmas
+        false
+      else if ((y == 2005) &&
+          //  Moharram, Holi, Maharashtra Day, and Ramzan Id fall
+          // on Saturday or Sunday in 2005
+          ((d == 21 && m == JANUARY)   // Bakri Id
+            || (d == 7 && m == SEPTEMBER) // Ganesh Chaturthi
+            || (d == 12 && m == OCTOBER)  // Dasara
+            || (d == 1 && m == NOVEMBER)  // Laxmi Puja
+            || (d == 3 && m == NOVEMBER)  // Bhaubeej
+            || (d == 15 && m == NOVEMBER))) // Guru Nanak Jayanti
+        false
+      else if ((y == 2006) &&
+          ((d == 11 && m == JANUARY)   // Bakri Id
+            || (d == 9 && m == FEBRUARY)  // Moharram
+            || (d == 15 && m == MARCH)   // Holi
+            || (d == 6 && m == APRIL) // Ram Navami
+            || (d == 11 && m == APRIL)  // Mahavir Jayanti
+            || (d == 1 && m == MAY) // Maharashtra Day
+            || (d == 24 && m == OCTOBER)  // Bhaubeej
+            || (d == 25 && m == OCTOBER)))  // Ramzan Id
+        false
+      else if ((y == 2007) &&
+         ((d == 1 && m == JANUARY) // Bakri Id
+            || (d == 30 && m == JANUARY)  // Moharram
+            || (d == 16 && m == FEBRUARY) // Mahashivratri
+            || (d == 27 && m == MARCH)  // Ram Navami
+            || (d == 1 && m == MAY)  // Maharashtra Day
+            || (d == 2 && m == MAY) // Buddha Pournima
+            || (d == 9 && m == NOVEMBER)  // Laxmi Puja
+            || (d == 21 && m == DECEMBER))) // Bakri Id (again)
+        false
+      else if ((y == 2008) &&
+        ((d == 6 && m == MARCH)  // Mahashivratri
+            || (d == 20 && m == MARCH)  // Id-E-Milad
+            || (d == 18 && m == APRIL)  // Mahavir Jayanti
+            || (d == 1 && m == MAY) // Maharashtra Day
+            || (d == 19 && m == MAY)  // Buddha Pournima
+            || (d == 3 && m == SEPTEMBER) // Ganesh Chaturthi
+            || (d == 2 && m == OCTOBER) // Ramzan Id
+            || (d == 9 && m == OCTOBER) // Dasara
+            || (d == 28 && m == OCTOBER)  // Laxmi Puja
+            || (d == 30 && m == OCTOBER)  // Bhau bhij
+            || (d == 13 && m ==  NOVEMBER)   // Gurunanak Jayanti
+            || (d == 9 && m == DECEMBER)))   // Bakri Id
+        false
+      else true
+
+    }
+  }
 
 }

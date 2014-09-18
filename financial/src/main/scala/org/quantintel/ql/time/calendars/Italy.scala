@@ -2,8 +2,8 @@
  * Copyright (c) 2014  Paul Bernard
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * you MAY not use this file except in compliance with the License.
+ * You MAY obtain a copy of the License at
  *
  * http://www.apache.org/licenses/LICENSE-2.0
  *
@@ -13,12 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *
- * Scala Finance is based in part on:
+ * Spectrum Finance is based in part on:
  *        QuantLib. http://quantlib.org/
  *
  */
 
 package org.quantintel.ql.time.calendars
+
+import org.quantintel.ql.time.Month._
+import org.quantintel.ql.time.Weekday._
+import org.quantintel.ql.time.{Date, Western, Calendar}
 
 object ItalyEnum extends Enumeration {
 
@@ -39,8 +43,8 @@ object ItalyEnum extends Enumeration {
  * Italian calendars Public holidays:
  *  Saturdays
  *  Sundays
- *  New Year's Day, JANUARY 1st
- *  Epiphany, JANUARY 6th
+ *  New Year's Day, January 1st
+ *  Epiphany, January 6th
  *  Easter Monday
  *  Liberation Day, April 25th
  *  Labour Day, May 1st
@@ -55,10 +59,10 @@ object ItalyEnum extends Enumeration {
  * Holidays for the stock exchange
  *  Saturdays
  *  Sundays
- *  New Year's Day, JANUARY 1st
+ *  New Year's Day, January 1st
  *  Good Friday
  *  Easter Monday
- *  Labour Day, May 1st
+ *  Labour Day, May1st
  *  Assumption, August 15th
  *  Christmas' Eve, December 24th
  *  Christmas, December 25th
@@ -70,5 +74,75 @@ object ItalyEnum extends Enumeration {
  * @author Paul Bernard
  */
 object Italy  {
+
+  def apply: Calendar = new Settlement
+
+  import org.quantintel.ql.time.calendars.ItalyEnum._
+
+  def apply(market: ItalyEnum): Calendar = {
+    market match {
+      case SETTLEMENT => new Settlement
+      case EXCHANGE => new Exchange
+      case _ => throw new Exception("Valid units = 1 to 2")
+    }
+  }
+
+  private class Settlement extends Western {
+
+    override def name = "Italian Settlement"
+
+    override def isBusinessDay(date: Date): Boolean = {
+
+      val w: Weekday = date.weekday
+      val d: Int = date.dayOfMonth
+      val dd = date.dayOfYear
+      val m: Month = date.month
+      val y: Int = date.year
+      val em: Int = easterMonday(y)
+
+      if (isWeekend(w)    // weekends
+        || (d == 1 && m == JANUARY)   // New Year's Day
+        || (d == 6 && m == JANUARY) // Epiphany
+        || (dd == em) // Easter Monday
+        || (d == 25 && m == APRIL)  // Liberation Day
+        || (d == 1 && m == MAY)  // Labour Day
+        || (d == 2 && m == JUNE && y >= 2000) // Republic Day
+        || (d == 15 && m == AUGUST) // Assumption
+        || (d == 1 && m == NOVEMBER)  // All Saints' Day
+        || (d == 8 && m == DECEMBER)  // Immaculate Conception
+        || (d == 25 && m == DECEMBER)  // Christmas
+        || (d == 26 && m == DECEMBER) // St. Stephen
+        || (d == 31 && m == DECEMBER && y == 1999)) // DECEMBER 31st, 1999 only
+        false else true
+    }
+  }
+
+  private class Exchange extends Western {
+
+    override def name = "Milan stock exchange"
+
+    override def isBusinessDay(date: Date): Boolean = {
+
+      val w: Weekday = date.weekday
+      val d: Int = date.dayOfMonth
+      val dd = date.dayOfYear
+      val m: Month = date.month
+      val y: Int = date.year
+      val em: Int = easterMonday(y)
+
+      if (isWeekend(w)
+        || (d == 1 && m == JANUARY) // New Year's Day
+        || (dd == em - 3) // Good Friday
+        || (dd == em)  // Easter Monday
+        || (d == 1 && m == MAY)  // Labour Day
+        || (d == 15 && m == AUGUST) // Assumption
+        || (d == 24 && m == DECEMBER) // Christmas' Eve
+        || (d == 25 && m == DECEMBER) // Christmas
+        || (d == 26 && m == DECEMBER) // St. Stephen
+        || (d == 31 && m == DECEMBER)) // New Year's Eve
+        false else true
+
+    }
+  }
 
 }
