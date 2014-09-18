@@ -3,7 +3,7 @@ Spectrum
 
 A Scala port of various open source quantitative and financial software libraries.
 
-Problem:
+##Problem:
 
 Rarely is a non-trivial quantitative or financial computing problem solved with
 a single library.  More often then not development teams are required to use 
@@ -18,7 +18,7 @@ and approaches.  Finally, most teams need to deal with tactical priorities
 and as such integrate only what they need at a given point in time, further
 impacting consistency and transparency.
 
-#Solution:
+##Solution:
 
 One option would be to write a monolithic library with staggering breadth of scope
 but doing so would clearly be a daunting task.  Spectrum takes a decidedly
@@ -39,7 +39,7 @@ That said, the goal is for Spectrum to be familiar to those who have used any of
 the libraries from which Spectrum is inspired while producing a distribution
 that is easily maintained, consistent, transparent and accurate.
 
-#Usability and integration:
+##Usability and integration:
 
 Producing a library that is usable in all the contexts that one might wish
 to use it is always a trade off.  Despite best efforts of engineers over
@@ -55,7 +55,7 @@ locally or remotely depending upon performance and scalability requirements.
 Spectrum also provides a plugin which allows it to integrate with Excel and 
 Open Office.  
 
-#Design choices:
+##Design choices:
 
 The obvious omissions are a native code integration and a .NET platform integration
 at the language level.   It is suggested that in most cases invoking Spectrum
