@@ -20,6 +20,10 @@
 
 package org.quantintel.ql.time.calendars
 
+import org.quantintel.ql.time.Month._
+import org.quantintel.ql.time.Weekday._
+import org.quantintel.ql.time.{Date, Western, Calendar}
+
 object GermanyEnum extends Enumeration {
   type GermanyEnum = Value
   val SETTLEMENT = Value(1)
@@ -103,5 +107,133 @@ object GermanyEnum extends Enumeration {
  *
  */
 object Germany  {
+
+  def apply : Calendar = new Settlement
+
+  import org.quantintel.ql.time.calendars.GermanyEnum._
+
+  def apply(market: GermanyEnum) : Calendar = {
+    market match {
+      case SETTLEMENT => new Settlement
+      case FRANKFURTSTOCKEXCHANGE => new FrankfurtStockExchange
+      case XETRA => new Xetra
+      case EUREX => new Eurex
+      case _ => throw new Exception("Valid units = 1")
+    }
+  }
+
+  private class Settlement extends Western {
+
+    override def name = "German Settlement"
+
+    override def isBusinessDay(date: Date): Boolean = {
+
+      val w: Weekday = date.weekday
+      val d: Int = date.dayOfMonth
+      val dd = date.dayOfYear
+      val m: Month = date.month
+      val y: Int = date.year
+      val em: Int = easterMonday(y)
+
+      if (isWeekend(w)
+        || (d == 1 && m == JANUARY) // New Year's Day
+        || (dd == em - 3) // Good Friday
+        || (dd == em) // Easter Monday
+        || (dd == em + 38) // Ascension Thursday
+        || (dd == em + 49) // Whit Monday
+        || (dd == em + 59) // Corpus Christi
+        || (d == 1 && m == MAY) // Labour Day
+        || (d == 3 && m == OCTOBER) // National Day
+        || (d == 24 && m == DECEMBER) // Christmas Eve
+        || (d == 25 && m == DECEMBER) // Christmas
+        || (d == 26 && m == DECEMBER) // Boxing Day
+        || (d == 31 && m == DECEMBER)) // New Year's Eve
+        false
+      else true
+    }
+  }
+
+  private class FrankfurtStockExchange extends Western {
+
+    override def name = "Frankfurt stock exchange"
+
+    override def isBusinessDay(date: Date): Boolean = {
+
+      val w: Weekday = date.weekday
+      val d: Int = date.dayOfMonth
+      val dd = date.dayOfYear
+      val m: Month = date.month
+      val y: Int = date.year
+      val em: Int = easterMonday(y)
+
+      if (isWeekend(w)
+        || (d == 1 && m == JANUARY)             // New Year's Day
+        || (dd == em - 3)                       // Good Friday
+        || (dd == em)                           // Easter Monday
+        || (d == 1 && m == MAY)                 // Labour Day
+        || (d == 24 && m == DECEMBER)           // Christmas' Eve
+        || (d == 25 && m == DECEMBER)           // Christmas
+        || (d == 26 && m == DECEMBER)           // Christmas Day
+        || (d == 31 && m == DECEMBER))          // New Year's Eve
+        false
+      else true
+    }
+  }
+
+  private class Xetra extends Western {
+
+    override def name = "Xetra"
+
+    override def isBusinessDay(date: Date): Boolean = {
+
+      val w: Weekday = date.weekday
+      val d: Int = date.dayOfMonth
+      val dd = date.dayOfYear
+      val m: Month = date.month
+      val y: Int = date.year
+      val em: Int = easterMonday(y)
+
+      if (isWeekend(w)
+        || (d == 1 && m == JANUARY) // New Year's Day
+        || (dd == em - 3) // Good Friday
+        || (dd == em) // Easter Monday
+        || (d == 1 && m == MAY) // Labour Day
+        || (d == 24 && m == DECEMBER) // Christmas' Eve
+        || (d == 25 && m == DECEMBER) // Christmas
+        || (d == 26 && m == DECEMBER) // Christmas Day
+        || (d == 31 && m == DECEMBER)) // New Year's Eve
+        false
+      else true
+    }
+  }
+
+
+  private class Eurex extends Western {
+
+    override def name = "Eurex"
+
+    override def isBusinessDay(date: Date): Boolean = {
+
+      val w: Weekday = date.weekday
+      val d: Int = date.dayOfMonth
+      val dd = date.dayOfYear
+      val m: Month = date.month
+      val y: Int = date.year
+      val em: Int = easterMonday(y)
+
+      if (isWeekend(w)
+        || (d == 1 && m == JANUARY) // New Year's Day
+        || (dd == em - 3) // Good Friday
+        || (dd == em) // Easter Monday
+        || (d == 1 && m == MAY) // Labour Day
+        || (d == 24 && m == DECEMBER) // Christmas' Eve
+        || (d == 25 && m == DECEMBER) // Christmas
+        || (d == 26 && m == DECEMBER) // Christmas Day
+        || (d == 31 && m == DECEMBER)) // New Year's Eve
+        false
+      else true
+
+    }
+  }
 
 }

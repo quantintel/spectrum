@@ -20,6 +20,10 @@
 
 package org.quantintel.ql.time.calendars
 
+import org.quantintel.ql.time.Month._
+import org.quantintel.ql.time.Weekday._
+import org.quantintel.ql.time.{Date, Western, Calendar}
+
 object HongKongEnum extends Enumeration {
   type HongKongEnum = Value
   val HKEX = Value(1)
@@ -61,5 +65,82 @@ object HongKongEnum extends Enumeration {
  * @author Paul Bernard
  */
 object HongKong {
+
+  def apply : Calendar = new HKEx
+
+  import org.quantintel.ql.time.calendars.HongKongEnum._
+
+  def apply(market: HongKongEnum) : Calendar = {
+    market match {
+      case HKEX => new HKEx
+      case _ => throw new Exception("Valid units = 1")
+    }
+  }
+
+  private class HKEx extends Western {
+
+    override def name = "Hong Kong stock exchange"
+
+    override def isBusinessDay(date: Date): Boolean = {
+
+      val w: Weekday = date.weekday
+      val d: Int = date.dayOfMonth
+      val dd = date.dayOfYear
+      val m: Month = date.month
+      val y: Int = date.year
+      val em: Int = easterMonday(y)
+
+      if (isWeekend(w)
+          || ((d == 1 || ((d == 2 || d == 3) && w == MONDAY)) && m == JANUARY)  // New Year's Day
+          || (d == 5 && m == APRIL) // Ching Ming Festival
+          || (dd == em - 3)  // Good Friday
+          || (dd == em) // Easter MONDAY
+          || (d == 1 && m == MAY) // Labor Day
+          || ((d == 1 || ((d == 2 || d == 3) && w == MONDAY)) && m == JULY) // SAR Establishment Day
+          || ((d == 1 || ((d == 2 || d == 3) && w == MONDAY)) && m == OCTOBER) // National Day
+          || (d == 25 && m == DECEMBER) // Christmas Day
+          || ((d == 26 || ((d == 27 || d == 28) && w == MONDAY)) && m == DECEMBER)) // Boxing Day
+        false
+      else if ((y == 2004) &&
+            (((d == 22 || d == 23 || d == 24) && m == JANUARY)   // Lunar New Year
+            || (d == 26 && m == MAY)    // Buddha's birthday
+            || (d == 22 && m == JUNE)   // Tuen NG festival
+            || (d == 29 && m == SEPTEMBER)  // Mid-autumn festival
+            || (d == 29 && m == SEPTEMBER)))   // Chung Yeung
+        false
+      else if ((y == 2005) &&
+          (((d == 9 || d == 10 || d == 11) && m == FEBRUARY)  // Lunar New Year
+            || (d == 16 && m == MAY)   // Buddha's birthday
+            || (d == 11 && m == JUNE)  // Tuen NG festival
+            || (d == 19 && m == SEPTEMBER)  // Mid-autumn festival
+            || (d == 11 && m == OCTOBER)))  // Chung Yeung festival
+         false
+      else if ((y == 2006) &&
+          (((d >= 28 && d <= 31) && m == JANUARY)  // Lunar New Year
+            || (d == 5 && m == MAY) // Buddha's birthday
+            || (d == 31 && m == MAY)  // Tuen NG festival
+            || (d == 7 && m == OCTOBER) // Mid-autumn festival
+            || (d == 30 && m == OCTOBER)))  // Chung Yeung festival
+          false
+      else if ((y == 2007) &&
+          (((d >= 17 && d <= 20) && m == FEBRUARY)  // Lunar New Year
+            || (d == 24 && m == MAY)  // Buddha's birthday
+            || (d == 19 && m == JUNE) // Tuen NG festival
+            || (d == 26 && m == SEPTEMBER)  // Mid-autumn festival
+            || (d == 19 && m == OCTOBER))) // Chung Yeung festival
+          false
+       else if ((y == 2008) &&
+          (((d >= 7 && d <= 9) && m == FEBRUARY) // Lunar New Year
+            || (d == 4 && m == APRIL) // Ching Ming Festival
+            || (d == 12 && m == MAY)   // Buddha's birthday
+            || (d == 9 && m == JUNE)  // Tuen NG festival
+            || (d == 15 && m == SEPTEMBER)  // Mid-autumn festival
+            || (d == 7 && m == OCTOBER))) // Chung Yeung festival
+          false
+        else true
+
+      }
+
+  }
 
 }

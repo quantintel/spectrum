@@ -20,6 +20,10 @@
 
 package org.quantintel.ql.time.calendars
 
+import org.quantintel.ql.time.Month._
+import org.quantintel.ql.time.Weekday._
+import org.quantintel.ql.time.{Calendar, Date, Western}
+
 object FinlandEnum extends Enumeration {
   type FinlandEnum = Value
   val FINLAND = Value(1)
@@ -52,5 +56,48 @@ object FinlandEnum extends Enumeration {
  * @author Paul Bernard
  */
 object Finland  {
+
+  def apply : Calendar = new Finland
+
+  import org.quantintel.ql.time.calendars.FinlandEnum._
+
+  def apply(market: FinlandEnum) : Calendar = {
+    market match {
+      case FINLAND => new Finland
+      case _ => throw new Exception("Valid units = 1")
+    }
+  }
+
+  private class Finland extends Western {
+
+    override def name = "Finland"
+
+    override def isBusinessDay(date: Date): Boolean = {
+
+      val w: Weekday = date.weekday
+      val d: Int = date.dayOfMonth
+      val dd = date.dayOfYear
+      val m: Month = date.month
+      val y: Int = date.year
+      val em: Int = easterMonday(y)
+
+      if (isWeekend(w)
+        || (d == 1 && m == JANUARY)        // New Year's Day
+        || (d == 6 && m == JANUARY)       // Epiphany
+        || (dd == em-3)                   // Good Friday
+        || (dd == em)                     // Easter Monday
+        || (dd == em+38)                  // Ascension Thursday
+        || (d == 1 && m == MAY)           // Labour Day
+        || (w == FRIDAY && (d >= 18 && d <= 24) && m == JUNE)   // Midsummer Eve (Friday between June 18-24)
+        || (d == 6 && m == DECEMBER)       // Independence Day
+        || (d == 24 && m == DECEMBER)      // Christmas Eve
+        || (d == 25 && m == DECEMBER)     // Christmas
+        || (d == 26 && m == DECEMBER))    // Boxing Day
+        false else true
+    }
+
+}
+
+
 
 }

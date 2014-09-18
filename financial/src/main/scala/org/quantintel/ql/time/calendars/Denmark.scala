@@ -42,7 +42,7 @@ object DenmarkEnum extends Enumeration {
  * Holidays:
  *  Saturdays
  *  Sundays
- *  Maunday Thursday
+ *  Maunday Thursday (Holy Thursday)
  *  Good Friday
  *  Easter Monday
  *  General Prayer Day, 25 days after Easter Monday
@@ -59,13 +59,14 @@ object DenmarkEnum extends Enumeration {
  */
 object Denmark {
 
-  import org.quantintel.ql.time.calendars.DenmarkEnum._
-
   def apply : Calendar = new Denmark
+
+  import org.quantintel.ql.time.calendars.DenmarkEnum._
 
   def apply(market: DenmarkEnum) : Calendar = {
     market match {
       case DENMARK => new Denmark
+      case _ => throw new Exception("Valid units = 1")
     }
   }
 
