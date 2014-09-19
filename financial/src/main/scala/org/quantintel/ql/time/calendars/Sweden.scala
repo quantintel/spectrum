@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *
- * Scala Finance is based in part on:
+ * Spectrum Finance is based in part on:
  *        QuantLib. http://quantlib.org/
  */
 
