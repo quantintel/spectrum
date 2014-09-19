@@ -20,6 +20,10 @@
 
 package org.quantintel.ql.time.calendars
 
+import org.quantintel.ql.time.Month._
+import org.quantintel.ql.time.Weekday._
+import org.quantintel.ql.time.{Date, Western}
+
 object NewZealandEnum extends Enumeration {
 
   type NewZealandEnum = Value
@@ -56,5 +60,35 @@ object NewZealandEnum extends Enumeration {
  * @author Paul Bernard
  */
 object NewZealand {
+
+  private class NewZealand extends Western {
+
+    override def name = "New Zealand"
+
+    override def isBusinessDay(date: Date): Boolean = {
+
+      // standard dependencies
+      val w: Weekday = date.weekday
+      val d: Int = date.dayOfMonth
+      val dd: Int = date.dayOfYear
+      val m: Month = date.month
+      val y: Int = date.year
+      val em: Int = easterMonday(y)
+
+      if (isWeekend(w)
+        || ((d == 1 || (d == 3 && (w == MONDAY || w == TUESDAY))) && m == JANUARY)  // New Year's Day (possibly moved to Monday or Tuesday)
+        || ((d == 2 || (d == 4 && (w == MONDAY || w == TUESDAY))) && m == JANUARY) // Day after New Year's Day (possibly moved to Mon or TUESDAY)
+        || ((d >= 19 && d <= 25) && w == MONDAY && m == JANUARY) // Anniversary Day, MONDAY nearest JANUARY 22nd
+        || (d == 6 && m == FEBRUARY)  // Waitangi Day. February 6th
+        || (dd == em-3) // Good Friday
+        || (dd == em) // Easter MONDAY
+        || (d == 25 && m == APRIL) // ANZAC Day. April 25th
+        || (d <= 7 && w == MONDAY && m == JUNE) // Queen's Birthday, first MONDAY in June
+        || ((d >= 22 && d <= 28) && w == MONDAY && m == OCTOBER) // Labour Day, fourth MONDAY in October
+        || ((d == 25 || (d == 27 && (w == MONDAY || w == TUESDAY))) && m == DECEMBER) // Christmas, December 25th (possibly MONDAY or TUESDAY)
+        || ((d == 26 || (d == 28 && (w == MONDAY || w == TUESDAY))) && m == DECEMBER))  // Boxing Day, DECEMBER 26th (possibly MONDAY or TUESDAY)
+        false else true
+    }
+  }
 
 }

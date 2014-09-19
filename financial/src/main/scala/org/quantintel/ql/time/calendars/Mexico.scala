@@ -20,6 +20,10 @@
 
 package org.quantintel.ql.time.calendars
 
+import org.quantintel.ql.time.Month._
+import org.quantintel.ql.time.{Western, Date, Calendar}
+import org.quantintel.ql.time.Weekday._
+
 object MexicoEnum extends Enumeration {
 
   type MexicoEnum = Value
@@ -52,5 +56,34 @@ object MexicoEnum extends Enumeration {
  * @author Paul Bernard
  */
 object Mexico {
+
+  private class Mexico extends Western {
+
+    override def name = "Mexican Stock Exchange"
+
+    override def isBusinessDay(date: Date): Boolean = {
+
+      // standard dependencies
+      val w: Weekday = date.weekday
+      val d: Int = date.dayOfMonth
+      val dd: Int = date.dayOfYear
+      val m: Month = date.month
+      val y: Int = date.year
+      val em: Int = easterMonday(y)
+
+      if (isWeekend(w)
+        || (d == 1 && m == JANUARY)   // New Year's Day
+        || (d == 5 && m == FEBRUARY)  // Constitution Day
+        || (d == 21 && m == MARCH)   // Birthday of Benito Juarez
+        || (dd == em - 4) // Holy Thursday
+        || (dd == em - 3) // Good Friday
+        || (d == 1 && m == MAY)  // Labour Day
+        || (d == 16 && m == SEPTEMBER)  // National Day
+        || (d == 12 && m == DECEMBER) // Our Lady of Guadalupe
+        || (d == 25 && m == DECEMBER))  // Christmas
+        false else true
+
+    }
+  }
 
 }
