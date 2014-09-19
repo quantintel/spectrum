@@ -39,7 +39,8 @@ object JointCalendarRule extends Enumeration {
 }
 
 /**
- * @author Paul Bernard
+ * The basic design goal of the JointCalendar is to provide
+ * methods which act on a collection of calendars.
  */
 object JointCalendar  {
 
@@ -79,12 +80,8 @@ object JointCalendar  {
       val sb : StringBuilder = new StringBuilder
 
       rule match {
-        case JOINHOLIDAYS => {
-          sb.append("JoinHolidays(")
-        }
-        case JOINBUSINESSDAYS => {
-          sb.append("JoinBusinessDays(")
-        }
+        case JOINHOLIDAYS => sb.append("JoinHolidays(")
+        case JOINBUSINESSDAYS => sb.append("JoinBusinessDays(")
         case _ => throw new Exception("invalid rule type")
       }
 
@@ -102,33 +99,21 @@ object JointCalendar  {
 
     def isWeekend(w: Weekday) : Boolean = {
       rule match {
-        case JOINHOLIDAYS => {
-          if (calendars.exists(p => p.isWeekend(w))) true else false
-        }
-        case JOINBUSINESSDAYS => {
-          if (calendars.exists(p => p.isWeekend(w))) false else true
-        }
+        case JOINHOLIDAYS => if (calendars.exists(p => p.isWeekend(w))) true else false
+        case JOINBUSINESSDAYS => if (calendars.exists(p => p.isWeekend(w))) false else true
         case _ => throw new Exception("invalid rule type")
       }
-
     }
 
 
 
     override def isBusinessDay(date: Date) : Boolean = {
-
       rule match {
-        case JOINHOLIDAYS => {
-            if (calendars.exists(p => p.isHoliday(date))) false else true
-        }
-        case JOINBUSINESSDAYS => {
-            if (calendars.exists(p => p.isBusinessDay(date))) true else false
-        }
+        case JOINHOLIDAYS => if (calendars.exists(p => p.isHoliday(date))) false else true
+        case JOINBUSINESSDAYS => if (calendars.exists(p => p.isBusinessDay(date))) true else false
         case _ => throw new Exception("invalid rule type")
       }
-      true
     }
-
 
   }
 
