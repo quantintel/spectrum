@@ -56,7 +56,7 @@ object ArgentinaEnum extends Enumeration {
  * May Revolution, May 25th
  * Death of General Manuel Belgrano, third Monday of June
  * Independence Day, July 9th
- * Death of General Jos� de San Mart�n, third Monday of August
+ * Death of General Jose de San Marten, third Monday of August
  *  Columbus Day, October 12th (moved to preceding Monday if
  *           on Tuesday or Wednesday and to following if on Thursday
  *           or Friday)
