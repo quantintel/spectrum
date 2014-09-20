@@ -39,25 +39,38 @@ object CanadaEnum extends Enumeration {
 
 }
 /**
- * Argentinian calendars
- *  Holidays for the Buenos Aires stock exchange
- *    Saturdays
- *    Sundays
- *    New Year's Day, JANUARY 1st
- *    Holy Thursday
- *    Good Friday
- *    Labour Day, May 1st
- *    May Revolution, May 25th
- *    Death of General Manuel Belgrano, third Monday of June
- *    Independence Day, July 9th
- *    Death of General Jos� de San Mart�n, third Monday of August
- *    Columbus Day, October 12th (moved to preceding Monday if
- *           on Tuesday or Wednesday and to following if on Thursday
- *           or Friday)
- *    Immaculate Conception, December 8th
- *    Christmas Eve, December 24th
- *    New Year's Eve, December 31th
- *  reference:  http://www.merval.sba.com.ar/
+ * Banking holidays:
+ *  Saturdays
+ *  Sundays
+ *  New Year's Day, JANUARY 1st (possibly moved to Monday)
+ *  Family Day, third Monday of February (since 2008)
+ *  Good Friday
+ *  Easter Monday</li>
+ *  Victoria Day, The Monday on or preceding 24 May
+ *  Canada Day, July 1st (possibly moved to Monday)
+ *  Provincial Holiday, first Monday of August
+ *  Labour Day, first Monday of September
+ *  Thanksgiving Day, second Monday of October
+ *  Remembrance Day, November 11th (possibly moved to Monday)
+ *  Christmas, December 25th (possibly moved to Monday or Tuesday)
+ *  Boxing Day, December 26th (possibly moved to Monday or Tuesday)
+ *
+ *
+ * Holidays for the Toronto stock exchange (TSX):
+ *  Saturdays
+ *  Sundays
+ *  New Year's Day, JANUARY 1st (possibly moved to Monday)
+ *  Family Day, third Monday of February (since 2008)
+ *  Good Friday
+ *  Easter Monday
+ *  Victoria Day, The Monday on or preceding 24 May
+ *  Canada Day, July 1st (possibly moved to Monday)
+ *  Provincial Holiday, first Monday of August
+ *  Labour Day, first Monday of September
+ *  Thanksgiving Day, second Monday of October
+ *  Christmas, December 25th (possibly moved to Monday or Tuesday)
+ *  Boxing Day, December 26th (possibly moved to Monday or  Tuesday)
+ *
  *
  *  @author Paul Bernard
  *
