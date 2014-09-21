@@ -41,7 +41,7 @@ object ChinaEnum extends Enumeration {
 /**
  * Chinese calendar Holidays:
  *   Saturdays
- *   SUNDAYs
+ *   Sundays
  *   New Year's day, JANUARY 1st (possibly followed by one or two more holidays)
  *   Labour Day, first week in May
  *   National Day, one week from October 1st
