@@ -23,7 +23,9 @@ package org.quantintel.ql.time.calendars
 import org.quantintel.ql.time.Calendar
 import org.scalatest.{Matchers, FlatSpec}
 
-
+/**
+ * @author Paul Bernard
+ */
 class AustraliaTest extends FlatSpec with Matchers {
 
 
