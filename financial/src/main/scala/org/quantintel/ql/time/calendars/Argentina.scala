@@ -71,7 +71,7 @@ object Argentina {
 
   import org.quantintel.ql.time.calendars.ArgentinaEnum._
 
-  def apply : Calendar = new MERVAL
+  def apply() : Calendar = new MERVAL
 
   def apply(market: ArgentinaEnum) : Calendar = {
     market match {
