@@ -88,7 +88,7 @@ object Taiwan {
         || (d == 1 && m == JANUARY) // New Year's Day
         || (d == 28 && m == FEBRUARY) // Peace Memorial Day
         || (d == 1 && m == MAY) // Labor Day
-        || (d == 10 && m == OCTOBER)  // Double Tenth
+        || (d == 10 && m == OCTOBER))  // Double Tenth
         false
       else if ((y == 2002) &&
         // Dragon Boat Festival and Moon Festival fall on Saturday

@@ -63,7 +63,7 @@ object Turkey  {
 
     override def name = "Turkey"
 
-    def isWeekend(w: Weekday) : Boolean =  SATURDAY || w == SUNDAY
+    def isWeekend(w: Weekday) : Boolean =  w == SATURDAY || w == SUNDAY
 
     override def isBusinessDay(date: Date): Boolean = {
 
