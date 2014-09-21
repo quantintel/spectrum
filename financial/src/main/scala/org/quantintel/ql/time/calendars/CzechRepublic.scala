@@ -62,7 +62,7 @@ object CzechRepublic  {
 
   import org.quantintel.ql.time.calendars.CzechRepublicEnum._
 
-  def apply : Calendar = new PSE
+  def apply() : Calendar = new PSE
 
   def apply(market: CzechRepublicEnum) : Calendar = {
     market match {

@@ -66,7 +66,7 @@ object HongKongEnum extends Enumeration {
  */
 object HongKong {
 
-  def apply : Calendar = new HKEx
+  def apply() : Calendar = new HKEx
 
   import org.quantintel.ql.time.calendars.HongKongEnum._
 

@@ -60,7 +60,7 @@ object IcelandEnum extends Enumeration {
  */
 object Iceland {
 
-  def apply: Calendar = new Iceland
+  def apply(): Calendar = new Iceland
 
   import org.quantintel.ql.time.calendars.IcelandEnum._
 

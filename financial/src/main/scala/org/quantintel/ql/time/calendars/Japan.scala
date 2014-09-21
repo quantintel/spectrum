@@ -71,7 +71,7 @@ object JapanEnum extends Enumeration {
  */
 object Japan  {
 
-  def apply: Calendar = new Japan
+  def apply(): Calendar = new Japan
 
   import org.quantintel.ql.time.calendars.JapanEnum._
 

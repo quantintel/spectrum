@@ -108,7 +108,7 @@ object GermanyEnum extends Enumeration {
  */
 object Germany  {
 
-  def apply : Calendar = new Settlement
+  def apply() : Calendar = new Settlement
 
   import org.quantintel.ql.time.calendars.GermanyEnum._
 

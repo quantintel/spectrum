@@ -60,7 +60,7 @@ object China  {
 
   import org.quantintel.ql.time.calendars.ChinaEnum._
 
-  def apply : Calendar = new SSE
+  def apply() : Calendar = new SSE
 
   def apply(market: ChinaEnum) : Calendar = {
     market match {

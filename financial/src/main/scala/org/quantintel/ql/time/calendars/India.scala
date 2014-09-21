@@ -76,7 +76,7 @@ object IndiaEnum extends Enumeration {
  */
 object India {
 
-  def apply: Calendar = new Nse
+  def apply(): Calendar = new Nse
 
   import org.quantintel.ql.time.calendars.IndiaEnum._
 

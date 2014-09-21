@@ -71,7 +71,7 @@ object IndonesiaEnum extends Enumeration {
  */
 object Indonesia {
 
-  def apply: Calendar = new Bej
+  def apply(): Calendar = new Bej
 
   import org.quantintel.ql.time.calendars.IndonesiaEnum._
 
