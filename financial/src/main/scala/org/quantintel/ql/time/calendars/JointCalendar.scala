@@ -93,7 +93,7 @@ object JointCalendar  {
       }
 
       sb.append(')')
-      sb.toString
+      sb.toString()
 
     }
 

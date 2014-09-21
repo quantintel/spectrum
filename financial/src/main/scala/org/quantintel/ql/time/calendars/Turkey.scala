@@ -87,8 +87,8 @@ object Turkey  {
           || (m == NOVEMBER && d >= 14 && d <= 16)))  // ramazan
           false
      else if ((y == 2005) &&
-        (((m == JANUARY && d >= 19 && d <= 21) // kurban
-          || (m == NOVEMBER && d >= 2 && d <= 5))))  // ramazan
+        ((m == JANUARY && d >= 19 && d <= 21) // kurban
+          || (m == NOVEMBER && d >= 2 && d <= 5)))  // ramazan
         false
      else if ((y == 2006) &&
 

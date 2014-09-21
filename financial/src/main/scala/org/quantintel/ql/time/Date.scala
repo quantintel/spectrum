@@ -89,7 +89,7 @@ object Date {
   }
 
   def todaysDate: Date = {
-    val today = JCalendar.getInstance().getTime()
+    val today = JCalendar.getInstance().getTime
     val t = createDateTuple(today)
     Date(t._1, t._2, t._3)
   }
@@ -114,7 +114,7 @@ object Date {
     cal.set(JCalendar.YEAR, date.year)
     cal.set(JCalendar.DAY_OF_MONTH, date.dayOfMonth)
     cal.set(JCalendar.DATE, cal.getActualMaximum(JCalendar.DATE))
-    val tup = createDateTuple(cal.getTime())
+    val tup = createDateTuple(cal.getTime)
     Date(tup._1, tup._2, tup._3)
   }
 
@@ -136,15 +136,9 @@ object Date {
     val dow = cal.get(JCalendar.DAY_OF_WEEK)
 
     val nd : Boolean = dow match {
-      case JCalendar.SUNDAY => {
-        false
-      }
-      case JCalendar.SATURDAY => {
-        false
-      }
-      case _ => {
-        true
-      }
+      case JCalendar.SUNDAY => false
+      case JCalendar.SATURDAY => false
+      case _ => true
     }
     nd
   }
@@ -176,18 +170,15 @@ object Date {
      val dow = cal.get(JCalendar.DAY_OF_WEEK)
 
      val nd : java.util.Date = dow match {
-       case JCalendar.FRIDAY => {
+       case JCalendar.FRIDAY =>
          cal.add(JCalendar.DATE, 3)
          cal.getTime
-       }
-       case JCalendar.SATURDAY => {
+       case JCalendar.SATURDAY =>
          cal.add(JCalendar.DATE, 2)
-         cal.getTime()
-       }
-       case _ => {
+         cal.getTime
+       case _ =>
          cal.add(JCalendar.DATE, 1)
-         cal.getTime()
-       }
+         cal.getTime
      }
     createQuantDate(nd)
 
@@ -204,7 +195,7 @@ object Date {
 
   private def createQuantDate(date: java.util.Date) : Date = {
     val cal = JCalendar.getInstance()
-    cal.setTime(date);
+    cal.setTime(date)
     val year = cal.get(JCalendar.YEAR)
     val month = cal.get(JCalendar.MONTH)
     val day = cal.get(JCalendar.DAY_OF_MONTH)

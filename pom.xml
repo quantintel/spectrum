@@ -123,7 +123,7 @@
             <version>${scala-version}</version>
         </dependency>
 
-        <!-- scala actors have been deprecated in favor of akka actors -->
+        <!-- scala actors have been deprecated in favor of Akka actors -->
         <dependency>
             <groupId>org.scala-lang</groupId>
             <artifactId>scala-actors</artifactId>
@@ -168,7 +168,7 @@
 
 
 
-        <!-- akka dependencies -->
+        <!-- Akka dependencies -->
 
         <dependency>
             <groupId>com.typesafe.akka</groupId>
@@ -249,7 +249,7 @@
             <version>${akka-version}</version>
         </dependency>
 
-        <!-- play framwork -->
+        <!-- play framework -->
 
         <!--
         <dependency>
