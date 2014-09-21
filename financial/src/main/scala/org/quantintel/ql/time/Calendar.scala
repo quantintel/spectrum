@@ -28,12 +28,12 @@ abstract class Calendar {
     else isBusinessDay(d)
   }
 
+  def isWeekend(w: Weekday): Boolean
 
   def isHoliday(d: Date) : Boolean = {
     !isBusinessDay(d)
   }
 
-  def isWeekend(w: Weekday) : Boolean
   //def isEndOfMonth(d: Date) : Boolean = ???
   //def endOfMonth(d: Date): Date = ???
 
