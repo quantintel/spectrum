@@ -47,22 +47,22 @@ object ArgentinaEnum extends Enumeration {
  *
  * Reference: http://www.merval.sba.com.ar/
  *
- * Saturdays
- * Sundays
- * New Year's Day, JANUARY 1st
- * Holy Thursday
- * Good Friday
- * Labour Day, May 1st
- * May Revolution, May 25th
- * Death of General Manuel Belgrano, third Monday of June
- * Independence Day, July 9th
- * Death of General Jose de San Marten, third Monday of August
- *  Columbus Day, October 12th (moved to preceding Monday if
+ * - Saturdays
+ * - Sundays
+ * - New Year's Day, JANUARY 1st
+ * - Holy Thursday
+ * - Good Friday
+ * - Labour Day, May 1st
+ * - May Revolution, May 25th
+ * - Death of General Manuel Belgrano, third Monday of June
+ * - Independence Day, July 9th
+ * - Death of General Jose de San Marten, third Monday of August
+ * - Columbus Day, October 12th (moved to preceding Monday if
  *           on Tuesday or Wednesday and to following if on Thursday
  *           or Friday)
- * Immaculate Conception, December 8th
- * Christmas Eve, December 24th
- * New Year's Eve, December 31th
+ * - Immaculate Conception, December 8th
+ * - Christmas Eve, December 24th
+ * - New Year's Eve, December 31th
  *
  *
  * @author Paul Bernard
