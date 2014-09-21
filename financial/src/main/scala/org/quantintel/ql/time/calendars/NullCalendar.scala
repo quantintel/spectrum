@@ -44,7 +44,7 @@ object NullCalendarEnum extends Enumeration {
  */
 object NullCalendar  {
 
-  def apply: Calendar = new NullCalendar
+  def apply(): Calendar = new NullCalendar
 
   import org.quantintel.ql.time.calendars.NullCalendarEnum._
 

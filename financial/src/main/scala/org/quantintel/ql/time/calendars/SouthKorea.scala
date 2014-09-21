@@ -75,7 +75,7 @@ object SouthKoreaEnum extends Enumeration {
  */
 object SouthKorea {
 
-  def apply: Calendar = new Krx
+  def apply(): Calendar = new Krx
 
   import org.quantintel.ql.time.calendars.SouthKoreaEnum ._
 

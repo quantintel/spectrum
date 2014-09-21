@@ -60,7 +60,7 @@ object TargetEnum extends Enumeration {
  */
 object Target  {
 
-  def apply: Calendar = new Target
+  def apply(): Calendar = new Target
 
   import org.quantintel.ql.time.calendars.TargetEnum._
 

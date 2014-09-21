@@ -48,7 +48,7 @@ object TurkeyEnum extends Enumeration {
  */
 object Turkey  {
 
-  def apply: Calendar = new Turkey
+  def apply(): Calendar = new Turkey
 
   import org.quantintel.ql.time.calendars.TurkeyEnum._
 

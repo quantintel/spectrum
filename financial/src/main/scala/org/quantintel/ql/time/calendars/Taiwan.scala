@@ -58,7 +58,7 @@ object TaiwanEnum extends Enumeration {
  */
 object Taiwan {
 
-  def apply: Calendar = new Tsec
+  def apply(): Calendar = new Tsec
 
   import org.quantintel.ql.time.calendars.TaiwanEnum._
 

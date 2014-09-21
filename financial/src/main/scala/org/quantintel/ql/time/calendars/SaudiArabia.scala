@@ -49,7 +49,7 @@ object SaudiArabiaEnum extends Enumeration {
  */
 object SaudiArabia {
 
-  def apply: Calendar = new Tadawul
+  def apply(): Calendar = new Tadawul
 
   import org.quantintel.ql.time.calendars.SaudiArabiaEnum._
 

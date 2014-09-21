@@ -62,7 +62,7 @@ object SingaporeEnum extends Enumeration {
  */
 object Singapore  {
 
-  def apply: Calendar = new Sgx
+  def apply(): Calendar = new Sgx
 
   import org.quantintel.ql.time.calendars.SingaporeEnum._
 

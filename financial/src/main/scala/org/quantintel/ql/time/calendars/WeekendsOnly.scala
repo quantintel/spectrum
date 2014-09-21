@@ -20,6 +20,10 @@
 
 package org.quantintel.ql.time.calendars
 
+import org.quantintel.ql.time.Weekday._
+import org.quantintel.ql.time.{Date, Calendar}
+
+
 object WeekendsOnlyEnum extends Enumeration {
 
   type WeekendsOnlyEnum = Value
@@ -36,5 +40,30 @@ object WeekendsOnlyEnum extends Enumeration {
  * @author Paul Bernard
  */
 object WeekendsOnly {
+
+  def apply(): Calendar = new WeekendsOnly
+
+  import org.quantintel.ql.time.calendars.WeekendsOnlyEnum._
+
+  def apply(market: WeekendsOnlyEnum): Calendar = {
+    market match {
+      case WEEKENDSONLY => new WeekendsOnly
+    }
+  }
+
+  private class WeekendsOnly extends Calendar {
+
+    override def name = "WeekendsOnly"
+
+    def isWeekend(w: Weekday) : Boolean = {
+      w == SATURDAY || w == SUNDAY
+    }
+
+    override def isBusinessDay(date: Date): Boolean = {
+      isWeekend(date.weekday)
+    }
+  }
+
+
 
 }

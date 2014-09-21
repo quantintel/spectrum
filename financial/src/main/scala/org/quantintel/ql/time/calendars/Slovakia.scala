@@ -64,7 +64,7 @@ object SlovakiaEnum extends Enumeration {
  */
 object Slovakia {
 
-  def apply: Calendar = new Bsse
+  def apply(): Calendar = new Bsse
 
   import org.quantintel.ql.time.calendars.SlovakiaEnum._
 

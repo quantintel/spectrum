@@ -57,7 +57,7 @@ object MexicoEnum extends Enumeration {
  */
 object Mexico {
 
-  def apply: Calendar = new Bmv
+  def apply(): Calendar = new Bmv
 
   import org.quantintel.ql.time.calendars.MexicoEnum._
 

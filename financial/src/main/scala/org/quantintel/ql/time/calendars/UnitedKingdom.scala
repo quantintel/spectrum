@@ -82,7 +82,7 @@ object UnitedKingdomEnum extends Enumeration {
  */
 object UnitedKingdom {
 
-  def apply: Calendar = new Settlement
+  def apply(): Calendar = new Settlement
 
   import org.quantintel.ql.time.calendars.UnitedKingdomEnum._
 

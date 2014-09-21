@@ -131,7 +131,7 @@ object UnitedStates {
 
   import org.quantintel.ql.time.calendars.UnitedStatesEnum._
 
-  def apply: Calendar = new Settlement
+  def apply(): Calendar = new Settlement
 
   def apply(market: UnitedStatesEnum): Calendar = {
     market match {
