@@ -80,7 +80,7 @@ object Brazil {
 
   import org.quantintel.ql.time.calendars.BrazilEnum._
 
-  def apply : Calendar = new Settlement
+  def apply() : Calendar = new Settlement
 
   def apply(market: BrazilEnum) : Calendar = {
     market match {
