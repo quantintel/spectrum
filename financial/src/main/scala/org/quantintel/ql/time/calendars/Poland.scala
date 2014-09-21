@@ -20,6 +20,10 @@
 
 package org.quantintel.ql.time.calendars
 
+import org.quantintel.ql.time.Month._
+import org.quantintel.ql.time.Weekday._
+import org.quantintel.ql.time.{Calendar, Date, Western}
+
 object PolandEnum extends Enumeration {
 
   type PolandEnum = Value
@@ -35,8 +39,7 @@ object PolandEnum extends Enumeration {
 
 /**
  *
- * Polish calendar
- * Holidays:
+ * Polish Holidays:
  *  Saturdays
  *  Sundays
  *  Easter Monday
@@ -55,5 +58,45 @@ object PolandEnum extends Enumeration {
  * @author Paul Bernard
  */
 object Poland  {
+
+  def apply: Calendar = new Poland
+
+  import org.quantintel.ql.time.calendars.PolandEnum._
+
+  def apply(market: PolandEnum): Calendar = {
+    market match {
+      case POLAND => new Poland
+      case _ => throw new Exception("Valid units = 1")
+    }
+  }
+
+  private class Poland extends Western {
+
+    override def name = "Poland"
+
+    override def isBusinessDay(date: Date): Boolean = {
+
+      // standard dependencies
+      val w: Weekday = date.weekday
+      val d: Int = date.dayOfMonth
+      val dd: Int = date.dayOfYear
+      val m: Month = date.month
+      val y: Int = date.year
+      val em: Int = easterMonday(y)
+
+      if (isWeekend(w)
+        || (dd == em) // Easter Monday
+        || (dd == em+59)  // Corpus Christi
+        || (d == 1  && m == JANUARY) // New Year's Day
+        || (d == 1  && m == MAY)   // May Day
+        || (d == 3  && m == MAY)  // Constitution Day
+        || (d == 15  && m == AUGUST) // Assumption of the Blessed Virgin Mary
+        || (d == 1  && m == NOVEMBER) // All Saints Day
+        || (d ==11  && m == NOVEMBER)  // Independence Day
+        || (d == 25 && m == DECEMBER)  // Christmas
+        || (d == 26 && m == DECEMBER))  // 2nd Day of Christmas
+        false else true
+    }
+  }
 
 }

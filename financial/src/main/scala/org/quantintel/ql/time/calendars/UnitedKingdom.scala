@@ -19,6 +19,10 @@
  */
 package org.quantintel.ql.time.calendars
 
+import org.quantintel.ql.time.Month._
+import org.quantintel.ql.time.Weekday._
+import org.quantintel.ql.time.{Western, Date, Orthodox, Calendar}
+
 object UnitedKingdomEnum extends Enumeration {
 
   type UnitedKingdomEnum = Value
@@ -77,5 +81,153 @@ object UnitedKingdomEnum extends Enumeration {
  * @author Paul Bernard
  */
 object UnitedKingdom {
+
+  def apply: Calendar = new Settlement
+
+  import org.quantintel.ql.time.calendars.UnitedKingdomEnum._
+
+  def apply(market: UnitedKingdomEnum ): Calendar = {
+    market match {
+      case SETTLEMENT => new Settlement
+      case EXCHANGE => new Exchange
+      case METALS => new Metals
+      case _ => throw new Exception("Valid units = 1 to 4")
+    }
+  }
+
+  private class Settlement extends Western {
+
+    override def name = "UK settlement"
+
+    override def isBusinessDay(date: Date): Boolean = {
+
+      // standard dependencies
+      val w: Weekday = date.weekday
+      val d: Int = date.dayOfMonth
+      val dd: Int = date.dayOfYear
+      val m: Month = date.month
+      val y: Int = date.year
+      val em: Int = easterMonday(y)
+
+      if (isWeekend(w)
+        // New Year's Day (possibly moved to Monday)
+        || ((d == 1 || ((d == 2 || d == 3) && w == MONDAY)) && m == JANUARY)
+        // Good Friday
+        || (dd == em - 3)
+        // Easter MONDAY
+        || (dd == em)
+        // first MONDAY of May (Early May Bank Holiday)
+        || (d <= 7 && w == MONDAY && m == MAY)
+        // last MONDAY of MAY (Spring Bank Holiday)
+        || (d >= 25 && w == MONDAY && m == MAY && y != 2002)
+        // last MONDAY of August (Summer Bank Holiday)
+        || (d >= 25 && w == MONDAY && m == AUGUST)
+        // Christmas (possibly moved to MONDAY or Tuesday)
+        || ((d == 25 || (d == 27 && (w == MONDAY || w == TUESDAY))) && m == DECEMBER)
+        // Boxing Day (possibly moved to MONDAY or TUESDAY)
+        || ((d == 26 || (d == 28 && (w == MONDAY || w == TUESDAY))) && m == DECEMBER)
+        // June 3rd, 2002 only (Golden Jubilee Bank Holiday)
+        // June 4rd, 2002 only (special Spring Bank Holiday)
+        || ((d == 3 || d == 4) && m == JUNE && y == 2002)
+        // June, 5th, 2012 only (Queens Diamond Jubilee)
+        || (d == 5 && m == JUNE && y == 2012)
+        // April, 29th, 2011 only (Royal Wedding)
+        || (d == 29 && m == APRIL && y == 2011)
+        // DECEMBER 31st, 1999 only
+        || (d == 31 && m == DECEMBER && y == 1999))
+        false else true
+
+    }
+  }
+
+  private class Exchange extends Western {
+
+    override def name = "London stock exchange"
+
+    override def isBusinessDay(date: Date): Boolean = {
+
+      // standard dependencies
+      val w: Weekday = date.weekday
+      val d: Int = date.dayOfMonth
+      val dd: Int = date.dayOfYear
+      val m: Month = date.month
+      val y: Int = date.year
+      val em: Int = easterMonday(y)
+
+      if (isWeekend(w)
+        // New Year's Day (possibly moved to MONDAY)
+        || ((d == 1 || ((d == 2 || d == 3) && w == MONDAY)) && m == JANUARY)
+        // Good Friday
+        || (dd == em - 3)
+        // Easter MONDAY
+        || (dd == em)
+        // first MONDAY of MAY (Early MAY Bank Holiday)
+        || (d <= 7 && w == MONDAY && m == MAY)
+        // last MONDAY of MAY (Spring Bank Holiday)
+        || (d >= 25 && w == MONDAY && m == MAY && y != 2002)
+        // last MONDAY of AUGUST (Summer Bank Holiday)
+        || (d >= 25 && w == MONDAY && m == AUGUST)
+        // Christmas (possibly moved to MONDAY or TUESDAY)
+        || ((d == 25 || (d == 27 && (w == MONDAY || w == TUESDAY))) && m == DECEMBER)
+        // Boxing Day (possibly moved to MONDAY or TUESDAY)
+        || ((d == 26 || (d == 28 && (w == MONDAY || w == TUESDAY))) && m == DECEMBER)
+        // JUNE 3rd, 2002 only (Golden Jubilee Bank Holiday)
+        // JUNE 4rd, 2002 only (special Spring Bank Holiday)
+        || ((d == 3 || d == 4) && m == JUNE && y == 2002)
+        // June, 5th, 2012 only (Queens Diamond Jubilee)
+        || (d == 5 && m == JUNE && y == 2012)
+        // April, 29th, 2011 only (Royal Wedding)
+        || (d == 29 && m == APRIL && y == 2011)
+        // DECEMBER 31st, 1999 only
+        || (d == 31 && m == DECEMBER && y == 1999))
+        false else true
+
+    }
+  }
+
+  private class Metals extends Western {
+
+    override def name = "London metals exchange"
+
+    override def isBusinessDay(date: Date): Boolean = {
+
+      // standard dependencies
+      val w: Weekday = date.weekday
+      val d: Int = date.dayOfMonth
+      val dd: Int = date.dayOfYear
+      val m: Month = date.month
+      val y: Int = date.year
+      val em: Int = easterMonday(y)
+
+      if (isWeekend(w)
+        // New Year's Day (possibly moved to MONDAY)
+        || ((d == 1 || ((d == 2 || d == 3) && w == MONDAY)) && m == JANUARY)
+        // Good Friday
+        || (dd == em - 3)
+        // Easter MONDAY
+        || (dd == em)
+        // first MONDAY of MAY (Early MAY Bank Holiday)
+        || (d <= 7 && w == MONDAY && m == MAY)
+        // last MONDAY of MAY (Spring Bank Holiday)
+        || (d >= 25 && w == MONDAY && m == MAY && y != 2002)
+        // last MONDAY of AUGUST (Summer Bank Holiday)
+        || (d >= 25 && w == MONDAY && m == AUGUST)
+        // Christmas (possibly moved to MONDAY or TUESDAY)
+        || ((d == 25 || (d == 27 && (w == MONDAY || w == TUESDAY))) && m == DECEMBER)
+        // Boxing Day (possibly moved to MONDAY or TUESDAY)
+        || ((d == 26 || (d == 28 && (w == MONDAY || w == TUESDAY))) && m == DECEMBER)
+        // JUNE 3rd, 2002 only (Golden Jubilee Bank Holiday)
+        // JUNE 4rd, 2002 only (special Spring Bank Holiday)
+        || ((d == 3 || d == 4) && m == JUNE && y == 2002)
+        // June, 5th, 2012 only (Queens Diamond Jubilee)
+        || (d == 5 && m == JUNE && y == 2012)
+        // April, 29th, 2011 only (Royal Wedding)
+        || (d == 29 && m == APRIL && y == 2011)
+        // DECEMBER 31st, 1999 only
+        || (d == 31 && m == DECEMBER && y == 1999))
+        false else true
+
+    }
+  }
 
 }

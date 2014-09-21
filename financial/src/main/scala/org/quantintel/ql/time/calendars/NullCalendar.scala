@@ -20,6 +20,10 @@
 
 package org.quantintel.ql.time.calendars
 
+import org.quantintel.ql.time.Month._
+import org.quantintel.ql.time.Weekday._
+import org.quantintel.ql.time.{Calendar, Date, Western}
+
 object NullCalendarEnum extends Enumeration {
 
   type NullCalendarEnum = Value
@@ -39,5 +43,25 @@ object NullCalendarEnum extends Enumeration {
  * @author Paul Bernard
  */
 object NullCalendar  {
+
+  def apply: Calendar = new NullCalendar
+
+  import org.quantintel.ql.time.calendars.NullCalendarEnum._
+
+  def apply(market: NullCalendarEnum): Calendar = {
+    market match {
+      case NULLCALENDAR => new NullCalendar
+      case _ => throw new Exception("Valid units = 1")
+    }
+  }
+
+  private class NullCalendar extends Western {
+
+    override def name = "Null"
+
+    override def isWeekend(w: Weekday) : Boolean = false
+
+    override def isBusinessDay(date: Date): Boolean = true
+  }
 
 }

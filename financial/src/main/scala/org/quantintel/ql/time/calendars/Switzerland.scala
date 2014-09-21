@@ -20,6 +20,10 @@
 
 package org.quantintel.ql.time.calendars
 
+import org.quantintel.ql.time.Month._
+import org.quantintel.ql.time.Weekday._
+import org.quantintel.ql.time.{Date, Western, Calendar}
+
 object SwitzerlandEnum extends Enumeration {
 
   type SwitzerlandEnum = Value
@@ -51,5 +55,46 @@ object SwitzerlandEnum extends Enumeration {
  * @author Paul Bernard
  */
 object Switzerland  {
+
+  def apply: Calendar = new Switzerland
+
+  import org.quantintel.ql.time.calendars.SwitzerlandEnum._
+
+  def apply(market: SwitzerlandEnum ): Calendar = {
+    market match {
+      case SWITZERLAND => new Switzerland
+      case _ => throw new Exception("Valid units = 1")
+    }
+  }
+
+  private class Switzerland extends Western {
+
+    override def name = "Switzerland"
+
+    override def isBusinessDay(date: Date): Boolean = {
+
+      // standard dependencies
+      val w: Weekday = date.weekday
+      val d: Int = date.dayOfMonth
+      val dd: Int = date.dayOfYear
+      val m: Month = date.month
+      val y: Int = date.year
+      val em: Int = easterMonday(y)
+
+      if (isWeekend(w)
+        || (d == 1 && m == JANUARY) // New Year's Day
+        || (d == 2 && m == JANUARY)  // Berchtoldstag
+        || (dd == em - 3) // Good Friday
+        || (dd == em) // Easter Monday
+        || (dd == em + 38)   // Ascension Day
+        || (dd == em + 49)  // Whit Monday
+        || (d == 1 && m == MAY) // Labour Day
+        || (d == 1 && m == AUGUST)  // National Day
+        || (d == 25 && m == DECEMBER) // Christmas
+        || (d == 26 && m == DECEMBER)) // St. Stephen's Day
+        false
+      else true
+    }
+  }
 
 }

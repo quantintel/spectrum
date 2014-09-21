@@ -51,13 +51,24 @@ object MexicoEnum extends Enumeration {
  *  Our Lady of Guadalupe, December 12th
  *  Christmas, December 25th
  *
- * Reference: http://www.bmv.com.mx/
+ * Reference: http://www.bmv.com.mx
  *
  * @author Paul Bernard
  */
 object Mexico {
 
-  private class Mexico extends Western {
+  def apply: Calendar = new Bmv
+
+  import org.quantintel.ql.time.calendars.MexicoEnum._
+
+  def apply(market: MexicoEnum): Calendar = {
+    market match {
+      case BMV => new Bmv
+      case _ => throw new Exception("Valid units = 1")
+    }
+  }
+
+  private class Bmv extends Western {
 
     override def name = "Mexican Stock Exchange"
 

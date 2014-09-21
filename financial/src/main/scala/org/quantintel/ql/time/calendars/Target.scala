@@ -20,6 +20,10 @@
 
 package org.quantintel.ql.time.calendars
 
+import org.quantintel.ql.time.Month._
+import org.quantintel.ql.time.{Western, Date, Calendar}
+import org.quantintel.ql.time.Weekday._
+
 object TargetEnum extends Enumeration {
 
   type TargetEnum = Value
@@ -55,5 +59,42 @@ object TargetEnum extends Enumeration {
  * @author Paul Bernard
  */
 object Target  {
+
+  def apply: Calendar = new Target
+
+  import org.quantintel.ql.time.calendars.TargetEnum._
+
+  def apply(market: TargetEnum ): Calendar = {
+    market match {
+      case TARGET => new Target
+      case _ => throw new Exception("Valid units = 1")
+    }
+  }
+
+  private class Target extends Western  {
+
+    override def name = "TARGET"
+
+    override def isBusinessDay(date: Date): Boolean = {
+
+      // standard dependencies
+      val w: Weekday = date.weekday
+      val d: Int = date.dayOfMonth
+      val dd: Int = date.dayOfYear
+      val m: Month = date.month
+      val y: Int = date.year
+      val em: Int = easterMonday(y)
+
+      if (isWeekend(w)
+        || (d == 1 && m == JANUARY) // New Year's Day
+        || (dd == em - 3 && y >= 2000)  // Good Friday
+        || (dd == em && y >= 2000) // Easter Monday
+        || (d == 1 && m == MAY && y >= 2000)  // Labour Day
+        || (d == 25 && m == DECEMBER) // Christmas
+        || (d == 26 && m == DECEMBER && y >= 2000)   // Day of Goodwill
+        || (d == 31 && m == DECEMBER && (y == 1998 || y == 1999 || y == 2001)))  // December 31st, 1998, 1999, and 2001 only
+        false else true
+    }
+  }
 
 }

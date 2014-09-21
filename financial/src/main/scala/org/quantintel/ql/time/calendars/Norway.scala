@@ -20,6 +20,10 @@
 
 package org.quantintel.ql.time.calendars
 
+import org.quantintel.ql.time.Month._
+import org.quantintel.ql.time.Weekday._
+import org.quantintel.ql.time.{Calendar, Date, Western}
+
 object NorwayEnum extends Enumeration {
 
   type NorwayEnum = Value
@@ -52,5 +56,46 @@ object NorwayEnum extends Enumeration {
  * @author Paul Bernard
  */
 object Norway {
+
+  def apply: Calendar = new Norway
+
+  import org.quantintel.ql.time.calendars.NorwayEnum._
+
+  def apply(market: NorwayEnum): Calendar = {
+    market match {
+      case NORWAY => new Norway
+      case _ => throw new Exception("Valid units = 1")
+    }
+  }
+
+  private class Norway extends Western {
+
+    override def name = "Norway"
+
+    override def isBusinessDay(date: Date): Boolean = {
+
+      // standard dependencies
+      val w: Weekday = date.weekday
+      val d: Int = date.dayOfMonth
+      val dd: Int = date.dayOfYear
+      val m: Month = date.month
+      val y: Int = date.year
+      val em: Int = easterMonday(y)
+
+      if (isWeekend(w)
+        || (dd == em - 4) // Holy Thursday
+        || (dd == em - 3) // Good Friday
+        || (dd == em) // Easter Monday
+        || (dd == em + 38) // Ascension Thursday
+        || (dd == em + 49) // Whit Monday
+        || (d == 1 && m == JANUARY) // New Year's Day
+        || (d == 1 && m == MAY) // May Day
+        || (d == 17 && m == MAY) // National Independence Day
+        || (d == 25 && m == DECEMBER) // Christmas
+        || (d == 26 && m == DECEMBER)) // Boxing Day
+        false
+      else true
+    }
+  }
 
 }

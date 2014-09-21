@@ -20,6 +20,10 @@
 
 package org.quantintel.ql.time.calendars
 
+import org.quantintel.ql.time.Month._
+import org.quantintel.ql.time.Weekday._
+import org.quantintel.ql.time.{Date, Western, Calendar}
+
 object RussiaEnum extends Enumeration {
 
   type RussiaEnum = Value
@@ -36,5 +40,43 @@ object RussiaEnum extends Enumeration {
  * @author Paul Bernard
  */
 object Russia  {
+
+  def apply: Calendar = new Russia
+
+  import org.quantintel.ql.time.calendars.RussiaEnum._
+
+  def apply(market: RussiaEnum): Calendar = {
+    market match {
+      case SETTLEMENT => new Russia
+      case _ => throw new Exception("Valid units = 1")
+    }
+  }
+
+  private class Russia extends Western {
+
+    override def name = "Russia"
+
+    override def isBusinessDay(date: Date): Boolean = {
+
+      // standard dependencies
+      val w: Weekday = date.weekday
+      val d: Int = date.dayOfMonth
+      val dd: Int = date.dayOfYear
+      val m: Month = date.month
+      val y: Int = date.year
+      val em: Int = easterMonday(y)
+
+      if (isWeekend(w)
+        || (d >= 1 && d <= 8 && m == JANUARY) // New Year's holidays
+        || ((d == 23 || ((d == 24 || d == 25) && w == MONDAY)) && m == FEBRUARY)  // Defender of the Fatherland Day (possibly moved to Monday)
+        || ((d == 8 || ((d == 9 || d == 10) && w == MONDAY)) && m == MARCH) // International Women's Day (possibly moved to Monday)
+        || ((d == 1 || ((d == 2 || d == 3) && w == MONDAY)) && m == MAY) // Labour Day (possibly moved to Monday)
+        || ((d == 9 || ((d == 10 || d == 11) && w == MONDAY)) && m == MAY) // Victory Day (possibly moved to Monday)
+        || ((d == 12 || ((d == 13 || d == 14) && w == MONDAY)) &&  m == JUNE) // Russia Day (possibly moved to Monday)
+        || ((d == 4 || ((d == 5 || d == 6) && w == MONDAY)) &&  m == NOVEMBER)) // Unity Day (possibly moved to Monday)
+      false else true
+
+    }
+  }
 
 }

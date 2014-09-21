@@ -107,7 +107,7 @@ object UnitedStatesEnum extends Enumeration {
  *
  *
  *
- * Holidays for the North American Energy Reliability Council (data from
+ * Holidays for the North American Energy Reliability Council
  *  Saturdays
  *  Sundays
  *  New Year's Day, JANUARY 1st (possibly moved to Monday if actually on

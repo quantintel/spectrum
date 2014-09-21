@@ -20,6 +20,10 @@
 
 package org.quantintel.ql.time.calendars
 
+import org.quantintel.ql.time.Month._
+import org.quantintel.ql.time.Weekday._
+import org.quantintel.ql.time.{Date, Western, Calendar}
+
 object SingaporeEnum extends Enumeration {
 
   type SingaporeEnum = Value
@@ -34,8 +38,7 @@ object SingaporeEnum extends Enumeration {
 
 /**
  *
- * Singaporean calendar
- * Holidays:
+ * Singaporean non business days
  *  Saturdays
  *  Sundays
  *  New Year's day, JANUARY 1st
@@ -59,4 +62,65 @@ object SingaporeEnum extends Enumeration {
  */
 object Singapore  {
 
+  def apply: Calendar = new Sgx
+
+  import org.quantintel.ql.time.calendars.SingaporeEnum._
+
+  def apply(market: SingaporeEnum): Calendar = {
+    market match {
+      case SGX => new Sgx
+      case _ => throw new Exception("Valid units = 1")
+    }
+  }
+
+  private class Sgx extends Western {
+
+    override def name = "Singapore Exchange"
+
+    override def isBusinessDay(date: Date): Boolean = {
+
+      // standard dependencies
+      val w: Weekday = date.weekday
+      val d: Int = date.dayOfMonth
+      val dd: Int = date.dayOfYear
+      val m: Month = date.month
+      val y: Int = date.year
+      val em: Int = easterMonday(y)
+
+      if (isWeekend(w)
+        || (d == 1 && m == JANUARY) // New Year's Day
+        || (dd == em - 3) // Good Friday
+        || (d == 1 && m == MAY) // Labor Day
+        || (d == 9 && m == AUGUST)  // National Day
+        || (d == 25 && m == DECEMBER)  // Christmas Day
+        || ((d == 22 || d == 23) && m == JANUARY && y == 2004)  // Chinese New Year
+        || ((d == 9 || d == 10) && m == FEBRUARY && y == 2005)
+        || ((d == 30 || d == 31) && m == JANUARY && y == 2006)
+        || ((d == 19 || d == 20) && m == FEBRUARY && y == 2007)
+        || ((d == 7 || d == 8) && m == FEBRUARY && y == 2008)
+        || ((d == 26 || d == 27) && m == JANUARY && y == 2009) //Zahid
+        || ((d == 1 || d == 2) && m == FEBRUARY && y == 2004) // Hari Raya Haji
+        || (d == 21 && m == JANUARY && y == 2005)
+        || (d == 10 && m == JANUARY && y == 2006)
+        || (d == 2 && m == JANUARY && y == 2007)
+        || (d == 20 && m == DECEMBER && y == 2007)
+        || (d == 8 && m == DECEMBER && y == 2008)
+        || (d == 2 && m == JUNE && y == 2004)  // Vesak Poya Day
+        || (d == 22 && m == MAY && y == 2005)
+        || (d == 12 && m == MAY && y == 2006)
+        || (d == 31 && m == MAY && y == 2007)
+        || (d == 18 && m == MAY && y == 2008)
+        || (d == 11 && m == NOVEMBER && y == 2004)  // Deepavali
+        || (d == 8 && m == NOVEMBER && y == 2007)
+        || (d == 28 && m == OCTOBER && y == 2008)
+        || (d == 27 && m == NOVEMBER && y == 2009) //Zahid
+        || (d == 1 && m == NOVEMBER && y == 2005) // Diwali
+        || ((d == 14 || d == 15) && m == NOVEMBER && y == 2004) // Hari Raya Puasa
+        || (d == 3 && m == NOVEMBER && y == 2005)
+        || (d == 24 && m == OCTOBER && y == 2006)
+        || (d == 13 && m == OCTOBER && y == 2007)
+        || (d == 1 && m == OCTOBER && y == 2008)
+      ) false else true
+    }
+  }
 }

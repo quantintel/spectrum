@@ -20,6 +20,10 @@
 
 package org.quantintel.ql.time.calendars
 
+import org.quantintel.ql.time.Month._
+import org.quantintel.ql.time.Weekday._
+import org.quantintel.ql.time.{Date, Western, Calendar}
+
 object SlovakiaEnum extends Enumeration {
 
   type SlovakiaEnum = Value
@@ -59,5 +63,53 @@ object SlovakiaEnum extends Enumeration {
  * @author Paul Bernard
  */
 object Slovakia {
+
+  def apply: Calendar = new Bsse
+
+  import org.quantintel.ql.time.calendars.SlovakiaEnum._
+
+  def apply(market: SlovakiaEnum): Calendar = {
+    market match {
+      case BSSE => new Bsse
+      case _ => throw new Exception("Valid units = 1")
+    }
+  }
+
+  private class Bsse extends Western {
+
+    override def name = "Bratislava stock exchange"
+
+    override def isBusinessDay(date: Date): Boolean = {
+
+      // standard dependencies
+      val w: Weekday = date.weekday
+      val d: Int = date.dayOfMonth
+      val dd: Int = date.dayOfYear
+      val m: Month = date.month
+      val y: Int = date.year
+      val em: Int = easterMonday(y)
+
+      if (isWeekend(w)
+        || (d == 1 && m == JANUARY) // New Year's Day
+        || (d == 6 && m == JANUARY) // Epiphany
+        || (dd == em - 3) // Good Friday
+        || (dd == em) // Easter Monday
+        || (d == 1 && m == MAY) // May Day
+        || (d == 8 && m == MAY) // Liberation of the Republic
+        || (d == 5 && m == JULY)  // SS. Cyril and Methodius
+        || (d == 29 && m == AUGUST) // Slovak National Uprising
+        || (d == 1 && m == SEPTEMBER) // Constitution of the Slovak Republic
+        || (d == 15 && m == SEPTEMBER)  // Our Lady of the Seven Sorrows
+        || (d == 1 && m == NOVEMBER)  // All Saints Day
+        || (d == 17 && m == NOVEMBER)  // Freedom and Democracy of the Slovak Republic
+        || (d == 24 && m == DECEMBER)  // Christmas Eve
+        || (d == 25 && m == DECEMBER) // Christmas
+        || (d == 26 && m == DECEMBER)  // St. Stephen
+        || (d >= 24 && d <= 31 && m == DECEMBER && y == 2004)  // unidentified closing days for stock exchange
+        || (d >= 24 && d <= 31 && m == DECEMBER && y == 2005))
+        false
+      else true
+    }
+  }
 
 }

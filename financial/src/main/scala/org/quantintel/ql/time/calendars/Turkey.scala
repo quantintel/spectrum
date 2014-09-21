@@ -20,6 +20,10 @@
 
 package org.quantintel.ql.time.calendars
 
+import org.quantintel.ql.time.Month._
+import org.quantintel.ql.time.Weekday._
+import org.quantintel.ql.time.{Date, Western, Calendar}
+
 object TurkeyEnum extends Enumeration {
 
   type TurkeyEnum = Value
@@ -43,5 +47,66 @@ object TurkeyEnum extends Enumeration {
  * @author Paul Bernard
  */
 object Turkey  {
+
+  def apply: Calendar = new Turkey
+
+  import org.quantintel.ql.time.calendars.TurkeyEnum._
+
+  def apply(market: TurkeyEnum ): Calendar = {
+    market match {
+      case TURKEY => new Turkey
+      case _ => throw new Exception("Valid units = 1")
+    }
+  }
+
+  private class Turkey extends Calendar {
+
+    override def name = "Turkey"
+
+    def isWeekend(w: Weekday) : Boolean =  SATURDAY || w == SUNDAY
+
+    override def isBusinessDay(date: Date): Boolean = {
+
+      // standard dependencies
+      val w: Weekday = date.weekday
+      val d: Int = date.dayOfMonth
+      val dd: Int = date.dayOfYear
+      val m: Month = date.month
+      val y: Int = date.year
+
+      if (isWeekend(w)
+        || (d == 1 && m == JANUARY) // New Year's Day
+        || (d == 23 && m == APRIL)   // 23 nisan / National Holiday
+        || (d == 19 && m == MAY) // 19 may National Holiday
+        || (d == 30 && m == AUGUST) // 30 aug/ National Holiday
+        || (d == 29 && m == OCTOBER)) // /29 ekim National Holiday
+        false
+      // Local Holidays
+      else if ((y == 2004) &&
+         ((m == FEBRUARY && d <= 4)  // kurban
+          || (m == NOVEMBER && d >= 14 && d <= 16)))  // ramazan
+          false
+     else if ((y == 2005) &&
+        (((m == JANUARY && d >= 19 && d <= 21) // kurban
+          || (m == NOVEMBER && d >= 2 && d <= 5))))  // ramazan
+        false
+     else if ((y == 2006) &&
+
+        ((m == JANUARY && d >= 9 && d <= 13)  // kurban
+          || (m == OCTOBER && d >= 23 && d <= 25) // ramazan
+          || (m == DECEMBER && d >= 30))) // kurban
+         false
+      else if ((y == 2007) &&
+        ((m == JANUARY && d <= 4) // kurban
+          || (m == OCTOBER && d >= 11 && d <= 14) // ramazan
+          || (m == DECEMBER && d >= 19 && d <= 23)) ) // kurban
+        false
+      else if ((y == 2008) &&
+         ((m == SEPTEMBER && d >= 29) || (m == OCTOBER && d <= 2)  // ramazan
+          || (m == DECEMBER && d >= 7 && d <= 11))) // kurban
+          false else true
+
+    }
+  }
 
 }

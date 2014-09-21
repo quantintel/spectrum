@@ -22,7 +22,7 @@ package org.quantintel.ql.time.calendars
 
 import org.quantintel.ql.time.Month._
 import org.quantintel.ql.time.Weekday._
-import org.quantintel.ql.time.{Date, Western}
+import org.quantintel.ql.time.{Calendar, Date, Western}
 
 object NewZealandEnum extends Enumeration {
 
@@ -38,8 +38,7 @@ object NewZealandEnum extends Enumeration {
 
 /**
  *
- * New Zealand calendar
- * Holidays:
+ * New Zealand Holidays:
  *  Saturdays
  *  Sundays
  *  New Year's Day, JANUARY 1st (possibly moved to Monday or Tuesday)
@@ -60,6 +59,17 @@ object NewZealandEnum extends Enumeration {
  * @author Paul Bernard
  */
 object NewZealand {
+
+  def apply: Calendar = new NewZealand
+
+  import org.quantintel.ql.time.calendars.NewZealandEnum._
+
+  def apply(market: NewZealandEnum): Calendar = {
+    market match {
+      case NEWZEALAND => new NewZealand
+      case _ => throw new Exception("Valid units = 1")
+    }
+  }
 
   private class NewZealand extends Western {
 

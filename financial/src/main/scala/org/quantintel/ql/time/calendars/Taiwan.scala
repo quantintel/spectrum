@@ -20,6 +20,10 @@
 
 package org.quantintel.ql.time.calendars
 
+import org.quantintel.ql.time.Month._
+import org.quantintel.ql.time.Weekday._
+import org.quantintel.ql.time.{Date, Western, Calendar}
+
 object TaiwanEnum extends Enumeration {
 
   type TaiwanEnum = Value
@@ -53,5 +57,108 @@ object TaiwanEnum extends Enumeration {
  * @author Paul Bernard
  */
 object Taiwan {
+
+  def apply: Calendar = new Tsec
+
+  import org.quantintel.ql.time.calendars.TaiwanEnum._
+
+  def apply(market: TaiwanEnum ): Calendar = {
+    market match {
+      case TSEC => new Tsec
+      case _ => throw new Exception("Valid units = 1")
+    }
+  }
+
+  private class Tsec extends Calendar {
+
+    override def name = "Taiwan stock exchange"
+
+    def isWeekend(w: Weekday) = w == SATURDAY || w == SUNDAY
+
+    override def isBusinessDay(date: Date): Boolean = {
+
+      // standard dependencies
+      val w: Weekday = date.weekday
+      val d: Int = date.dayOfMonth
+      val dd: Int = date.dayOfYear
+      val m: Month = date.month
+      val y: Int = date.year
+
+      if (isWeekend(w)
+        || (d == 1 && m == JANUARY) // New Year's Day
+        || (d == 28 && m == FEBRUARY) // Peace Memorial Day
+        || (d == 1 && m == MAY) // Labor Day
+        || (d == 10 && m == OCTOBER)  // Double Tenth
+        false
+      else if ((y == 2002) &&
+        // Dragon Boat Festival and Moon Festival fall on Saturday
+        (// Chinese Lunar New Year
+          (d >= 9 && d <= 17 && m == FEBRUARY)
+            // Tomb Sweeping Day
+            || (d == 5 && m == APRIL)))
+        false
+      else if ((y == 2003) &&
+        // Tomb Sweeping Day falls on Saturday
+        (// Chinese Lunar New Year
+          ((d >= 31 && m == JANUARY) || (d <= 5 && m == FEBRUARY))
+            // Dragon Boat Festival
+            || (d == 4 && m == JUNE)
+            // Moon Festival
+            || (d == 11 && m == SEPTEMBER)))
+        false
+      else if ((y == 2004) &&
+        // Tomb Sweeping Day falls on Sunday
+        (// Chinese Lunar New Year
+          (d >= 21 && d <= 26 && m == JANUARY)
+            // Dragon Boat Festival
+            || (d == 22 && m == JUNE)
+            // Moon Festival
+            || (d == 28 && m == SEPTEMBER)))
+        false
+      else if ((y == 2005) &&
+        // Dragon Boat and Moon Festival fall on Saturday or Sunday
+        (// Chinese Lunar New Year
+          (d >= 6 && d <= 13 && m == FEBRUARY)
+            // Tomb Sweeping Day
+            || (d == 5 && m == APRIL)
+            // make up for Labor Day, not seen in other years
+            || (d == 2 && m == MAY)))
+        false
+      else if ((y == 2006) &&
+        // Dragon Boat and Moon Festival fall on Saturday or Sunday
+        (// Chinese Lunar New Year
+          ((d >= 28 && m == JANUARY) || (d <= 5 && m == FEBRUARY))
+            // Tomb Sweeping Day
+            || (d == 5 && m == APRIL)
+            // Dragon Boat Festival
+            || (d == 31 && m == MAY)
+            // Moon Festival
+            || (d == 6 && m == OCTOBER)))
+        false
+      else if ((y == 2007) &&
+        (// Chinese Lunar New Year
+          (d >= 17 && d <= 25 && m == FEBRUARY)
+            // Tomb Sweeping Day
+            || (d == 5 && m == APRIL)
+            // adjusted holidays
+            || (d == 6 && m == APRIL)
+            || (d == 18 && m == JUNE)
+            // Dragon Boat Festival
+            || (d == 19 && m == JUNE)
+            // adjusted holiday
+            || (d == 24 && m == SEPTEMBER)
+            // Moon Festival
+            || (d == 25 && m == SEPTEMBER)))
+        false
+      else if ((y == 2008) &&
+        (// Chinese Lunar New Year
+          (d >= 4 && d <= 11 && m == FEBRUARY)
+            // Tomb Sweeping Day
+            || (d == 4 && m == APRIL)))
+        false else true
+
+      }
+  }
+
 
 }
