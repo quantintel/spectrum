@@ -65,7 +65,7 @@ object JapanEnum extends Enumeration {
  *  Note: Holidays falling on a Sunday are observed on the Monday following
  *        except for the bank holidays associated with the new year.
  *
- * Reference: http://www.tse.or.jp">Tokyo Stock Exchange
+ * Reference: http://www.tse.or.jp
  *
  * @author Paul Bernard
  */

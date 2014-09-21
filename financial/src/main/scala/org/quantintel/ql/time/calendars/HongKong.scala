@@ -60,7 +60,7 @@ object HongKongEnum extends Enumeration {
 
  *
  * Reference:
- *  http://www.hkex.com.hk>
+ *  http://www.hkex.com.hk
  *
  * @author Paul Bernard
  */

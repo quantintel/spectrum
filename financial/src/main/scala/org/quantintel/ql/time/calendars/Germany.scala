@@ -90,7 +90,7 @@ object GermanyEnum extends Enumeration {
  *  Saturdays
  *  Sundays
  *  New Year's Day, JANUARY 1st
- *  Good Friday<
+ *  Good Friday
  *  Easter Monday
  *  Labour Day, May 1st
  *  Christmas' Eve, December 24th
