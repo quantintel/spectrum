@@ -60,7 +60,7 @@ object Australia {
 
   import org.quantintel.ql.time.calendars.AustraliaEnum._
 
-  def apply : Calendar = new Settlement
+  def apply() : Calendar = new Settlement
 
   def apply(mkt: AustraliaEnum) : Calendar = mkt match {
     case AUSTRALIA => new Settlement
