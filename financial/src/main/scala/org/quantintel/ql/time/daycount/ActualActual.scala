@@ -22,7 +22,9 @@ package org.quantintel.ql.time.daycount
 
 import org.quantintel.ql.time.Date
 
-
+/**
+ * @author Paul Bernard
+ */
 object ActualActualConvention extends Enumeration {
 
   type ActualActualConvention= Value
