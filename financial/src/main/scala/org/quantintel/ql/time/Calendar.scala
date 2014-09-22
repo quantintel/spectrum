@@ -57,8 +57,56 @@ abstract class Calendar {
 
 
   //def holidayList(c: Calendar, from: Date, to: Date, includeWeekEnds : Boolean)  : List[Date] = ???
-  //def businessDaysBetween(from: Date, to: Date) : Int = ???
-  //def businessDaysBetween(from: Date, to: Date, includeFirst: Boolean, includeLast: Boolean) : Int = ???
+
+  def businessDaysBetween(from: Date, to: Date) : Int = {
+    businessDaysBetween(from, to, true, false)
+  }
+  def businessDaysBetween(from: Date, to: Date, includeFirst: Boolean, includeLast: Boolean) : Int = {
+
+    var wd = 0
+
+    if (from.ne(to)) {
+      if (from < to) {
+        var d : Date = from.clone()
+        while (d < to) {
+          d = d + 1
+          if (isBusinessDay(d)) {
+            wd = wd + 1
+          }
+        }
+        if (isBusinessDay(to)) {
+          wd = wd + 1
+        }
+      } else if (from > to) {
+        var d = to.clone
+        while (d < from) {
+          d = d + 1
+          if (isBusinessDay(d)) {
+            wd = wd + 1
+          }
+        }
+        if (isBusinessDay(from)) {
+          wd = wd + 1
+        }
+      }
+
+      if (isBusinessDay(from) && !includeFirst) {
+        wd = wd -1
+      }
+      if (isBusinessDay(to) && !includeLast) {
+        wd = wd -1
+      }
+
+      if (from > to) {
+        wd = -wd;
+      }
+    }
+
+    wd
+  }
+
+
+
   //def eq (c1: Calendar, c2: Calendar): Boolean = ???
   //def ne (c1: Calendar, c2: Calendar): Boolean = ???
 }

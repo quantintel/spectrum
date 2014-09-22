@@ -9,6 +9,10 @@ import org.quantintel.ql.time.Weekday._
 
 class Date (var month: Month, var dayOfMonth: Int,  var year: Int) {
 
+  override def clone : Date = {
+    // TODO: needs true implementation of clone
+    this
+  }
 
   def == (that: Date) : Boolean = {
     if (this.dayOfMonth==that.dayOfMonth && this.month==that.month && this.year==that.year) true else false
@@ -31,6 +35,14 @@ class Date (var month: Month, var dayOfMonth: Int,  var year: Int) {
 
   def >= (that: Date) : Boolean = {
     (this > that) || (this == that)
+  }
+
+  def + (days : Int) : Date = {
+    val dt = Date.createJavaDate(month, dayOfMonth, year)
+    val cal : JCalendar = JCalendar.getInstance
+    cal.setTime(dt);
+    cal.add(JCalendar.DATE, days);
+    Date.createQuantDate(cal.getTime)
   }
 
   def isEndOfMonth : Boolean = {
