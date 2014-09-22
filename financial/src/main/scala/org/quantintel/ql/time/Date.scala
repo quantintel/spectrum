@@ -57,6 +57,14 @@ class Date (var month: Month, var dayOfMonth: Int,  var year: Int) {
     start < this && this < end
   }
 
+  def sub(other: Date) : Long = {
+    Date.createJavaDate(this).getTime() - Date.createJavaDate(other).getTime()
+  }
+
+  def - (other: Date) : Long = {
+    Date.createJavaDate(this).getTime() - Date.createJavaDate(other).getTime()
+  }
+
 
 
 }
@@ -193,6 +201,14 @@ object Date {
     sdf.parse(date)
   }
 
+  private def createJavaDate(month: Month, day: DayOfMonth, year: Year) : java.util.Date = {
+    val cal = JCalendar.getInstance()
+    cal.set(JCalendar.MONTH, month.id)
+    cal.set(JCalendar.DAY_OF_MONTH, day)
+    cal.set(JCalendar.YEAR, year)
+    cal.getTime()
+  }
+
   private def createQuantDate(date: java.util.Date) : Date = {
     val cal = JCalendar.getInstance()
     cal.setTime(date)
@@ -201,6 +217,8 @@ object Date {
     val day = cal.get(JCalendar.DAY_OF_MONTH)
     Date(month, day, year)
   }
+
+
 
   private def createDateTuple (date: java.util.Date) : (Month, DayOfMonth, Year) = {
 
