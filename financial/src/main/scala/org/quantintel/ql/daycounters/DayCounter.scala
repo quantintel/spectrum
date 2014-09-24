@@ -18,28 +18,23 @@
  *
  */
 
-package org.quantintel.ql.time.daycount
+package org.quantintel.ql.daycounters
 
 import org.quantintel.ql.time.Date
 
 /**
  * @author Paul Bernard
  */
-object Actual365Fixed {
+abstract class DayCounter {
 
-  def apply() : DayCounter = new Actual365Fixed
+  def name = "NO_IMPLEMENTATION_PROVIDED"
 
-  class Actual365Fixed extends DayCounter {
+  def dayCount(dateStart: Date, dateEnd: Date) : Long = dateEnd.sub(dateStart)
 
-    override def name = "Actual/365 (fixed)"
+  def yearFraction(dateStart: Date, dateEnd: Date) : Double =
+    yearFraction(dateStart, dateEnd, null, null)
 
-    override def yearFraction (dateStart: Date, dateEnd: Date,
-                               refPeriodStart: Date, refPeriodEnd: Date): Double =  dayCount(dateStart, dateEnd) / 365.0
+  def yearFraction(dateStart: Date, dateEnd: Date, refPeriodStart: Date, refPeriodEnd: Date)  : Double
 
-
-  }
 
 }
-
-
-

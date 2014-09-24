@@ -18,23 +18,32 @@
  *
  */
 
-package org.quantintel.ql.time.daycount
+package org.quantintel.ql.daycounters
 
-import org.quantintel.ql.time.Date
+import org.quantintel.ql.time.{Date, Calendar}
 
 /**
- * @author Paul Bernard
+ * Created by paulbernard on 9/21/14.
  */
-abstract class DayCounter {
+object Business252 {
 
-  def name = "NO_IMPLEMENTATION_PROVIDED"
+  import org.quantintel.ql.time.calendars.Brazil
 
-  def dayCount(dateStart: Date, dateEnd: Date) : Long = dateEnd - dateStart
+  def apply() = new Business252(Brazil())
 
-  def yearFraction(dateStart: Date, dateEnd: Date) : Double =
-    yearFraction(dateStart, dateEnd, null, null)
+  def apply(calendar: Calendar) = {
+    new Business252(calendar)
+  }
 
-  def yearFraction(dateStart: Date, dateEnd: Date, refPeriodStart: Date, refPeriodEnd: Date)  : Double
+  class Business252 (calendar: Calendar) extends DayCounter {
 
+    override def name = "Business/252(" + calendar.name + ")"
+
+    override def dayCount(d1: Date, d2: Date): Long = calendar.businessDaysBetween(d1, d2)
+
+    override def yearFraction(dateStart: Date, dateEnd: Date,
+                              refPeriodStart: Date, refPeriodEnd: Date) : Double = ???
+
+  }
 
 }

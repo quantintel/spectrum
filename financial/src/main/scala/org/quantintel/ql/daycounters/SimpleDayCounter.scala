@@ -18,7 +18,7 @@
  *
  */
 
-package org.quantintel.ql.time.daycount
+package org.quantintel.ql.daycounters
 
 import org.quantintel.ql.time.Date
 
