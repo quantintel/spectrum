@@ -66,10 +66,10 @@ abstract class Calendar {
     var wd = 0
 
     if (from.ne(to)) {
-      if (from < to) {
+      if (from lt to) {
         var d : Date = from.clone()
-        while (d < to) {
-          d = d + 1
+        while (d lt to) {
+          d = d add 1
           if (isBusinessDay(d)) {
             wd = wd + 1
           }
@@ -77,10 +77,10 @@ abstract class Calendar {
         if (isBusinessDay(to)) {
           wd = wd + 1
         }
-      } else if (from > to) {
+      } else if (from gt to) {
         var d = to.clone
-        while (d < from) {
-          d = d + 1
+        while (d lt from) {
+          d = d add 1
           if (isBusinessDay(d)) {
             wd = wd + 1
           }
@@ -97,7 +97,7 @@ abstract class Calendar {
         wd = wd -1
       }
 
-      if (from > to) {
+      if (from gt to) {
         wd = -wd;
       }
     }
