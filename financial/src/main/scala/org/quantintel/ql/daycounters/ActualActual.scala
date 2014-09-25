@@ -143,8 +143,8 @@ object ActualActual  {
 
       val y1 : Int = dateStart.year
       val y2 : Int = dateEnd.year
-      val dib1: Double = if (Date.isLeap(dateStart.year)) 366.0 else 365.0
-      val dib2: Double = if (Date.isLeap(dateEnd.year)) 366.0 else 365.0
+      val dib1: Double = if (Date.isLeapYr(dateStart.year)) 366.0 else 365.0
+      val dib2: Double = if (Date.isLeapYr(dateEnd.year)) 366.0 else 365.0
 
       var sum : Double = y2 - y1 - 1
 
@@ -162,35 +162,44 @@ object ActualActual  {
 
     override def yearFraction(dateStart: Date, dateEnd: Date,
                               refPeriodStart: Date, refPeriodEnd: Date): Double = {
-      if (dateStart equals dateEnd) return 0.0
+
+      if (dateStart equals dateEnd)
+        return 0.0
+
       if (dateStart gt dateEnd)
         return -1.0 * yearFraction(dateEnd, dateStart, new Date, new Date)
-      var newD2 = dateEnd
-      var temp = dateEnd
-      var sum : Double = 0.0
-      while(temp gt dateStart){
+
+      var newD2: Date = dateEnd
+      var temp: Date = dateEnd
+      var sum: Double = 0.0
+
+      while (temp.gt(dateStart)) {
+
         temp = newD2.add(Period.ONE_YEAR_BACKWARD)
-        if(temp.dayOfMonth == 28 && temp.month.id == 2 && Date.isLeap(temp.year))
+        if (temp.dayOfMonth == 28 && temp.month.id == 2 && Date.isLeapYr(temp.year)) {
           temp inc
-        if (temp ge dateStart) {
+        }
+        if (temp.ge(dateStart)) {
           sum = sum + 1.0
           newD2 = temp
         }
-        var den : Double = 365.0
-
-        if (Date.isLeap(newD2.year)){
-          if ((newD2 gt (new Date(29, Month.FEBRUARY, newD2.year))) &&
-            (dateStart le (new Date(29, Month.FEBRUARY, newD2.year))))
-          den = den + 1.0
-        } else if (Date.isLeap(dateStart.year)) {
-          if ((newD2 gt (new Date(29, Month.FEBRUARY, dateStart.year))) &&
-            (dateStart le (new Date(29, Month.FEBRUARY, dataStart.year))))
-            den = den + 1.0
-        }
-        sum + dayCount(dateStart, newD2) / den
 
       }
+
+      var den: Double = 365.0
+
+      if (Date.isLeapYr(newD2.year)) {
+        if ((newD2 gt (new Date(29, Month.FEBRUARY, newD2.year))) &&
+          (dateStart le (new Date(29, Month.FEBRUARY, newD2.year))))
+          den = den + 1.0
+      } else if (Date.isLeapYr(dateStart.year)) {
+        if ((newD2 gt (new Date(29, Month.FEBRUARY, dateStart.year))) &&
+          (dateStart le (new Date(29, Month.FEBRUARY, dateStart.year))))
+          den = den + 1.0
+      }
+      sum + dayCount(dateStart, newD2) / den
     }
+
 
   }
 

@@ -9,6 +9,8 @@ import org.quantintel.ql.time.Weekday._
 
 class Date (var serialNumber: Long) {
 
+  checkSerialNumber
+
   def this() {
     this(0)
   }
@@ -38,19 +40,22 @@ class Date (var serialNumber: Long) {
   }
 
   def dayOfMonth : Int = {
-    dayOfYear - Date.monthOffset(month.id, isLeap(year))
+    dayOfYear - Date.monthOffset(month.id, this.isLeapYear)
   }
 
   def dayOfYear : Int = {
-    (serialNumber - Date.yearOffsetArr(year) ).asInstanceOf[Int]
+    (serialNumber - Date.yearOffset(year) ).asInstanceOf[Int]
   }
 
   def month : Month = {
     val d: Int = dayOfYear
     var m: Int = d / 30 + 1
-    val leap : Boolean = isLeap(year)
+    val leap : Boolean = isLeapYear
     while(d <= Date.monthOffset(m, leap)) {
       m = m - 1
+    }
+    while(d>Date.monthOffset(m + 1, leap)){
+      m = m + 1
     }
     Month.valueOf(m)
   }
@@ -144,11 +149,6 @@ class Date (var serialNumber: Long) {
   }
 
 
-  def isLeapYear : Boolean = {
-    Date.isLeap(this.year)
-  }
-
-
   def isNull : Boolean = {
     serialNumber<=0
   }
@@ -183,7 +183,7 @@ class Date (var serialNumber: Long) {
 
   def fEquals(other: Date): Boolean = eq(other)
 
-  override def toString = longDate.toString
+  //override def toString = longDate.toString
 
   override def clone : Date = {
     super.clone.asInstanceOf[Date]
@@ -198,7 +198,7 @@ class Date (var serialNumber: Long) {
   }
 
   def checkSerialNumber = {
-    if (!((serialNumber >= Date.minimumSerialNumber) && (serialNumber <= Date.maximumSerialNumber)))
+    if (!((serialNumber >= Date.minimumSerialNumber) && (serialNumber <= Date.maximumSerialNumber) ) && serialNumber!=0)
       throw new Exception("Date's serial number is outside allowed range")
   }
 
@@ -222,7 +222,7 @@ class Date (var serialNumber: Long) {
           m = m + 12
           y = y -1
         }
-        val length = Date.monthLength(m, isLeap(y))
+        val length = Date.monthLength(m, Date.isLeapYr(y))
         if (d > length) d = length
         return Date.fromDMY(d, m, y)
       }
@@ -232,7 +232,7 @@ class Date (var serialNumber: Long) {
         val m : Month = date.month
         val y: Int = date.year + n
 
-        if (d == 29 && m == FEBRUARY && !isLeap(y)) d = 28
+        if (d == 29 && m == FEBRUARY && !Date.isLeapYr(y)) d = 28
         return Date.fromDMY(d, m.id, y)
       }
       case _ => throw new Exception("undefined time units")
@@ -241,45 +241,60 @@ class Date (var serialNumber: Long) {
 
 
 
-  def isLeap(year: Int) : Boolean = {
-    Date.yearIsLeapArr(year - 1990)
+  def isLeapYear : Boolean = {
+
+    Date.isLeapYr(this.year)
   }
 
 
-  private class LongDate() extends JDate((serialNumber-25569)*86400000L) {
+  private class LongDate() extends JDate() {
+
+    setTime((serialNumber-25569)*86400000L)
+
+    override def toString(): String = {
+
+      if (isNull) return "null date"
+      else {
+        //val sb : JStringBuilder = new JStringBuilder()
+        //val formatter = new JFormatter(sb, JLocale.US)
+        //formatter.format("%s %d, %d", Array(month.id, dayOfMonth, year))
+        //sb.toString
+        println("known values: " + month.id + " " + dayOfMonth + " " + year)
+        System.exit(1)
+        "Date: " + month.id + " " + dayOfMonth + " " + year
+      }
+
+    }
+
+
+
+
+  }
+
+  class ShortDate extends JDate(){
+
+    setTime((serialNumber-25569)*86400000L)
 
     override def toString(): String = {
       if (isNull) return "null date"
       else {
         val sb : JStringBuilder = new JStringBuilder()
         val formatter = new JFormatter(sb, JLocale.US)
-        formatter.format("%s %d, %d", List(month.id, dayOfMonth, year))
-        sb.toString
-      }
-    }
-
-
-  }
-
-  class ShortDate extends JDate((serialNumber-25569)*86400000L){
-
-    override def toString(): String = {
-      if (isNull) return "null date"
-      else {
-        val sb : JStringBuilder = new JStringBuilder()
-        val formatter = new JFormatter(sb, JLocale.US)
-        formatter.format("%02d/%02d/%4d", List(month.id, dayOfMonth, year))
+        formatter.format("%02d/%02d/%4d", Array(month.id, dayOfMonth, year))
         sb.toString
       }
     }
 
   }
 
-  class ISODate extends JDate((serialNumber-25569)*86400000L) {
+  class ISODate extends JDate() {
+
+    setTime((serialNumber-25569)*86400000L)
 
     override def toString(): String = {
       if (isNull) return "null date"
       else {
+
         val sb : JStringBuilder = new JStringBuilder()
         val formatter = new JFormatter(sb, JLocale.US)
         val c = JCalendar.getInstance
@@ -309,7 +324,8 @@ object Date {
     new Date(serialNumber)
   }
 
-  def apply(m: Month, d: DayOfMonth, y: Year)  = new Date(d, m, y)
+
+  def apply(m: Month, d: Int, y: Int)  = new Date(d, m, y)
 
   def apply(month: Int, dayOfMonth: Int, year: Int) : Date = {
 
@@ -328,7 +344,7 @@ object Date {
       case 12 => DECEMBER
     }
 
-    this(m, dayOfMonth, year)
+    Date(m, dayOfMonth, year)
   }
 
   private val  monthLengthArr : Array[Int] = Array(
@@ -483,8 +499,8 @@ object Date {
     false)
 
 
-  type DayOfMonth = Int
-  type Year = Int
+  //type DayOfMonth = Int
+  //type Year = Int
 
 
 
@@ -501,18 +517,18 @@ object Date {
 
   def maxDate : Date = new Date(maximumSerialNumber)
 
-  def isLeap(year: Int): Boolean = {
-    Date.yearIsLeapArr(year - 1999)
+  def isLeapYr(year: Int): Boolean = {
+    Date.yearIsLeapArr(year - 1900)
   }
 
   def endOfMonth(date: Date): Date = {
     val m : Int = date.month.id
     val y : Int = date.year
-    Date(monthLength(m, isLeap(y)), m, y)
+    Date(monthLength(m, isLeapYr(y)), m, y)
   }
 
   def isEndOfMonth(date: Date) : Boolean = {
-    date.dayOfMonth == monthLength(date.month.id, isLeap(date.year))
+    date.dayOfMonth == monthLength(date.month.id, isLeapYr(date.year))
   }
 
   def nextWeekday (d: Date, w: Weekday) : Date = {
@@ -565,7 +581,7 @@ object Date {
   def maximumSerialNumber : Long = 109574
 
   private def fromDMY(d: Int, m: Int, y: Int)  : Long = {
-    val leap: Boolean = isLeap(y);
+    val leap: Boolean = isLeapYr(y);
     var len : Int = monthLength(m, leap);
     val offset: Int = monthOffset(m, leap);
     val result: Long = d + offset + Date.yearOffset(y);
@@ -577,13 +593,16 @@ object Date {
   }
 
   def monthOffset (m: Int, leapYear: Boolean) : Int = {
-    if (leapYear) Date.monthLeapOffsetArr(m -1) else Date.monthOffsetArr(m -1)
+
+    if (leapYear)
+      Date.monthLeapOffsetArr(m -1)
+        else Date.monthOffsetArr(m -1)
   }
 
 
 
   def yearOffset(year: Int) : Long = {
-    yearOffset(year - 1900)
+    yearOffsetArr(year - 1900)
   }
 
 

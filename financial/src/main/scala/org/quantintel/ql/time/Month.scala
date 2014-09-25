@@ -26,18 +26,18 @@ package org.quantintel.ql.time
 object Month extends Enumeration {
 
   type Month = Value
-  val JANUARY = Value("January")
-  val FEBRUARY = Value("February")
-  val MARCH = Value("March")
-  val APRIL = Value("April")
-  val MAY = Value("May")
-  val JUNE = Value("June")
-  val JULY = Value("July")
-  val AUGUST = Value("August")
-  val SEPTEMBER = Value("September")
-  val OCTOBER = Value("October")
-  val NOVEMBER = Value("November")
-  val DECEMBER = Value("December")
+  val JANUARY = Value(1)
+  val FEBRUARY = Value(2)
+  val MARCH = Value(3)
+  val APRIL = Value(4)
+  val MAY = Value(5)
+  val JUNE = Value(6)
+  val JULY = Value(7)
+  val AUGUST = Value(8)
+  val SEPTEMBER = Value(9)
+  val OCTOBER = Value(10)
+  val NOVEMBER = Value(11)
+  val DECEMBER = Value(12)
 
   def valueOf(month: Int) = month match {
     case 1 => Month.JANUARY
