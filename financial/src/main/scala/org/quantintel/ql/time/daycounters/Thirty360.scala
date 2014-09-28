@@ -18,7 +18,7 @@
  *
  */
 
-package org.quantintel.ql.daycounters
+package org.quantintel.ql.time.daycounters
 
 import org.quantintel.ql.time.{Date}
 
@@ -49,7 +49,7 @@ object Thirty360Convention extends Enumeration {
  */
 object Thirty360 {
 
-  import org.quantintel.ql.daycounters.Thirty360Convention._
+  import org.quantintel.ql.time.daycounters.Thirty360Convention._
 
   def apply() : DayCounter = new USA
 

@@ -18,7 +18,7 @@
  *
  */
 
-package org.quantintel.ql.daycounters
+package org.quantintel.ql.time.daycounters
 
 import org.quantintel.ql.time.Date
 
@@ -29,10 +29,10 @@ abstract class DayCounter {
 
   def name = "NO_IMPLEMENTATION_PROVIDED"
 
-  def dayCount(dateStart: Date, dateEnd: Date) : Long = dateEnd.sub(dateStart)
+  def dayCount(dateStart: Date, dateEnd: Date) : Long = dateEnd - dateStart
 
   def yearFraction(dateStart: Date, dateEnd: Date) : Double =
-    yearFraction(dateStart, dateEnd, null, null)
+    yearFraction(dateStart, dateEnd, Date(), Date())
 
   def yearFraction(dateStart: Date, dateEnd: Date, refPeriodStart: Date, refPeriodEnd: Date)  : Double
 
