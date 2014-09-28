@@ -45,6 +45,31 @@ object Thirty360Convention extends Enumeration {
 
 
 /**
+ * There are several variants to the 30/360 day count method,
+ * depending upon US, European or Italian conventions.
+ *
+ * US
+ *  Also known as : US (NASD), 30/360, 360/360, or Bond Basis
+ *
+ * EU
+ *  Also known as: 30E/360, Eurobond Basis
+ *
+ * IT
+ *  Primarily knows as: Italian
+ *
+ * Implementation Notes:
+ *
+ * Italian: start or end dates occurring in the month of February
+ * and are > 27 are set to 30
+ *
+ * Euro: start or end dates occuring on the 31st of a month are set
+ * to 30th of the same month.
+ *
+ * US: start date of month is 31st set to 30th of the same month
+ * end date is the 31st of a month and the starting date is < 30th
+ * of month then ending date becomes equal to first of next month,
+ * else the ending date is set to the 30th of the same month.
+ *
  * @author Paul Bernard
  */
 object Thirty360 {
