@@ -23,16 +23,16 @@ package org.quantintel.ql.time
 object TimeUnit extends Enumeration {
 
   type TimeUnit = Value
-  val DAYS = Value("Days")
-  val WEEKS = Value("Weeks")
-  val MONTHS = Value("Months")
-  val YEARS = Value("Years")
+  val DAYS = Value(0)
+  val WEEKS = Value(1)
+  val MONTHS = Value(2)
+  val YEARS = Value(3)
 
   def valueOf(unit: Int) = unit match {
-    case 1 => DAYS
-    case 2 => WEEKS
-    case 3 => MONTHS
-    case 4 => YEARS
+    case 0 => DAYS
+    case 1 => WEEKS
+    case 2 => MONTHS
+    case 3 => YEARS
     case _ => throw new Exception("Valid units = 1 to 4")
   }
 }
