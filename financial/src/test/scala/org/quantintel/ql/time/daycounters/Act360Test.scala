@@ -29,7 +29,7 @@ import org.scalatest.{FlatSpec, Matchers}
  * 18. 12/15/93 - 12/30/93
  *
  */
-class Act360 extends FlatSpec with Matchers {
+class Act360Test extends FlatSpec with Matchers {
 
   import org.quantintel.lang.numeric._
 

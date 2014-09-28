@@ -1,7 +1,6 @@
 package org.quantintel.ql.time.daycounters
-import org.scalatest.{FlatSpec, Matchers}
-import org.quantintel.ql.time.Date
 
+import org.scalatest.{FlatSpec, Matchers}
 
 /**
  * Created by Paul Bernard on 8/4/14.
@@ -26,16 +25,19 @@ import org.quantintel.ql.time.Date
  * 18. 12/15/93 - 12/30/93
  *
  */
-class Act365F extends FlatSpec with Matchers {
+class ActActAFBTest extends FlatSpec with Matchers {
 
   import org.quantintel.lang.numeric._
+  import org.quantintel.ql.time.Date
+  import org.quantintel.ql.time.daycounters.ActualActualConvention.AFB
+  
 
   "1. 01/31/1990 - 03/16/1991" should "be 1.120547945" in {
 
     val d1 = new Date(31, 1, 1990)
     val d2 = new Date(16, 3, 1991)
 
-    val yf :Double = Actual365Fixed().yearFraction(d1, d2, null, null)
+    val yf :Double = ActualActual(AFB).yearFraction(d1, d2, null, null)
 
     assert(yf.rounded(9) ==  1.120547945)
 
@@ -48,7 +50,7 @@ class Act365F extends FlatSpec with Matchers {
     val d1 = new Date(6, 5, 1994)
     val d2 = new Date(30, 10, 1994)
 
-    val yf :Double = Actual365Fixed().yearFraction(d1, d2, null, null)
+    val yf :Double = ActualActual(AFB).yearFraction(d1, d2, null, null)
 
     assert(yf.rounded(9) ==  0.484931507)
   }
@@ -62,7 +64,7 @@ class Act365F extends FlatSpec with Matchers {
     val d1 = new Date(1, 1, 1993)
     val d2 = new Date(21, 2, 1993)
 
-    val yf :Double = Actual365Fixed().yearFraction(d1, d2, null, null)
+    val yf :Double = ActualActual(AFB).yearFraction(d1, d2, null, null)
 
     assert(yf.rounded(9) ==  0.139726027)
 
@@ -73,22 +75,22 @@ class Act365F extends FlatSpec with Matchers {
     val d1 = new Date(1, 2, 1993)
     val d2 = new Date(1, 3, 1993)
 
-    val yf :Double = Actual365Fixed().yearFraction(d1, d2, null, null)
+    val yf :Double = ActualActual(AFB).yearFraction(d1, d2, null, null)
 
     assert(yf.rounded(9) ==  0.076712329)
 
   }
 
 
-  "5. 02/01/1996 - 03/01/1996" should "be 0.079452055" in {
+  "5. 02/01/1996 - 03/01/1996" should "be 0.753424658" in {
 
 
-    val d1 = new Date(1,2, 1996)
+    val d1 = new Date(1, 2, 1996)
     val d2 = new Date(1, 3, 1996)
 
-    val yf :Double = Actual365Fixed().yearFraction(d1, d2, null, null)
+    val yf :Double = ActualActual(AFB).yearFraction(d1, d2, null, null)
 
-    assert(yf.rounded(9) ==  0.079452055)
+    assert(yf.rounded(9) ==  0.079234973)
 
 
   }
@@ -99,7 +101,7 @@ class Act365F extends FlatSpec with Matchers {
     val d1 = new Date(1, 1, 1993)
     val d2 = new Date(1, 1, 1994)
 
-    val yf :Double = Actual365Fixed().yearFraction(d1, d2, null, null)
+    val yf :Double = ActualActual(AFB).yearFraction(d1, d2, null, null)
 
     assert(yf.rounded(9) ==  1.000000000)
 
@@ -112,7 +114,7 @@ class Act365F extends FlatSpec with Matchers {
     val d1 = new Date(15, 1, 1993)
     val d2 = new Date(1, 2, 1993)
 
-    val yf :Double = Actual365Fixed().yearFraction(d1, d2, null, null)
+    val yf :Double = ActualActual(AFB).yearFraction(d1, d2, null, null)
 
     assert(yf.rounded(9) ==  0.046575342)
 
@@ -125,7 +127,7 @@ class Act365F extends FlatSpec with Matchers {
     val d1 = new Date(15, 2, 1993)
     val d2 = new Date(1, 4, 1993)
 
-    val yf :Double = Actual365Fixed().yearFraction(d1, d2, null, null)
+    val yf :Double = ActualActual(AFB).yearFraction(d1, d2, null, null)
 
     assert(yf.rounded(9) ==  0.123287671)
 
@@ -137,9 +139,9 @@ class Act365F extends FlatSpec with Matchers {
     val d1 = new Date(31, 3, 1993)
     val d2 = new Date(30, 4, 1993)
 
-    val yf :Double = Actual365Fixed().yearFraction(d1, d2, null, null)
+    val yf :Double = ActualActual(AFB).yearFraction(d1, d2, null, null)
 
-    assert(yf.rounded(9) ==   0.082191781)
+    assert(yf.rounded(9) ==  0.082191781)
 
   }
 
@@ -149,7 +151,7 @@ class Act365F extends FlatSpec with Matchers {
     val d1 = new Date(31, 3, 1993)
     val d2 = new Date(31, 12, 1993)
 
-    val yf :Double = Actual365Fixed().yearFraction(d1, d2, null, null)
+    val yf :Double = ActualActual(AFB).yearFraction(d1, d2, null, null)
 
     assert(yf.rounded(9) ==  0.753424658)
 
@@ -161,7 +163,7 @@ class Act365F extends FlatSpec with Matchers {
     val d1 = new Date(15, 3, 1993)
     val d2 = new Date(15, 6, 1993)
 
-    val yf :Double = Actual365Fixed().yearFraction(d1, d2, null, null)
+    val yf :Double = ActualActual(AFB).yearFraction(d1, d2, null, null)
 
     assert(yf.rounded(9) ==  0.252054795)
   }
@@ -172,7 +174,7 @@ class Act365F extends FlatSpec with Matchers {
     val d1 = new Date(1, 11, 1993)
     val d2 = new Date(1, 3, 1994)
 
-    val yf :Double = Actual365Fixed().yearFraction(d1, d2, null, null)
+    val yf :Double = ActualActual(AFB).yearFraction(d1, d2, null, null)
 
     assert(yf.rounded(9) ==  0.328767123)
   }
@@ -183,7 +185,7 @@ class Act365F extends FlatSpec with Matchers {
     val d1 = new Date(31, 12, 1993)
     val d2 = new Date(1, 2, 1994)
 
-    val yf :Double = Actual365Fixed().yearFraction(d1, d2, null, null)
+    val yf :Double = ActualActual(AFB).yearFraction(d1, d2, null, null)
 
     assert(yf.rounded(9) ==  0.087671233)
 
@@ -195,7 +197,7 @@ class Act365F extends FlatSpec with Matchers {
     val d1 = new Date(15, 7, 1993)
     val d2 = new Date(15, 9, 1993)
 
-    val yf :Double = Actual365Fixed().yearFraction(d1, d2, null, null)
+    val yf :Double = ActualActual(AFB).yearFraction(d1, d2, null, null)
 
     assert(yf.rounded(9) ==  0.169863014)
 
@@ -208,7 +210,7 @@ class Act365F extends FlatSpec with Matchers {
     val d1 = new Date(21, 8, 1993)
     val d2 = new Date(11, 4, 1994)
 
-    val yf :Double = Actual365Fixed().yearFraction(d1, d2, null, null)
+    val yf :Double = ActualActual(AFB).yearFraction(d1, d2, null, null)
 
     assert(yf.rounded(9) ==  0.638356164)
 
@@ -220,7 +222,7 @@ class Act365F extends FlatSpec with Matchers {
     val d1 = new Date(31, 3, 1993)
     val d2 = new Date(1, 4, 1993)
 
-    val yf :Double = Actual365Fixed().yearFraction(d1, d2, null, null)
+    val yf :Double = ActualActual(AFB).yearFraction(d1, d2, null, null)
 
     assert(yf.rounded(9) ==  0.002739726)
 
@@ -232,7 +234,7 @@ class Act365F extends FlatSpec with Matchers {
     val d1 = new Date(15, 12, 1993)
     val d2 = new Date(31, 12, 1993)
 
-    val yf :Double = Actual365Fixed().yearFraction(d1, d2, null, null)
+    val yf :Double = ActualActual(AFB).yearFraction(d1, d2, null, null)
 
     assert(yf.rounded(9) ==  0.043835616)
   }
@@ -243,7 +245,7 @@ class Act365F extends FlatSpec with Matchers {
     val d1 = new Date(15, 12, 1993)
     val d2 = new Date(30, 12, 1993)
 
-    val yf :Double = Actual365Fixed().yearFraction(d1, d2, null, null)
+    val yf :Double = ActualActual(AFB).yearFraction(d1, d2, null, null)
 
     assert(yf.rounded(9) ==  0.041095890)
   }

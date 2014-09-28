@@ -27,7 +27,7 @@ import org.scalatest.{FlatSpec, Matchers}
  * 18. 12/15/93 - 12/30/93
  *
  */
-class ActActISMA extends FlatSpec with Matchers {
+class ActActISMATest extends FlatSpec with Matchers {
 
   import org.quantintel.lang.numeric._
   import org.quantintel.ql.time.Date
