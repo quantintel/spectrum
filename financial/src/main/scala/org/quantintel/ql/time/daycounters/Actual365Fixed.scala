@@ -18,11 +18,18 @@
  *
  */
 
-package org.quantintel.ql.daycounters
+package org.quantintel.ql.time.daycounters
 
 import org.quantintel.ql.time.Date
 
 /**
+ *
+ * Also known as: Act/365 Fixed, A/365 Fixed, A/365F, English
+ * references:
+ *    ISDA 2006 Section 4.16(d)
+ *    Mayle 1993
+ *
+ *
  * @author Paul Bernard
  */
 object Actual365Fixed {
