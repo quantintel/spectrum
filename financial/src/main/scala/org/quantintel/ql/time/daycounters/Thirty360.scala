@@ -74,10 +74,10 @@ object Thirty360Convention extends Enumeration {
  */
 object Thirty360 {
 
-  import org.quantintel.ql.time.daycounters.Thirty360Convention._
 
   def apply() : DayCounter = new USA
 
+  import org.quantintel.ql.time.daycounters.Thirty360Convention._
 
   def apply(convention: Thrity360Convention) : DayCounter = {
     convention match {
@@ -110,9 +110,9 @@ object Thirty360 {
       val yy1 : Int = d1.year
       val yy2 : Int = d2.year
 
-      if (dd2 == 32 && dd1 < 30) {
+      if (dd2 == 31 && dd1 < 30) {
         dd2 = 1
-        mm2 = mm2 + 1
+        mm2= mm2 + 1
       }
 
       360*(yy2-yy1) + 30*(mm2-mm1-1) + Math.max(0, 30-dd1) + Math.min(30, dd2);
