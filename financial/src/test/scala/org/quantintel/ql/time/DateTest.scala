@@ -141,7 +141,7 @@ class DateTest extends FlatSpec with Matchers {
   }
 
   "17. Date comparison isNull" should "null" in {
-    var d = Date(0)
+    var d = Date()
     assert(d isNull)
   }
 
@@ -320,7 +320,7 @@ class DateTest extends FlatSpec with Matchers {
 
   "get is null date" should "be yes" in {
 
-    var date = Date(0)
+    var date = Date()
     assert(date.isNull== true)
 
   }
