@@ -112,7 +112,7 @@ class Date() {
    * @param date The Java Date used to initial a version of QL Date
    */
   def this(date: JDate)  {
-    this(0)
+    this()
     val c: JCalendar  = JCalendar.getInstance();
     c.setTime(date);
     val d = c.get(JCalendar.DAY_OF_MONTH);
