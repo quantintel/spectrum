@@ -52,7 +52,7 @@ import org.scalatest.{FlatSpec, Matchers}
  *
  **/
 
-class Thirty360USTest extends FlatSpec with Matchers {
+class Thirty360Test extends FlatSpec with Matchers {
 
 
   import org.quantintel.lang.numeric._
