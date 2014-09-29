@@ -50,6 +50,7 @@ object Thirty360Convention extends Enumeration {
  *
  * US
  *  Also known as : US (NASD), 30/360, 360/360, or Bond Basis
+ *  - 30/360 "30-day months, end of month adjustments"
  *
  * EU
  *  Also known as: 30E/360, Eurobond Basis
@@ -62,7 +63,7 @@ object Thirty360Convention extends Enumeration {
  * Italian: start or end dates occurring in the month of February
  * and are > 27 are set to 30
  *
- * Euro: start or end dates occuring on the 31st of a month are set
+ * Euro: start or end dates occurring on the 31st of a month are set
  * to 30th of the same month.
  *
  * US: start date of month is 31st set to 30th of the same month
@@ -161,8 +162,9 @@ object Thirty360 {
       val yy1 : Int = d1.year
       val yy2 : Int = d2.year
 
-      if (mm1 == 2 && dd1 > 27) dd1 = 30;
-      if (mm2 == 2 && dd2 > 27) dd2 = 30;
+      if (mm1 == 2 && dd1 > 27) dd1 = 30
+      if (mm2 == 2 && dd2 > 27) dd2 = 30
+
 
       360*(yy2-yy1) + 30*(mm2-mm1-1) + Math.max(0, 30-dd1) + Math.min(30, dd2)
     }

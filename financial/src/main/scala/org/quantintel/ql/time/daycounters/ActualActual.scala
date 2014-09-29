@@ -22,6 +22,32 @@ package org.quantintel.ql.time.daycounters
 
 import org.quantintel.ql.time.{Month, Period, TimeUnit, Date}
 
+
+object ActualActualConvention extends Enumeration {
+
+  type ActualActualConvention= Value
+  val ISMA = Value(1)
+  val BOND = Value(2)
+  val ISDA = Value(3)
+  val HISTORICAL = Value(4)
+  val ACTUAL365 = Value(5)
+  val AFB = Value(6)
+  val EURO = Value(7)
+
+  def valueOf(market: Int)  = market match {
+    case 1 => ISMA
+    case 2 => BOND
+    case 3 => ISDA
+    case 4 => HISTORICAL
+    case 5 => ACTUAL365
+    case 6 => AFB
+    case 7 => EURO
+    case _ => throw new Exception("Valid units = 1 to 7")
+  }
+
+}
+
+
 /**
  *
  * The ActualActualConvention provides day count implementations for the
@@ -65,34 +91,6 @@ import org.quantintel.ql.time.{Month, Period, TimeUnit, Date}
  * EURO
  *  - uses the same implementation as AFB
  *
- * @author Paul Bernard
- */
-object ActualActualConvention extends Enumeration {
-
-  type ActualActualConvention= Value
-  val ISMA = Value(1)
-  val BOND = Value(2)
-  val ISDA = Value(3)
-  val HISTORICAL = Value(4)
-  val ACTUAL365 = Value(5)
-  val AFB = Value(6)
-  val EURO = Value(7)
-
-  def valueOf(market: Int)  = market match {
-    case 1 => ISMA
-    case 2 => BOND
-    case 3 => ISDA
-    case 4 => HISTORICAL
-    case 5 => ACTUAL365
-    case 6 => AFB
-    case 7 => EURO
-    case _ => throw new Exception("Valid units = 1 to 7")
-  }
-
-}
-
-
-/**
  * @author Paul Bernard
  */
 object ActualActual  {
