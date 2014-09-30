@@ -1,0 +1,19 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+# Home page
+GET      /today/serialNumber         controllers.Application.today
+GET      /today/mmddyyyy             controllers.Application.todaySimpleFmt
+GET      /today/weekday              controllers.Application.weekday
+GET      /today/year                 controllers.Application.year
+GET      /today/month                controllers.Application.month
+GET      /today/dayOfMonth           controllers.Application.dayOfMonth
+GET      /today/dayOfYear            controllers.Application.dayOfYear
+GET      /today/isLeapYear           controllers.Application.isLeapYear
+GET      /                           controllers.Application.index
+
+# Map static resources from the /public folder to the /assets URL path
+GET     /assets/*file               controllers.Assets.at(path="/public", file)
+
+    
