@@ -17,6 +17,8 @@
 
 package org.quantintel.ql.currencies
 
+import org.quantintel.ql.Currency
+
 /**
  * Description:           South African rand
  * ISO 4217 code:         ZAR
@@ -29,13 +31,24 @@ package org.quantintel.ql.currencies
  *
  * @author Paul Bernard
  */
-object ZAR {
+class Africa extends {
 
-  val iso = "ZAR"
-  val symbol = "R"
-  val desc = "South-African rand"
-  val format = "# ###.##"
-  val numCode = 710
-  val divisor = 100
+  class ZARCurrency extends Currency {
+
+    object zarData {
+
+      val iso = "ZAR"
+      val symbol = "R"
+      val desc = "South-African rand"
+      val format = "# ###.##"
+      val numCode = 710
+      val divisor = 100
+
+    }
+
+    val data = zarData
+  }
 
 }
+
+
