@@ -137,6 +137,10 @@ object Rounding {
 
   import org.quantintel.ql.math.RoundingMethods._
 
+  def apply : Rounding = {
+    new Rounding()
+  }
+
   def apply(method: RoundingMethods, precision: Int) : Rounding = {
     method match {
       case NONE => new Rounding()
