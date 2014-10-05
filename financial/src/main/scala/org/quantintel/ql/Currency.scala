@@ -1,0 +1,52 @@
+/*
+ * Copyright (c) 2014  Paul Bernard
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ * Spectrum Finance is based in part on:
+ *        QuantLib. http://quantlib.org/
+ *
+ */
+
+package org.quantintel.ql
+
+import org.quantintel.ql.math.Rounding
+
+object Currency {
+
+  def apply(name: String,
+            code: String,
+            numericCode: Int,
+            symbol: String,
+            fractionSymbol: String,
+            fractionPerUnit: Int,
+            rounding: Rounding,
+            formatString: String,
+            triangulationCurrency: Currency): Currency =
+    new Currency(name, code, numericCode, symbol, fractionSymbol,
+    fractionPerUnit, rounding, formatString, triangulationCurrency)
+
+}
+
+/**
+ * @author Paul Bernard
+ */
+class Currency {
+
+  def this (name: String, code: String, numericCode: Int, symbol: String,
+             fractionaSymbol: String, fractionPerUnit: Int, rounding: Rounding,
+             formatString: String, triangulationCurrency: Currency){
+    this()
+  }
+
+}
