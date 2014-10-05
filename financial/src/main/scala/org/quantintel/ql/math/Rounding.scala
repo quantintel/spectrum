@@ -18,7 +18,7 @@
  *
  */
 
-package org.quantintel.ql.time.math
+package org.quantintel.ql.math
 
 
 object RoundingMethods extends Enumeration  {
@@ -64,7 +64,7 @@ object RoundingMethods extends Enumeration  {
 
 }
 
-import org.quantintel.ql.time.math.RoundingMethods._
+import org.quantintel.ql.math.RoundingMethods._
 
 class Rounding(precision: Int, method: RoundingMethods, digit: Int) {
 
@@ -119,7 +119,7 @@ class Rounding(precision: Int, method: RoundingMethods, digit: Int) {
  */
 object Rounding {
 
-  import org.quantintel.ql.time.math.RoundingMethods._
+  import org.quantintel.ql.math.RoundingMethods._
 
   def apply(precision: Int, method: RoundingMethods, digit: Int) : Rounding = {
     method match {
