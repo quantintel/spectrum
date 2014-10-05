@@ -17,7 +17,7 @@
 
 package org.quantintel.ql.currencies
 
-import org.quantintel.ql.Currency
+import org.quantintel.ql.math.Rounding
 
 /**
  * Description:           South African rand
@@ -35,19 +35,12 @@ class Africa extends {
 
   class ZARCurrency extends Currency {
 
-    object zarData {
+    val zarData = Data("South-African rand", "ZAR", 710, "R", "", 100, new Rounding(), "# ###.##")
 
-      val iso = "ZAR"
-      val symbol = "R"
-      val desc = "South-African rand"
-      val format = "# ###.##"
-      val numCode = 710
-      val divisor = 100
+    data = zarData
 
-    }
-
-    val data = zarData
   }
+
 
 }
 
