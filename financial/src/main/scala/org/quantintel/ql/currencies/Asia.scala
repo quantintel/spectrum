@@ -24,6 +24,10 @@
 
 package org.quantintel.ql.currencies
 
+import org.quantintel.ql.math.Rounding
+
+
+
 // Asia
 
 /**
@@ -32,13 +36,13 @@ package org.quantintel.ql.currencies
  * Numerical Code:          50
  * Divided by:              100 paisa
  */
-object BDT {
-  val iso = "BDT"
-  val abbrev = "Bt"
-  val desc = "Bangladesh taka"
-  val rounding = "%3% %1$.2f"
-  val numCode = 50
-  val divisor = 100
+
+class BDTCurrency extends Currency {
+
+  val bdtData = Data("Bangladesh taka", "BDT", 50, "Bt", "", 100, Rounding(), "%3% %1$.2f")
+
+  data = bdtData
+
 }
 
 /**
@@ -47,13 +51,12 @@ object BDT {
  * Numerical Code:          156
  * Divided by:              100 fend
  */
-object CNY {
-  val iso = "CNY"
-  val symbol = "Y"
-  val desc = "Chinese yuan"
-  val rounding = "%3% %1$.2f"
-  val numCode = 156
-  val divisor = 100
+class CNYCurrency extends Currency {
+
+  val cnyData = Data("Chinese yuan", "CNY", 156, "Y", "", 100, Rounding(), "%3% %1$.2f")
+
+  data = cnyData
+
 }
 
 /**
@@ -62,13 +65,12 @@ object CNY {
  * Numerical Code:          344
  * Divided by:              100 cents
  */
-object HKD {
-  val iso = "HKD"
-  val symbol = "HK$"
-  val desc = "Hong Kong dollar"
-  val rounding = "%3% %1$.2f"
-  val numCode = 344
-  val divisor = 100
+class HKDCurrency extends Currency {
+
+  val hdkData = Data("Hong Kong dollar", "HKD", 344, "HK$", "", 100, Rounding(), "%3% %1$.2f" )
+
+  data = hdkData
+
 }
 
 /**
@@ -77,13 +79,11 @@ object HKD {
  * Numerical Code:          375
  * Divided by:              100 agorot
  */
-object ILS {
-  val iso = "ILS"
-  val symbol = "NIS"
-  val desc = "Israeli shekel"
-  val rounding = "%1% %2$.3f"
-  val numCode = 376
-  val divisor = 100
+class ILSCurrency extends Currency {
+
+  val ilsData = Data("Israeli shekel", "ILS", 376, "NIS", "", f100, Rounding(), "%1% %2$.3f")
+
+  data = ilsData
 }
 
 /**
@@ -92,13 +92,12 @@ object ILS {
  * Numerical Code:          356
  * Divided by:              100 paise
  */
-object INR {
-  val iso = "INR"
-  val symbol = "Rs"
-  val desc = "Indian rupee"
-  val rounding = "%3% %1$.2f"
-  val numCode = 356
-  val divisor = 100
+class INRCurrency extends Currency {
+
+  val inrData = Data("Indian rupee", "INR", 356, "Rs", "", 100, Rounding(), "%3% %1$.2f")
+
+  data = inrData
+
 }
 
 /**
@@ -107,28 +106,26 @@ object INR {
  * Numerical Code:          368
  * Divided by:              100 fils
  */
-object IQD {
-  val iso = "IQD"
-  val symbol = "ID"
-  val desc = "Iraqi dinar"
-  val rounding = "%2% %1$.3f"
-  val numCode = 368
-  val divisor = 1000
+class IQDCurrency extends Currency {
+
+  val iqdData = Data("Iraqi dinar", "IQD", 368, "ID", "", 1000, Rounding(), "%2% %1$.3f")
+
+  data = iqdData
+
 }
 
 /**
  * Description:             Iranian rial
  * ISO three-letter code:   IRR
  * Numerical Code:          364
- * Divided by:              1 (not otherwise subdividable)
+ * Divided by:              1 (not otherwise sub-dividable)
  */
-object IRR {
-  val iso = "IQD"
-  val symbol = "IRR"
-  val desc = "Iranian rail"
-  val rounding = "%2% %1$.2f"
-  val numCode = 368
-  val divisor = 1
+class IRRCurrency extends Currency {
+
+  val irrData = Data("Iranian rail", "IRR", 364, "Rls", "", 1, Rounding(), "%3% %1$.2f")
+
+  data = irrData
+
 }
 
 /**
@@ -137,13 +134,12 @@ object IRR {
  * Numerical Code:          392
  * Divided by:              100
  */
-object YPY {
-  val iso = "JPY"
-  val symbol = "u00a5"
-  val desc = "Japanese yen"
-  val rounding = "%2% %1$.2f"
-  val numCode = 368
-  val divisor = 1
+class  YPYCurrency extends Currency {
+
+  val ypyData = Data("Japanese yen", "JPY", 392, "u00a5", "", 100, Rounding(), "%3% %1$.0f")
+
+  data = ypyData
+
 }
 
 /**
@@ -152,13 +148,12 @@ object YPY {
  * Numerical Code:          410
  * Divided by:              100 chon
  */
-object KRW {
-  val iso = "KRW"
-  val symbol = "W"
-  val desc = "South-Korean won"
-  val rounding = "%3% %1$.0f"
-  val numCode = 410
-  val divisor = 100
+class KRWCurrency extends Currency {
+
+  val krwData = Data("South-Korean won", "KRW", 410, "W", "", 100, Rounding(), "%3% %1$.0f")
+
+  data = krwData
+
 }
 
 /**
@@ -167,13 +162,12 @@ object KRW {
  * Numerical Code:          414
  * Divided by:              1000 fils
  */
-object KWD {
-  val iso = "KWD"
-  val symbol = "KD"
-  val desc = "Kuwait dinar"
-  val rounding = "%3% %1$.3f"
-  val numCode = 410
-  val divisor = 1000
+class KWDCurrency extends Currency {
+
+  val kwdData = Data("Kuwait dinar", "KWD", 414, "KD", "", 1000, Rounding(), "%3% %1$.3f")
+
+  data = kwdData
+
 }
 
 /**
@@ -182,13 +176,12 @@ object KWD {
  * Numerical Code:          524
  * Divided by:              100 paise
  */
-object NPR {
-  val iso = "NPR"
-  val symbol = "NRs"
-  val desc = "Nepal rupee"
-  val rounding = "%3% %1$.2f"
-  val numCode = 524
-  val divisor = 100
+class NPRCurrency extends Currency {
+
+  val nprData = Data ("Nepal rupee", "NPR", 524, "NRs", "", 100, Rounding(), "%3% %1$.2f")
+
+  data = nprData
+
 }
 
 /**
@@ -197,13 +190,12 @@ object NPR {
  * Numerical Code:          586
  * Divided by:              100 paisa
  */
-object PKR {
-  val iso = "PKR"
-  val symbol = "Rs"
-  val desc = "Pakistani rupee"
-  val rounding = "%3% %1$.2f"
-  val numCode = 586
-  val divisor = 100
+class PKRCurrency extends Currency {
+
+  val pkrData = Data("Pakistani rupee", "PKR", 586, "Rs", "", 100, Rounding(), "%3% %1$.2f")
+
+  data = pkrData
+
 }
 
 /**
@@ -212,13 +204,12 @@ object PKR {
  * Numerical Code:          682
  * Divided by:              100 halalat
  */
-object SAR {
-  val iso = "SAR"
-  val symbol = "SRls"
-  val desc = "Saudi riyal"
-  val rounding = "%3% %1$.2f"
-  val numCode = 682
-  val divisor = 100
+class SARCurrrency extends Currency {
+
+  val sarData = Data("Saudi riyal", "SAR",682,"SRls", "", 100, Rounding(), "%3% %1$.2f")
+
+  data = sarData
+
 }
 
 /**
@@ -227,13 +218,12 @@ object SAR {
  * Numerical Code:          702
  * Divided by:              100 cents
  */
-object SGD {
-  val iso = "SGD"
-  val symbol = "S$"
-  val desc = "Singapore dollar"
-  val rounding = "%3% %1$.2f"
-  val numCode =  702
-  val divisor = 100
+class SGDCurrency extends Currency {
+
+  val sgdData = Data("Singapore dollar", "SGD", 702, "S$", "", 100, Rounding(), "%3% %1$.2f")
+
+  data = sgdData
+
 }
 
 /**
@@ -242,13 +232,12 @@ object SGD {
  * Numerical Code:          764
  * Divided by:              100 stang
  */
-object THB {
-  val iso = "THB"
-  val symbol = "Bht"
-  val desc = "Thai bhat"
-  val rounding = "%1% %2$.3f"
-  val numCode =  764
-  val divisor = 100
+class THBCurrency extends Currency {
+
+  val thbData = Data("Thai bhat", "THB", 764,"Bht", "", 100, Rounding(), "%1% %2$.3f")
+
+  data = thbData
+
 }
 
 /**
@@ -257,11 +246,10 @@ object THB {
  * Numerical Code:          901
  * Divided by:              100 cents
  */
-object TWD{
-  val iso = "TWD"
-  val symbol = "NT$"
-  val desc = "Taiwan dollar"
-  val rounding = "%3% %1$.2f"
-  val numCode =  901
-  val divisor = 100
+class TWDCurrency extends Currency {
+
+  val twdData = Data("Taiwan dollar", "TWD", 901, "NT$", "", 100, Rounding(), "%3% %1$.2f")
+
+  data = twdData
+
 }
