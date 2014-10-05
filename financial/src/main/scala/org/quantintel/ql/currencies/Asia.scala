@@ -81,7 +81,7 @@ class HKDCurrency extends Currency {
  */
 class ILSCurrency extends Currency {
 
-  val ilsData = Data("Israeli shekel", "ILS", 376, "NIS", "", f100, Rounding(), "%1% %2$.3f")
+  val ilsData = Data("Israeli shekel", "ILS", 376, "NIS", "", 100, Rounding(), "%1% %2$.3f")
 
   data = ilsData
 }
