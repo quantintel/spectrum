@@ -137,7 +137,7 @@ object Rounding {
 
   import org.quantintel.ql.math.RoundingMethods._
 
-  def apply : Rounding = {
+  def apply() : Rounding = {
     new Rounding()
   }
 
