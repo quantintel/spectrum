@@ -35,7 +35,7 @@ object RoundingMethods extends Enumeration  {
     val DOWN = Value(3)
     /* All decimal places past the precision will be
                             truncated */
-    val CLOSETS = Value(4)
+    val CLOSEST = Value(4)
     /*The first decimal place past the precision
                             will be rounded up if greater than or equal
                             to the OMG round-up digit; this corresponds
@@ -55,7 +55,7 @@ object RoundingMethods extends Enumeration  {
       case 1 => NONE
       case 2 => UP
       case 3 => DOWN
-      case 4 => CLOSETS
+      case 4 => CLOSEST
       case 5 => FLOOR
       case 6 => CEILING
       case _ => throw new Exception("Valid units = 1 to 6")
@@ -66,9 +66,25 @@ object RoundingMethods extends Enumeration  {
 
 import org.quantintel.ql.math.RoundingMethods._
 
-class Rounding(precision: Int, method: RoundingMethods, digit: Int) {
+class Rounding {
+
+  var precision : Int = 0
+  var method: RoundingMethods = NONE
+  var digit: Int = 0
+
+  def this (prec: Int, mthd: RoundingMethods, dig: Int){
+    this
+    precision = prec
+    method = mthd
+    digit = dig
+  }
+
+  def this(precision: Int) {
+    this(precision, CLOSEST, 5)
+  }
 
   def round(value: Double) : Double = {
+
     if (method == NONE) value
 
     val mult: Double = Math.pow(10.0, precision)
@@ -85,7 +101,7 @@ class Rounding(precision: Int, method: RoundingMethods, digit: Int) {
       case UP => {
         lvalue = lvalue + 1.0
       }
-      case CLOSETS => {
+      case CLOSEST => {
         if (modVal >= (digit/10.0)){
           lvalue = lvalue + 1.0
         }
@@ -121,36 +137,96 @@ object Rounding {
 
   import org.quantintel.ql.math.RoundingMethods._
 
-  def apply(precision: Int, method: RoundingMethods, digit: Int) : Rounding = {
+  def apply(method: RoundingMethods, precision: Int) : Rounding = {
     method match {
-      case NONE => new None(precision, method, digit)
-      case UP => new UpRounding(precision, method, digit)
-      case DOWN => new DownRounding(precision, method, digit)
-      case CLOSETS => new ClosestRounding(precision, method, digit)
-      case FLOOR => new FloorTruncation(precision, method, digit)
-      case CEILING => new CeilingTruncation(precision, method, digit)
-      case _ => throw new Exception("unknown rounding method")
+      case NONE => new Rounding()
+      case UP => new UpRounding(precision)
+      case DOWN => new DownRounding(precision)
+      case CLOSEST => new ClosestRounding(precision)
+      case CEILING => new CeilingTruncation(precision)
+      case FLOOR => new FloorTruncation(precision)
+      case _ => new Rounding()
     }
   }
 
 
-  class None(precision: Int, method: RoundingMethods, digit: Int)
-    extends Rounding (precision, method, digit) {}
+  class UpRounding extends Rounding  {
 
-  class UpRounding(precision: Int, method: RoundingMethods, digit: Int)
-    extends Rounding (precision, method, digit) {}
+    def this (prec: Int, dig: Int) {
+      this
+      precision = prec
+      method = UP
+      digit = dig
+    }
 
-  class DownRounding(precision: Int, method: RoundingMethods, digit: Int)
-    extends Rounding (precision, method, digit) {}
+    def this (precision: Int) {
+      this(precision, 5)
+    }
 
-  class ClosestRounding(precision: Int, method: RoundingMethods, digit: Int)
-    extends Rounding (precision, method, digit) {}
+  }
 
-  class CeilingTruncation(precision: Int, method: RoundingMethods, digit: Int)
-    extends Rounding (precision, method, digit) {}
+  class DownRounding extends Rounding {
 
-  class FloorTruncation(precision: Int, method: RoundingMethods, digit: Int)
-    extends Rounding (precision, method, digit) {}
+    def this(prec: Int, dig: Int) {
+      this
+      precision = prec
+      method = DOWN
+      digit = dig
+    }
+
+    def this(precision: Int){
+      this(precision, 5)
+    }
+
+  }
+
+
+  class ClosestRounding extends Rounding {
+
+    def this(prec: Int, dig: Int) {
+      this
+      precision = prec
+      method = CLOSEST
+      digit = dig
+    }
+
+    def this(precision: Int){
+      this(precision, 5)
+    }
+
+  }
+
+
+  class CeilingTruncation extends Rounding {
+
+    def this(prec: Int, dig: Int) {
+      this
+      precision = prec
+      method = CEILING
+      digit = dig
+    }
+
+    def this(precision: Int){
+      this(precision, 5)
+    }
+
+  }
+
+  class FloorTruncation extends Rounding {
+
+    def this(prec: Int, dig: Int) {
+      this
+      precision = prec
+      method = FLOOR
+      digit = dig
+    }
+
+    def this(precision: Int){
+      this(precision, 5)
+    }
+
+
+  }
 
 
 }
