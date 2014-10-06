@@ -100,7 +100,7 @@ class Data (var name: String,
  */
 class Currency {
 
-  private var data : Data = null
+  var data : Data = null
 
   def this (name: String, code: String, numericCode: Int, symbol: String,
              fractionSymbol: String, fractionPerUnit: Int, rounding: Rounding,
