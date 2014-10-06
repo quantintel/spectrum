@@ -30,9 +30,23 @@ import org.scalatest.{Matchers, FlatSpec}
  */
 class AfricaTest extends FlatSpec with Matchers {
 
-  "1. Africa ZAR" should "equal" in {
+  "1. Africa ZAR default constructor" should "equal" in {
 
-    var cur = Africa()
+    val cur = Africa()
+    assert(cur.name == "South-African rand")
+    assert(cur.code == "ZAR")
+    assert(cur.numericCode == 710)
+    assert(cur.symbol == "R")
+    assert(cur.fractionSymbol == "")
+    assert(cur.fractionPerUnit == 100)
+    assert(cur.rounding.isInstanceOf[Rounding])
+    assert(cur.formatString == "%3% %1$.2f")
+
+  }
+
+  "1. Africa ZAR with factory approach" should "equal" in {
+
+    val cur = Africa(AfricaEnum.ZAR)
     assert(cur.name == "South-African rand")
     assert(cur.code == "ZAR")
     assert(cur.numericCode == 710)
