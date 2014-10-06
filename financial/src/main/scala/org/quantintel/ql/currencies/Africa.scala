@@ -19,20 +19,45 @@ package org.quantintel.ql.currencies
 
 import org.quantintel.ql.math.Rounding
 
-/**
- * Description:           South African rand
- * ISO 4217 code:         ZAR
- * Numerical code:        710
- * Subunit:               100 cents
- *
- * Reference:             http://en.wikipedia.org/wiki/South_African_rand
- *                        https://www.resbank.co.za/pages/default.aspx
- *                        http://www.thefinancials.com/Default.aspx?SubSectionID=curformat
- *
- * @author Paul Bernard
- */
-class Africa extends {
+object AfricaEnum extends Enumeration {
 
+type AfricaEnum = Value
+  val ZAR = Value(1)
+
+  def valueOf(currencies: Int)  = currencies match {
+    case 1 => ZAR
+    case _ => throw new Exception("Valid units = 1")
+  }
+
+}
+
+
+object Africa {
+
+  import org.quantintel.ql.currencies.AfricaEnum._
+
+  def apply() : Currency = {
+    new ZARCurrency()
+  }
+
+  def apply(currency: AfricaEnum) : Currency = {
+    currency match {
+      case ZAR => new ZARCurrency()
+    }
+  }
+
+  /**
+   * Description:           South African rand
+   * ISO 4217 code:         ZAR
+   * Numerical code:        710
+   * Subunit:               100 cents
+   *
+   * Reference:             http://en.wikipedia.org/wiki/South_African_rand
+   *                        https://www.resbank.co.za/pages/default.aspx
+   *                        http://www.thefinancials.com/Default.aspx?SubSectionID=curformat
+   *
+   * @author Paul Bernard
+   */
   class ZARCurrency extends Currency {
 
     val zarData = Data("South-African rand", "ZAR", 710, "R", "", 100, new Rounding(), "# ###.##")

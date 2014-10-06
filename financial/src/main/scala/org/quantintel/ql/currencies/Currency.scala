@@ -48,9 +48,11 @@ object Data{
              fractionPerUnit: Int,
              rounding: Rounding,
              formatString: String,
-             triangulationCurrency: Currency) : Data =
-  { new Data(name, code, numericCode, symbol, fractionSymbol, fractionPerUnit,
-            rounding, formatString, triangulationCurrency)}
+             triangulationCurrency: Currency) : Data = {
+
+    new Data(name, code, numericCode, symbol, fractionSymbol, fractionPerUnit,
+            rounding, formatString, triangulationCurrency)
+  }
 
   def apply (name: String,
              code: String,
@@ -59,9 +61,10 @@ object Data{
              fractionSymbol: String,
              fractionPerUnit: Int,
              rounding: Rounding,
-             formatString: String) : Data =
-  { new Data(name, code, numericCode, symbol, fractionSymbol, fractionPerUnit,
-    rounding, formatString)}
+             formatString: String) : Data = {
+
+    new Data(name, code, numericCode, symbol, fractionSymbol, fractionPerUnit, rounding, formatString)
+  }
 
 
 }
@@ -84,8 +87,9 @@ class Data (name: String,
            fractionPerUnit: Int,
            rounding: Rounding,
            formatString: String){
+
     this(name, code, numericCode, symbol, fractionSymbol,
-    fractionPerUnit, rounding, formatString, new Currency())
+      fractionPerUnit, rounding, formatString, new Currency())
   }
 
 
@@ -96,12 +100,15 @@ class Data (name: String,
  */
 class Currency {
 
+  var data : Data = null
+
   def this (name: String, code: String, numericCode: Int, symbol: String,
              fractionSymbol: String, fractionPerUnit: Int, rounding: Rounding,
-             formatString: String, triangulationCurrency: Currency){
-    this()
+             formatString: String, tc: Currency){
+    this
+    data = Data(name, code, numericCode, symbol, fractionSymbol, fractionPerUnit, rounding, formatString)
   }
 
-  var data : Data = null
+
 
 }

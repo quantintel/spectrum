@@ -18,33 +18,61 @@
 package org.quantintel.ql.currencies
 
 // Oceania
+import org.quantintel.ql.math.{Rounding}
 
-/**
- * Description:             Australian Dollar
- * ISO three-letter code:   AUD
- * Numerical Code:          36
- * Divided by:              100 cents
- */
-object AUD {
-  val iso = "AUD"
-  val symbol = "A$"
-  val desc = "Australian Dollar"
-  val rounding = "%3% %1$.2f"
-  val numCode = 36
-  val divisor = 100
+object OceaniaEnum extends Enumeration {
+
+  type OceaniaEnum = Value
+  val AUD = Value(1)
+  val NZD = Value(2)
+
+  def valueOf(currencies: Int)  = currencies match {
+    case 1 => AUD
+    case 2 => NZD
+    case _ => throw new Exception("Valid units = 1 or 2")
+  }
+
 }
 
-/**
- * Description:             New Zealand
- * ISO three-letter code:   NZD
- * Numerical Code:          554
- * Divided by:              100 cents
- */
-object NZD {
-  val iso = "NZD"
-  val symbol = "NZ$"
-  val desc = "New Zealand Dollar"
-  val rounding = "%3% %1$.2f"
-  val numCode = 554
-  val divisor = 100
+
+
+object Oceania {
+
+  import org.quantintel.ql.currencies.OceaniaEnum._
+
+  def apply(currency: OceaniaEnum) : Currency = {
+    currency match {
+      case AUD => new AUDCurrency()
+      case NZD => new NZDCurrency()
+    }
+  }
+
+  /**
+   * Description:             Australian Dollar
+   * ISO three-letter code:   AUD
+   * Numerical Code:          36
+   * Divided by:              100 cents
+   */
+  class AUDCurrency extends Currency {
+
+    val audData = Data("Australian dollar", "AUD", 36, "A$", "", 100, Rounding(), "%3% %1$.2f")
+
+    data = audData
+
+  }
+
+  /**
+   * Description:             New Zealand
+   * ISO three-letter code:   NZD
+   * Numerical Code:          554
+   * Divided by:              100 cents
+   */
+  class NZDCurrency extends Currency {
+
+    val nzdData = Data("New Zealand dollar", "NZD", 554, "NZ$", "", 100, Rounding(), "%3% %1$.2f")
+
+    data = nzdData
+
+  }
+
 }

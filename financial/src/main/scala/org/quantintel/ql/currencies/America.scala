@@ -25,7 +25,61 @@ import org.quantintel.ql.math.Rounding
 // Americas
 
 
-class America {
+object AmericaEnum extends Enumeration {
+
+  type AmericaEnum = Value
+  val ARS = Value(1)
+  val BRL = Value(2)
+  val CAD = Value(3)
+  val CLP = Value(4)
+  val COP = Value(5)
+  val MXN = Value(6)
+  val PEN = Value(7)
+  val PEI = Value(8)
+  val PEH = Value(9)
+  val TTD = Value(10)
+  val USD = Value(11)
+  val VEB = Value(12)
+
+  def valueOf(currencies: Int)  = currencies match {
+    case 1 => ARS
+    case 2 => BRL
+    case 3 => CAD
+    case 4 => CLP
+    case 5 => COP
+    case 6 => MXN
+    case 7 => PEN
+    case 8 => PEI
+    case 9 => PEH
+    case 10 => TTD
+    case 11 => USD
+    case 12 => VEB
+    case _ => throw new Exception("Valid units = 1 or 12")
+  }
+
+}
+
+object America {
+
+  import org.quantintel.ql.currencies.AmericaEnum._
+
+
+  def apply(currency: AmericaEnum) : Currency = {
+    currency match {
+      case ARS => new ARSCurrency()
+      case BRL => new BRLCurrency()
+      case CAD => new CADCurrency()
+      case CLP => new CLPCurrency()
+      case COP => new COPCurrency()
+      case MXN => new MXNCurrency()
+      case PEN => new PENCurrency()
+      case PEI => new PEICurrency()
+      case PEH => new PEHCurrency()
+      case TTD => new TTDCurrency()
+      case USD => new USDCurrency()
+      case VEB => new VEBCurrency()
+    }
+  }
 
   /**
    * Description:             Argentinian Peso

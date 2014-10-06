@@ -27,10 +27,75 @@ package org.quantintel.ql.currencies
 import org.quantintel.ql.math.Rounding
 
 
+object AsiaEnum extends Enumeration {
+
+  type AsiaEnum = Value
+  val BDT = Value(1)
+  val CNY = Value(2)
+  val HKD = Value(3)
+  val ILS = Value(4)
+  val INR = Value(5)
+  val IQD = Value(6)
+  val IRR = Value(7)
+  val JPY = Value(8)
+  val KRW = Value(9)
+  val KWD = Value(10)
+  val NPR = Value(11)
+  val PKR = Value(12)
+  val SAR = Value(13)
+  val SGD = Value(14)
+  val THB = Value(15)
+  val TWD = Value(16)
+
+
+  def valueOf(currencies: Int)  = currencies match {
+    case 1 => BDT
+    case 2 => CNY
+    case 3 => HKD
+    case 4 => ILS
+    case 5 => INR
+    case 6 => IQD
+    case 7 => IRR
+    case 8 => JPY
+    case 9 => KRW
+    case 10 => KWD
+    case 11 => NPR
+    case 12 => PKR
+    case 13 => SAR
+    case 14 => SGD
+    case 15 => THB
+    case 16 => TWD
+    case _ => throw new Exception("Valid units = 1 or 16")
+  }
+
+}
 
 // Asia
 
-class Asia {
+object Asia {
+
+  import org.quantintel.ql.currencies.AsiaEnum._
+
+  def apply(currency: AsiaEnum) : Currency = {
+    currency match {
+      case BDT => new BDTCurrency()
+      case CNY => new CNYCurrency()
+      case HKD => new HKDCurrency()
+      case ILS => new ILSCurrency()
+      case INR => new INRCurrency()
+      case IQD => new IQDCurrency()
+      case IRR => new IRRCurrency()
+      case JPY => new JPYCurrency()
+      case KRW => new KRWCurrency()
+      case KWD => new KWDCurrency()
+      case NPR => new NPRCurrency()
+      case PKR => new PKRCurrency()
+      case SAR => new SARCurrrency()
+      case SGD => new SGDCurrency()
+      case THB => new THBCurrency()
+      case TWD => new TWDCurrency()
+    }
+  }
 
   /**
    * Description:             Bangladesh taka
@@ -38,7 +103,6 @@ class Asia {
    * Numerical Code:          50
    * Divided by:              100 paisa
    */
-
   class BDTCurrency extends Currency {
 
     val bdtData = Data("Bangladesh taka", "BDT", 50, "Bt", "", 100, Rounding(), "%3% %1$.2f")
@@ -136,11 +200,11 @@ class Asia {
    * Numerical Code:          392
    * Divided by:              100
    */
-  class YPYCurrency extends Currency {
+  class JPYCurrency extends Currency {
 
-    val ypyData = Data("Japanese yen", "JPY", 392, "u00a5", "", 100, Rounding(), "%3% %1$.0f")
+    val jpyData = Data("Japanese yen", "JPY", 392, "u00a5", "", 100, Rounding(), "%3% %1$.0f")
 
-    data = ypyData
+    data = jpyData
 
   }
 
