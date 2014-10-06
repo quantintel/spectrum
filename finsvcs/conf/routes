@@ -3,23 +3,49 @@
 # This file defines all application routes (Higher priority routes first)
 # ~~~~
 
-# Home page
-GET      /today/serialNumber         controllers.Application.today
-GET      /today/mmddyyyy             controllers.Application.todaySimpleFmt
-GET      /today/weekday              controllers.Application.weekday
-GET      /today/year                 controllers.Application.year
-GET      /today/month                controllers.Application.month
-GET      /today/dayOfMonth           controllers.Application.dayOfMonth
-GET      /today/dayOfYear            controllers.Application.dayOfYear
-GET      /today/isLeapYear           controllers.Application.isLeapYear
+# functions available on today's date
 
-GET      /yearFraction               controllers.Application.yearFraction(method: Int, round: Int, dd1: Int, mm1: Int, yy1: Int, dd2: Int, mm2: Int, yy2: Int)
-GET      /yearFraction/range         controllers.Application.yearFractionRange(method: Int, round: Int, dd1: String, dd2: String)
+GET      /date/today/serialNumber                    controllers.Date.today
+GET      /date/today/mmddyyyy                        controllers.Date.todaySimpleFmt
+GET      /date/today/weekday                         controllers.Date.weekday
+GET      /date/today/year                            controllers.Date.year
+GET      /date/today/month                           controllers.Date.month
+GET      /date/today/dayOfMonth                      controllers.Date.dayOfMonth
+GET      /date/today/dayOfYear                       controllers.Date.dayOfYear
+GET      /date/today/isLeapYear                      controllers.Date.isLeapYear
 
-GET      /                           controllers.Application.index
+
+# functions available on a date given a date's serial number.
+#
+
+GET      /date/:serialNumber/mmddyyyy               controllers.Date.simpleFmt(serialNumber: Long)
+GET      /date/:serialNumber/weekday                controllers.Date.dtWeekday(serialNumber: Long)
+GET      /date/:serialNumber/year                   controllers.Date.dtYear(serialNumber: Long)
+GET      /date/:serialNumber/month                  controllers.Date.dtMonth(serialNumber: Long)
+GET      /date/:serialNumber/dayOfMonth             controllers.Date.dtDayOfMonth(serialNumber: Long)
+GET      /date/:serialNumber/dayOfYear              controllers.Date.dtDayOfYear(serialNumber: Long)
+GET      /date/:serialNumber/isLeapYear             controllers.Date.dtIsLeapYear(serialNumber: Long)
+
+# functions available on date given a dates formatted string
+
+
+GET      /date/:mm/:dd/:yyyy/weekday                controllers.Date.dtstrWeekday(mm: Int, dd: Int, yyyy: Int)
+GET      /date/:mm/:dd/:yyyy/year                   controllers.Date.dtstrYear(mm: Int, dd: Int, yyyy: Int)
+GET      /date/:mm/:dd/:yyyy/month                  controllers.Date.dtstrMonth(mm: Int, dd: Int, yyyy: Int)
+GET      /date/:mm/:dd/:yyyy/dayOfMonth             controllers.Date.dtstrDayOfMonth(mm: Int, dd: Int, yyyy: Int)
+GET      /date/:mm/:dd/:yyyy/dayOfYear              controllers.Date.dtstrDayOfYear(mm: Int, dd: Int, yyyy: Int)
+GET      /date/:mm/:dd/:yyyy/isLeapYear             controllers.Date.dtstrIsLeapYear(mm: Int, dd: Int, yyyy: Int)
+
+# functions available which implement day count and year fraction calculations
+
+GET      /yearFraction                              controllers.DayCounter.yearFraction(method: Int, round: Int, dd1: Int, mm1: Int, yy1: Int, dd2: Int, mm2: Int, yy2: Int)
+GET      /yearFraction/range                        controllers.DayCounter.yearFractionRange(method: Int, round: Int, dd1: String, dd2: String)
+
+# root url
+GET      /                                          controllers.Application.index
 
 # Map static resources from the /public folder to the /assets URL path
-GET     /assets/*file               controllers.Assets.at(path="/public", file)
+GET     /assets/*file                               controllers.Assets.at(path="/public", file)
 
 
     
