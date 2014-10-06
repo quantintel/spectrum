@@ -35,11 +35,11 @@ class Act360Test extends FlatSpec with Matchers {
 
   "1. 01/31/1990 - 03/16/1991" should "be 1.136111111" in {
 
-    val d1 = new Date(31, 1, 1990)
-    val d2 = new Date(16, 3, 1991)
+    val d1 = Date(31, 1, 1990)
+    val d2 = Date(16, 3, 1991)
 
 
-    val yf :Double = Actual360().yearFraction(d1, d2, null, null)
+    val yf :Double = Actual360().yearFraction(d1, d2)
 
     assert(yf.rounded(9) ==  1.136111111)
 

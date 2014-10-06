@@ -5,7 +5,7 @@ import org.scalatest.{FlatSpec, Matchers}
 /**
  * Created by Paul Bernard on 8/2/14.
  *
- * Actual/Actual ICMA
+ * Actual/Actual ISMA
  *
  * 1.  01/31/90 - 03/16/91
  * 2.  05/06/94 - 10/30/94
@@ -34,6 +34,10 @@ class ActActISMATest extends FlatSpec with Matchers {
   import org.quantintel.ql.time.daycounters.ActualActualConvention.ISMA
 
   val nd = new Date()
+
+
+
+
 
   "1. 01/31/1990 - 03/16/1991" should "be 1.083333333" in {
 
@@ -259,6 +263,40 @@ class ActActISMATest extends FlatSpec with Matchers {
 
      assert(yf.rounded(9) == 0.04109589)
    }
+
+  // four parameter testing.
+
+  "19. 11/1/2003 - 5/1/2004, 11/1/2003 - 5/1/2004, " should "be 0.500000000" in {
+
+
+    val d1 = new Date(1, 11, 2003)
+    val d2 = new Date(1, 5, 2004)
+
+    val d3 = new Date(1, 11, 2003)
+    val d4 = new Date(1, 5, 2004)
+
+
+    val yf :Double = ActualActual(ISMA).yearFraction(d1, d2, d3, d4)
+
+    assert(yf.rounded(9) == 0.500000000)
+
+  }
+
+  "20. 11/1/2003 - 5/1/2004, 11/1/2003 - 5/1/2004, " should "be 0.500000000" in {
+
+
+    val d1 = new Date(15, 7, 2003)
+    val d2 = new Date(15, 1, 2004)
+
+    val d3 = new Date(15, 7, 2003)
+    val d4 = new Date(15, 1, 2004)
+
+
+    val yf :Double = ActualActual(ISMA).yearFraction(d1, d2, d3, d4)
+
+    assert(yf.rounded(9) == 0.500000000)
+
+  }
 
 
 
