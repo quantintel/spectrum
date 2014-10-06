@@ -60,7 +60,7 @@ object Africa {
    */
   class ZARCurrency extends Currency {
 
-    val zarData = Data("South-African rand", "ZAR", 710, "R", "", 100, new Rounding(), "# ###.##")
+    val zarData = Data("South-African rand", "ZAR", 710, "R", "", 100, new Rounding(), "%3% %1$.2f")
 
     data = zarData
 
