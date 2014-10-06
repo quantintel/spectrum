@@ -69,15 +69,15 @@ object Data{
 
 }
 
-class Data (name: String,
-            code: String,
-            numericCode: Int,
-            symbol: String,
-            fractionSymbol: String,
-            fractionPerUnit: Int,
-            rounding: Rounding,
-            formatString: String,
-            triangulationCurrency: Currency) {
+class Data (var name: String,
+            var code: String,
+            var numericCode: Int,
+            var symbol: String,
+            var fractionSymbol: String,
+            var fractionPerUnit: Int,
+            var rounding: Rounding,
+            var formatString: String,
+            var triangulationCurrency: Currency) {
 
   def this(name: String,
            code: String,
@@ -100,7 +100,7 @@ class Data (name: String,
  */
 class Currency {
 
-  var data : Data = null
+  private var data : Data = null
 
   def this (name: String, code: String, numericCode: Int, symbol: String,
              fractionSymbol: String, fractionPerUnit: Int, rounding: Rounding,
@@ -109,6 +109,14 @@ class Currency {
     data = Data(name, code, numericCode, symbol, fractionSymbol, fractionPerUnit, rounding, formatString)
   }
 
+  def name : String = data.name
+  def code : String = data.code
+  def numericCode: Int = data.numericCode
+  def symbol: String = data.symbol
+  def fractionSymbol : String = data.fractionSymbol
+  def fractionPerUnit: Int = data.fractionPerUnit
+  def rounding: Rounding = data.rounding
+  def formatString: String = data.formatString
 
 
 }
