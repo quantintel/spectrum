@@ -22,21 +22,7 @@ package org.quantintel.ql.currencies
 
 import org.quantintel.ql.math.Rounding
 
-object Currency {
 
-  def apply(name: String,
-            code: String,
-            numericCode: Int,
-            symbol: String,
-            fractionSymbol: String,
-            fractionPerUnit: Int,
-            rounding: Rounding,
-            formatString: String,
-            triangulationCurrency: Currency): Currency =
-    new Currency(name, code, numericCode, symbol, fractionSymbol,
-    fractionPerUnit, rounding, formatString, triangulationCurrency)
-
-}
 
 object Data{
 
@@ -66,20 +52,47 @@ object Data{
     new Data(name, code, numericCode, symbol, fractionSymbol, fractionPerUnit, rounding, formatString)
   }
 
+  def apply = new Data()
 
 }
 
-class Data (var name: String,
-            var code: String,
-            var numericCode: Int,
-            var symbol: String,
-            var fractionSymbol: String,
-            var fractionPerUnit: Int,
-            var rounding: Rounding,
-            var formatString: String,
-            var triangulationCurrency: Currency) {
+class Data {
 
-  def this(name: String,
+  var name: String = null
+  var code: String = null
+  var numericCode: Int = 0
+  var symbol: String = null
+  var fractionSymbol: String = null
+  var fractionPerUnit: Int = 0
+  var rounding: Rounding = null
+  var formatString: String = null
+  var triangulationCurrency: Currency = null
+
+
+  def this (name: String,
+            code: String,
+            numericCode: Int,
+            symbol: String,
+            fractionSymbol: String,
+            fractionPerUnit: Int,
+            rounding: Rounding,
+            formatString: String,
+            triangulationCurrency: Currency) {
+
+    this
+    this.name = name
+    this.code = code
+    this.numericCode = numericCode
+    this.symbol = symbol
+    this.fractionSymbol = fractionSymbol
+    this.fractionPerUnit = fractionPerUnit
+    this.rounding = rounding
+    this.formatString = formatString
+    this.triangulationCurrency = triangulationCurrency
+
+  }
+
+  def this (name: String,
            code: String,
            numericCode: Int,
            symbol: String,
@@ -93,6 +106,38 @@ class Data (var name: String,
   }
 
 
+
+  override def clone: Data = {
+    Data(name, code, numericCode, symbol, fractionSymbol, fractionPerUnit, rounding,
+      formatString, triangulationCurrency.clone)
+  }
+
+
+}
+
+object Currency {
+
+  def apply(name: String,
+            code: String,
+            numericCode: Int,
+            symbol: String,
+            fractionSymbol: String,
+            fractionPerUnit: Int,
+            rounding: Rounding,
+            formatString: String,
+            triangulationCurrency: Currency): Currency =
+    new Currency(name, code, numericCode, symbol, fractionSymbol,
+      fractionPerUnit, rounding, formatString, triangulationCurrency)
+
+
+  def == (c1: Currency, c2: Currency) : Boolean = {
+    c1.equals(c2)
+  }
+
+  def != (c1: Currency, c2: Currency) : Boolean = {
+    !(Currency.==(c1, c2))
+  }
+
 }
 
 /**
@@ -100,7 +145,7 @@ class Data (var name: String,
  */
 class Currency {
 
-  var data : Data = null
+  var data : Data = new Data()
 
   def this (name: String, code: String, numericCode: Int, symbol: String,
              fractionSymbol: String, fractionPerUnit: Int, rounding: Rounding,
@@ -117,6 +162,46 @@ class Currency {
   def fractionPerUnit: Int = data.fractionPerUnit
   def rounding: Rounding = data.rounding
   def formatString: String = data.formatString
+  def triangulationCurrency = data.triangulationCurrency
+  def == (currency: Currency) : Boolean = equals(currency)
+  def != (currency: Currency) : Boolean = !(eq(currency))
+
+
+  def empty : Boolean = data == null
+
+  override def toString : String = {
+
+    if (!empty) code else "(null currency"
+
+  }
+
+  override def equals(obj: Any): Boolean = {
+    if (this == obj) true
+    else if (obj == null) false
+    else {
+      (obj.isInstanceOf[Currency]) && (obj.asInstanceOf[Currency].fEquals(this))
+    }
+  }
+
+  override def hashCode: Int = {
+    val prime : Int = 31
+    var result: Int = 1
+    result = prime * result + (if (data == null) 0 else data.hashCode)
+    result = prime * result + (if (data ==null) 0 else name.hashCode)
+    result
+  }
+
+  def fEquals(other: Currency): Boolean = {
+    if (this.empty && other.empty) true
+    else if (this.name.equals(other.name)) true else false
+  }
+
+  override def clone : Currency = {
+    val currency  = new Currency
+    if (data != null) currency.data = data.clone()
+    currency
+  }
+
 
 
 }

@@ -22,7 +22,6 @@ package org.quantintel.ql.time.daycounters
 
 
 import org.quantintel.ql.time.{Date, Calendar}
-import org.quantintel.ql.time.calendars._
 
 /**
  * @author Paul Bernard
@@ -38,7 +37,24 @@ object Business252 {
   }
 
 
-
+  /**
+   *
+   * The method is used in Brazilian derivatives to determine coupon amounts
+   * , and also in (equity) option pricing as a basis for Black volatility
+   * when measuring the time to expiry of options.
+   *
+   *
+   * The BUS/252 day count method is determined by computing the number of good
+   * business days in the relevant calculation period and dividing by 252.
+   * Also Known as:
+   * ACT/252
+   * ACTW/252
+   * BU/252
+   * BD/252
+   *
+   *
+   * @param calendar
+   */
   class Business252 (calendar: Calendar) extends DayCounter {
 
     override def name = "Business/252(" + calendar.name + ")"

@@ -89,7 +89,7 @@ object America {
    */
   class ARSCurrency extends Currency {
 
-    val arsData = Data("Argentinian peso", "ARS", 32, "", "", 100, Rounding(), "#.###,##")
+    val arsData = Data("Argentinian peso", "ARS", 32, "", "", 100, Rounding(), "%2% %1$.2f")
 
     data = arsData
 
@@ -104,7 +104,7 @@ object America {
    */
   class BRLCurrency extends Currency {
 
-    val brlData = Data("Brazilian real", "BRL", 986, "R$", "",  100, Rounding(),"#.###,##")
+    val brlData = Data("Brazilian real", "BRL", 986, "R$", "",  100, Rounding(),"%3% %1$.2f")
 
     data = brlData
   }
@@ -118,7 +118,7 @@ object America {
    */
   class CADCurrency extends Currency {
 
-    val cadData = Data("Canadian dollar", "CAD", 124, "Can$", "", 100, Rounding(), "#,###.##")
+    val cadData = Data("Canadian dollar", "CAD", 124, "Can$", "", 100, Rounding(), "%3% %1$.2f")
 
     data = cadData
 
@@ -133,7 +133,7 @@ object America {
    */
   class CLPCurrency extends Currency {
 
-    val clpData = Data("Chilean peso", "CLP", 152, "Ch$", "",  100, Rounding(), "#.###")
+    val clpData = Data("Chilean peso", "CLP", 152, "Ch$", "",  100, Rounding(), "%3% %1$.0f")
 
     data = clpData
   }
@@ -148,7 +148,7 @@ object America {
   class COPCurrency extends Currency {
 
 
-    val copData = Data("Columbian peso", "COP", 170, "Col$", "", 100, Rounding(), "#.###,##")
+    val copData = Data("Columbian peso", "COP", 170, "Col$", "", 100, Rounding(), "%3% %1$.2f")
 
     data = copData
   }
@@ -161,7 +161,7 @@ object America {
    */
   class MXNCurrency extends Currency {
 
-    val mxnData = Data("Mexico peso", "MXN", 484, "Mex$", "", 100, Rounding(), "#,###.##")
+    val mxnData = Data("Mexico peso", "MXN", 484, "Mex$", "", 100, Rounding(), "%3% %1$.2f")
 
     data = mxnData
 
@@ -175,7 +175,7 @@ object America {
    */
   class PENCurrency extends Currency {
 
-      val penData = Data("Peruvian nuevo sol", "PEN", 604, "S/.", "", 100, Rounding(), "#,###.##")
+      val penData = Data("Peruvian nuevo sol", "PEN", 604, "S/.", "", 100, Rounding(), "%3% %1$.2f")
 
       data = penData
   }
@@ -193,7 +193,7 @@ object America {
    */
   class PEICurrency extends Currency {
 
-      val peiData = Data("Peruvian inti", "PEI", 998, "I/.", "", 100, Rounding(), "#,###.##")
+      val peiData = Data("Peruvian inti", "PEI", 998, "I/.", "", 100, Rounding(), "%3% %1$.2f")
 
       data = peiData
   }
@@ -213,7 +213,7 @@ object America {
   class PEHCurrency extends Currency {
 
 
-    val pehData = Data("Peruvian sol", "PEH", 999, "S/.", "",100, Rounding(), "#,###.##")
+    val pehData = Data("Peruvian sol", "PEH", 999, "S/.", "",100, Rounding(), "%3% %1$.2f")
 
     data = pehData
   }
@@ -226,7 +226,7 @@ object America {
    */
   class TTDCurrency extends Currency {
 
-    val ttdData = Data ("Trinidad & Tobago dollar", "TTD", 780, "TT$", "", 100, Rounding(), "#,###.##" )
+    val ttdData = Data ("Trinidad & Tobago dollar", "TTD", 780, "TT$", "", 100, Rounding(), "%3% %1$.2f" )
 
     data = ttdData
 
@@ -240,7 +240,7 @@ object America {
    */
   class USDCurrency extends Currency {
 
-    val usdData = Data("U.S. dollar", "USD", 840, "$", "\u00A2", 100, Rounding(), "#.###,##")
+    val usdData = Data("U.S. dollar", "USD", 840, "$", "\u00A2", 100, Rounding(), "%3% %1$.2f")
 
     data = usdData
 
@@ -254,7 +254,7 @@ object America {
    */
   class VEBCurrency extends Currency {
 
-    val vebData = Data("Venezuelan bolivar", "VEB", 862, "Bs", "", 100, Rounding(), "#.###,##")
+    val vebData = Data("Venezuelan bolivar", "VEB", 862, "Bs", "", 100, Rounding(), "%3% %1$.2f")
 
     data = vebData
 

@@ -21,6 +21,7 @@
 package org.quantintel.ql.time.daycounters
 
 import org.quantintel.ql.time.{Date}
+import org.quantintel.ql.time.Month._
 
 
 object Thirty360Convention extends Enumeration {
@@ -32,13 +33,25 @@ object Thirty360Convention extends Enumeration {
   val EUROBONDBASIS = Value(4)
   val ITALIAN = Value(5)
 
+  val THIRTY360US = Value(10)
+  val BMA = Value(11)
+  val SIA = Value(12)
+  val ISDA = Value(13)
+  val EP = Value(14)
+
   def valueOf(market: Int)  = market match {
     case 1 => USA
     case 2 => BONDBASIS
     case 3 => EUROPEAN
     case 4 => EUROBONDBASIS
     case 5 => ITALIAN
-    case _ => throw new Exception("Valid units = 1 to 5")
+
+    case 10 => THIRTY360US
+    case 11 => BMA
+    case 12 => SIA
+    case 13 => ISDA
+    case 14 => EP
+    case _ => throw new Exception("Valid units = 1 to 5, 10 to 14")
   }
 
 }
@@ -87,11 +100,31 @@ object Thirty360 {
       case EUROPEAN => new EU
       case EUROBONDBASIS => new EU
       case ITALIAN => new IT
+
+      case THIRTY360US => new THIRTY360US
+      case BMA => new BMA
+      case SIA => new SIA
+      case ISDA => new ISDA
+      case EP => new EP
+
       case _ => throw new Exception("unknown 30/360 convention")
     }
   }
 
 
+  /**
+   *
+   * Also known as:
+   * 30/360 Bond Basis
+   * 360/360
+   * 30/360 US (NASD)
+   *
+   *
+   * If the first date falls on the 31st, it is changed to the 30th.
+   * If the second date falls on the 31st and the first date is earlier
+   * than the 30th, then the second date is changed to the 1st of the next
+   * month, otherwise it is changed to the 30th.
+   */
   class USA extends DayCounter {
 
     override def name = "30/360 (Bond Basis)"
@@ -168,6 +201,183 @@ object Thirty360 {
 
       360*(yy2-yy1) + 30*(mm2-mm1-1) + Math.max(0, 30-dd1) + Math.min(30, dd2)
     }
+
+  }
+
+  /**
+   * If both the first date and the second date are the last day of February,
+   * the second date is changed to the 30th.
+   * If the first date is the last day of February, it is changed to the 30th.
+   * If after the previous tests the second date is the 31st and the first date is
+   * the 30th or the 31st, the second date is changed to the 30th.
+   * If after the previous tests the first date is the 31st, it is changed to the 30th.
+   */
+  class THIRTY360US extends DayCounter {
+
+    override def name = "30/360 US"
+
+    override def yearFraction(dateStart : Date, dateEnd :Date, refStartDate: Date, refEndDate: Date) : Double = {
+      dayCount(dateStart, dateEnd) / 360.0
+    }
+
+    override def dayCount(d1: Date, d2: Date): Long = {
+
+      var dd1 : Int = d1.dayOfMonth
+      var dd2 : Int = d2.dayOfMonth
+      val mm1 : Int = d1.month.id
+      val mm2 : Int = d2.month.id
+      val yy1 : Int = d1.year
+      val yy2 : Int = d2.year
+
+      if ((mm1 == FEBRUARY.id && d1.isEndOfMonth) && (mm2 == FEBRUARY.id && d2.isEndOfMonth)) dd2 = 30
+      if (mm1 == FEBRUARY.id && d1.isEndOfMonth) dd1 = 30
+      if (dd2 == 31 && dd1 > 29) dd2 = 30
+      if (dd1 == 31) dd1 = 30
+
+
+      360*(yy2-yy1) + 30*(mm2-mm1-1) + Math.max(0, 30-dd1) + Math.min(30, dd2)
+    }
+
+  }
+
+  /**
+   * Also known as 30/360 PSA
+   * If the first date falls on the 31st or if it's the last day of February,
+   * it is changed to the 30th.
+   * If after the preceding test the first day is 30 and the second day is 31
+   * then the second day is changed to the 30th.
+   */
+  class BMA extends DayCounter {
+
+    override def name = "30/360 BMA"
+
+    override def yearFraction(dateStart : Date, dateEnd :Date, refStartDate: Date, refEndDate: Date) : Double = {
+      dayCount(dateStart, dateEnd) / 360.0
+    }
+
+    override def dayCount(d1: Date, d2: Date): Long = {
+
+      var dd1 : Int = d1.dayOfMonth
+      var dd2 : Int = d2.dayOfMonth
+      val mm1 : Int = d1.month.id
+      val mm2 : Int = d2.month.id
+      val yy1 : Int = d1.year
+      val yy2 : Int = d2.year
+
+      if (dd1 ==31 || (mm1 == FEBRUARY.id && d1.isEndOfMonth)) dd1 = 30
+      if (dd1 == 30 && dd2 == 31) dd2 = 30
+
+
+      360*(yy2-yy1) + 30*(mm2-mm1-1) + Math.max(0, 30-dd1) + Math.min(30, dd2)
+    }
+
+
+  }
+
+  /**
+   * If the first date and the second date are the last day of February, the
+   * second date is changed to the 30th.
+   * If the first date falls on the 31st or if it's the last day of February, it
+   * is changed to the 30th.
+   * If after the preceding test the first day is the 30th and the second day
+   * is the 31st then the second day is changed to the 30th.
+   */
+  class SIA extends DayCounter {
+
+    override def name = "30/360 SIA"
+
+    override def yearFraction(dateStart : Date, dateEnd :Date, refStartDate: Date, refEndDate: Date) : Double = {
+      dayCount(dateStart, dateEnd) / 360.0
+    }
+
+    override def dayCount(d1: Date, d2: Date): Long = {
+
+      var dd1 : Int = d1.dayOfMonth
+      var dd2 : Int = d2.dayOfMonth
+      val mm1 : Int = d1.month.id
+      val mm2 : Int = d2.month.id
+      val yy1 : Int = d1.year
+      val yy2 : Int = d2.year
+
+      if ((mm1 == FEBRUARY.id && d1.isEndOfMonth) && (mm2 == FEBRUARY.id && d2.isEndOfMonth)) dd2 = 30
+      if (dd1 ==31 || (mm1 == FEBRUARY.id && d1.isEndOfMonth)) dd1 = 30
+      if (dd1 == 30 && dd2 == 31) dd2 = 30
+
+
+      360*(yy2-yy1) + 30*(mm2-mm1-1) + Math.max(0, 30-dd1) + Math.min(30, dd2)
+    }
+
+  }
+
+  /**
+   * 30/360 ISDA
+   * Also known as: 30/360 German
+   * If the first date falls on the 31st or if it's the last day of February,
+   * it is changed to the 30th.
+   * If the second date falls on the 31st or if it's the last day of February,
+   * it is changed to the 30th.
+   */
+  class ISDA extends DayCounter {
+
+    override def name = "30/360 ISDA"
+
+    override def yearFraction(dateStart : Date, dateEnd :Date, refStartDate: Date, refEndDate: Date) : Double = {
+      dayCount(dateStart, dateEnd) / 360.0
+
+    }
+
+    override def dayCount(d1: Date, d2: Date): Long = {
+
+      var dd1 : Int = d1.dayOfMonth
+      var dd2 : Int = d2.dayOfMonth
+      val mm1 : Int = d1.month.id
+      val mm2 : Int = d2.month.id
+      val yy1 : Int = d1.year
+      val yy2 : Int = d2.year
+
+      if (dd1 == 31 || (mm1 == FEBRUARY.id && d1.isEndOfMonth)) dd1 = 30
+      if (dd1 == 31 || (mm2 == FEBRUARY.id && d2.isEndOfMonth)) dd2 = 30
+
+      360*(yy2-yy1) + 30*(mm2-mm1-1) + Math.max(0, 30-dd1) + Math.min(30, dd2)
+    }
+
+  }
+
+  /**
+   * If the first date falls on the 31st, it is changed to the 30th.
+   * If the second date falls on the 31th, it is changed to the 1st and the
+   * month is increased by one.
+   */
+  class EP extends DayCounter {
+
+    override def name = "30E+/360"
+
+    override def yearFraction(dateStart : Date, dateEnd :Date, refStartDate: Date, refEndDate: Date) : Double = {
+      dayCount(dateStart, dateEnd) / 360.0
+    }
+
+    override def dayCount(d1: Date, d2: Date): Long = {
+
+      var dd1 : Int = d1.dayOfMonth
+      var dd2 : Int = d2.dayOfMonth
+      val mm1 : Int = d1.month.id
+      var mm2 : Int = d2.month.id
+      val yy1 : Int = d1.year
+      val yy2 : Int = d2.year
+
+      if (dd1 == 31) dd1 = 30
+      if (dd2 ==31) {
+        dd2 = 1
+        if(mm2 != 12){
+          mm2 = mm2 + 1
+        } else mm2 = 1
+      }
+
+      360*(yy2-yy1) + 30*(mm2-mm1-1) + Math.max(0, 30-dd1) + Math.min(30, dd2)
+    }
+
+
+
 
   }
 

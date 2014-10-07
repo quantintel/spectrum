@@ -26,6 +26,7 @@ import org.quantintel.ql.time.{Month, Period, TimeUnit, Date}
 object ActualActualConvention extends Enumeration {
 
   type ActualActualConvention= Value
+  // day count conventions based upon the actual number of days (implemented in quantlib)
   val ISMA = Value(1)
   val BOND = Value(2)
   val ISDA = Value(3)
@@ -33,6 +34,8 @@ object ActualActualConvention extends Enumeration {
   val ACTUAL365 = Value(5)
   val AFB = Value(6)
   val EURO = Value(7)
+
+
 
   def valueOf(market: Int)  = market match {
     case 1 => ISMA
@@ -72,6 +75,7 @@ object ActualActualConvention extends Enumeration {
  * ISDA
  *  - also known as: Actual/Actual, Act/Act, Actual/365, Act/365
  *  - source reference: ISDA 2006 Section 4.16(b)
+ *  - referred to as act/act in finkit
  *
  * Historical
  *  - uses the same implementation as ISDA
@@ -87,6 +91,7 @@ object ActualActualConvention extends Enumeration {
  *        to the Derivatives Annex, Edition 2004, section 7i.
  *  Actual/Actual comparison, EMU and Market Conventions:
  *      Recent Developments
+ * Referred to as act/act(euro) in finkit
  *
  * EURO
  *  - uses the same implementation as AFB
@@ -101,9 +106,9 @@ object ActualActual  {
 
   def apply(convention: ActualActualConvention) : DayCounter = {
     convention match {
-      case ISMA | BOND => new ISMA
+      case ISMA | BOND => new ISMA   // act/act
       case ISDA | HISTORICAL | ACTUAL365=> new ISDA
-      case AFB | EURO => new AFB
+      case AFB | EURO => new AFB  // act/act EUR
       case _ => throw new Exception("unknown act/act convention")
     }
   }
@@ -123,7 +128,7 @@ object ActualActual  {
       if (d1 > d2)
         return -yearFraction(d2, d1, d3, d4)
 
-      // when the reference priod is not specified, try taking
+      // when the reference period is not specified, try taking
       // it equal to (d1,d2)
       var refPeriodStart: Date = if (d3 != Date()) d3 else d1
       var refPeriodEnd: Date = if (d4 != Date()) d4 else d2
@@ -208,6 +213,7 @@ object ActualActual  {
 
       val y1 : Int = dateStart.year
       val y2 : Int = dateEnd.year
+
       val dib1: Double = if (Date.isLeapYr(dateStart.year)) 366.0 else 365.0
       val dib2: Double = if (Date.isLeapYr(dateEnd.year)) 366.0 else 365.0
 
@@ -267,5 +273,8 @@ object ActualActual  {
 
 
   }
+
+
+
 
 }

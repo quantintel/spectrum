@@ -18,36 +18,32 @@
  *
  */
 
-package org.quantintel.ql.time.daycounters
-
-import org.quantintel.ql.time.Date
+package org.quantintel.ql.math
 
 /**
- *
- * Also known as: Act/365 Fixed, A/365 Fixed, A/365F, English
- * references:
- *    ISDA 2006 Section 4.16(d)
- *    Mayle 1993
- *
- *
  * @author Paul Bernard
  */
-object Actual365Fixed {
+object Closeness {
 
-  def apply() : DayCounter = new Actual365Fixed
-
-  class Actual365Fixed extends DayCounter {
-
-    override def name = "Actual/365 (fixed)"
-
-    override def yearFraction (dateStart: Date, dateEnd: Date,
-              refPeriodStart: Date, refPeriodEnd: Date): Double =
-                  dayCount(dateStart, dateEnd) / 365.0
-
-
+  def isClose(x: Double, y: Double): Boolean = {
+    isClose(x, y, 42)
   }
 
+  def isClose(x: Double, y: Double, n: Int) : Boolean = {
+    val diff: Double = Math.abs(x-y)
+    val tolerance : Double = n * Constants.QL_EPSILON;
+    (diff <= tolerance*Math.abs(x) && diff <= tolerance*Math.abs(y))
+  }
+
+  def isCloseEnough(x: Double, y: Double) : Boolean = {
+    isCloseEnough(x, y, 42)
+  }
+
+  def isCloseEnough(x: Double, y: Double, n: Int) : Boolean = {
+    val diff : Double = Math.abs(x-y)
+    val tolerance : Double = n * Constants.QL_EPSILON;
+    (diff <= tolerance*Math.abs(x) || diff <= tolerance*Math.abs(y))
+  }
+
+
 }
-
-
-
