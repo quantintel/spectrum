@@ -25,7 +25,7 @@ package org.quantintel.ql.time
  */
 object BusinessDayConventionEnum extends Enumeration {
 
-  type ArgentinaEnum = Value
+  type BusinessDayConventionEnum  = Value
   val FOLLOWING = Value(1)
   val MODIFIED_FOLLOWING = Value(2)
   val HALF_MONTH_MODIFIED_FOLLOWING = Value(3)
