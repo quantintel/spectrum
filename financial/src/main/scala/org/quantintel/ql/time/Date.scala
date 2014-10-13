@@ -50,7 +50,7 @@ import org.quantintel.ql.time.Weekday._
  * @author Paul Bernard
  * @version 1.0
  */
-class Date() {
+class Date() extends Comparable[Date] {
 
   var serialNumber = 0L
 

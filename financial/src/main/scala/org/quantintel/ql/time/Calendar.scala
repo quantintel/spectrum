@@ -1,8 +1,49 @@
+/*
+ * Copyright (c) 2014  Paul Bernard
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ * Spectrum Finance is based in part on:
+ *        QuantLib. http://quantlib.org/
+ *
+ */
 package org.quantintel.ql.time
 
+import org.quantintel.ql.time.BusinessDayConventionEnum.BusinessDayConventionEnum
+import org.quantintel.ql.time.BusinessDayConventionEnum._
+import org.quantintel.ql.time.TimeUnit.TimeUnit
+import org.quantintel.ql.time.TimeUnit.{DAYS, WEEKS, YEARS, MONTHS}
 import org.quantintel.ql.time.Weekday._
 import scala.collection.mutable
+import scala.collection.mutable.{ArrayBuffer, HashSet}
 
+
+abstract class Impl {
+
+    var addedHolidays = new HashSet[Date]()
+    var removedHolidays = new HashSet[Date]()
+
+    def name : String
+    def isBusinessDay(d: Date): Boolean
+    def isWeekend(w: Weekday) : Boolean
+
+}
+
+object Calendar {
+
+  var UNKNOWN_MARKET = "Unknown market"
+  var UNKNOWN_BUSINESS_DAY_CONVENTION = "Unknown business day convention"
+}
 
 /**
  * This class provides methods for determining whether a data is a business day
@@ -20,7 +61,11 @@ abstract class Calendar {
   private val addedHolidays = new mutable.HashSet[Date]
   private val removedHolidays = new mutable.HashSet[Date]
 
-  def name : String
+  protected var impl: Impl = null
+
+  def empty : Boolean = impl == null
+
+  def name : String = impl.name
 
   def isBusinessDay(d: Date) : Boolean = {
     if (addedHolidays.contains(d)) false
@@ -28,21 +73,26 @@ abstract class Calendar {
     else isBusinessDay(d)
   }
 
-  def isWeekend(w: Weekday): Boolean
-
   def isHoliday(d: Date) : Boolean = {
     !isBusinessDay(d)
   }
 
-  //def isEndOfMonth(d: Date) : Boolean = ???
-  //def endOfMonth(d: Date): Date = ???
+  def isWeekend(w: Weekday): Boolean = impl.isWeekend(w)
+
+  def isEndOfMonth(d: Date) : Boolean = {
+    // TODO: d.month != adjust(d.add(1)).month
+    true
+  }
+  def endOfMonth(d: Date): Date = {
+    adjust(Date.endOfMonth(d), BusinessDayConventionEnum.PRECEDING)
+  }
 
   /**
    * Adds a date to the set of holidays for the given calendar
    * @param d date to be added
    */
   def addHoliday(d: Date): Unit = {
-    removedHolidays.remove(d)
+    impl.removedHolidays.remove(d)
     if (isBusinessDay(d)) addedHolidays.add(d)
   }
 
@@ -51,12 +101,95 @@ abstract class Calendar {
    * @param d date to be removed
    */
   def removeHoliday(d: Date): Unit = {
-    addedHolidays.remove(d)
+    impl.addedHolidays.remove(d)
     if (isBusinessDay(d)) removedHolidays.add(d)
   }
 
 
-  //def holidayList(c: Calendar, from: Date, to: Date, includeWeekEnds : Boolean)  : List[Date] = ???
+  def holidayList(c: Calendar, from: Date, toDate: Date, includeWeekEnds : Boolean)  : Seq[Date] = {
+
+    var result = scala.collection.mutable.ArrayBuffer[Date]()
+
+      var d: Date = from.clone
+      while(d <= toDate){
+        if (c.isHoliday(d) && (includeWeekEnds || !c.isWeekend(d.weekday))) {
+          result :+ d
+        }
+
+        d += 1
+      }
+    result
+  }
+
+  def adjust(date: Date) : Date = {
+    adjust(date, BusinessDayConventionEnum.FOLLOWING)
+  }
+
+  def adjust(d: Date, c: BusinessDayConventionEnum) : Date = {
+    if (c == BusinessDayConventionEnum.UNADJUSTED) return d.clone
+    val d1: Date = d.clone
+    if(c == BusinessDayConventionEnum.FOLLOWING || c == BusinessDayConventionEnum.MODIFIED_FOLLOWING) {
+      while (isHoliday(d1)) d1 ++
+
+      if (c == BusinessDayConventionEnum.MODIFIED_FOLLOWING) {
+        if (d1.month != d.month) return adjust(d, BusinessDayConventionEnum.PRECEDING)
+      }
+    } else if (c == BusinessDayConventionEnum.PRECEDING || c == BusinessDayConventionEnum.MODIFIED_PRECEDING) {
+      while(isHoliday(d1)) { d1-- }
+      if (c == BusinessDayConventionEnum.MODIFIED_PRECEDING && d1.month != d.month)
+        return adjust(d, BusinessDayConventionEnum.FOLLOWING)
+    } else {
+      throw new Exception(Calendar.UNKNOWN_BUSINESS_DAY_CONVENTION)
+    }
+   d1
+  }
+
+  def advance(date: Date, period: Period, convention: BusinessDayConventionEnum) : Date =
+    advance(date, period, convention, false)
+
+  def advance(date: Date, period: Period, convention: BusinessDayConventionEnum,
+               endOfMonth: Boolean) : Date =
+    advance(date, period.length, period.units, convention, endOfMonth)
+
+  def advance(date: Date, n: Int, unit: TimeUnit) : Date =
+    advance(date, n, unit, FOLLOWING, false)
+
+  def advance (date : Date, period: Period) : Date =
+    advance(date, period, FOLLOWING, false)
+
+  def advance(d: Date, n: Int, unit: TimeUnit, c: BusinessDayConventionEnum,
+              endOfMonth: Boolean) : Date = {
+
+    var ln = n
+
+    if (ln ==0) adjust(d, c)
+    else if (unit == DAYS) {
+      var d1: Date = d
+      if(ln>0) {
+        while(n>0) {
+          d1 = d1 + 1
+          while (isHoliday(d1)) d1 ++;
+          ln = ln - 1
+        }
+      } else {
+          while (ln <0){
+            d1 = d1 -1
+            while(isHoliday(d1)) d1--;
+            ln = ln + 1
+          }
+        }
+      return d1
+      } else if (unit == WEEKS) {
+        val d1: Date = d + ln * unit.id
+        return adjust(d1, c)
+      } else {
+        val d1: Date = d + n * unit.id
+        if(endOfMonth && isEndOfMonth(d)) return this.endOfMonth(d1)
+        return adjust(d1, c)
+      }
+
+  }
+
 
   def businessDaysBetween(from: Date, to: Date) : Int = {
     businessDaysBetween(from, to, true, false)
@@ -112,9 +245,9 @@ abstract class Calendar {
 }
 
 
-abstract class Western extends Calendar {
+abstract class Western extends Impl {
 
-  def name = "Western"
+  override def name = "Western"
 
   val easterMondayData = Array[Short](
     98,  90, 103,  95, 114, 106,  91, 111, 102,
@@ -149,7 +282,7 @@ abstract class Western extends Calendar {
     116, 101,  93, 112,  97,  89, 109, 100,  85, 105)   // 2190-2199)
 
 
-  def isWeekend(w: Weekday) : Boolean = {
+  override def isWeekend(w: Weekday) : Boolean = {
     w == SATURDAY || w == SUNDAY
   }
 
@@ -165,9 +298,9 @@ abstract class Western extends Calendar {
 }
 
 
-abstract class Orthodox extends Calendar {
+abstract class Orthodox extends Impl {
 
-  def name = "Orthodox"
+  override def name = "Orthodox"
 
   val easterMondayData = Array[Short] (
     105, 118, 110, 102, 121, 106, 126, 118, 102,        // 1901-1909
@@ -202,7 +335,7 @@ abstract class Orthodox extends Calendar {
     116, 108, 128, 119, 104, 124, 116, 100, 120, 112    // 2190-2199
   )
 
-  def isWeekend(w: Weekday) : Boolean = {
+  override def isWeekend(w: Weekday) : Boolean = {
     w == SATURDAY || w == SUNDAY
   }
 

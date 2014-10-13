@@ -31,7 +31,7 @@ object BusinessDayConventionEnum extends Enumeration {
   val HALF_MONTH_MODIFIED_FOLLOWING = Value(3)
   val PRECEDING = Value(4)
   val MODIFIED_PRECEDING = Value(5)
-  val UNJUSTIFIED = Value(6)
+  val UNADJUSTED = Value(6)
 
   def valueOf(market: Int)  = market match {
     case 1 => FOLLOWING
@@ -39,7 +39,7 @@ object BusinessDayConventionEnum extends Enumeration {
     case 3 => HALF_MONTH_MODIFIED_FOLLOWING
     case 4 => PRECEDING
     case 5 => MODIFIED_PRECEDING
-    case 6 => UNJUSTIFIED
+    case 6 => UNADJUSTED
     case _ => throw new Exception("Valid units = 1 to 6")
   }
 
