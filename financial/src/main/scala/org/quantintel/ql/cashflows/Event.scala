@@ -20,9 +20,28 @@
 
 package org.quantintel.ql.cashflows
 
+import org.quantintel.ql._
+import org.quantintel.ql.time.Date
+
 /**
  * @author Paul Bernard
  */
-class Event {
+abstract class Event {
+
+  def date : Date
+
+  def hasOccured(d: Date): Boolean = {
+    hasOccured(d, new Settings().isTodaysPayments)
+  }
+
+  def hasOccured(d: Date, includedToday: Boolean) : Boolean = {
+    if (includedToday){
+      date.compareTo(d) < 0
+    } else {
+      date.compareTo(d) <= 0
+    }
+  }
+
+
 
 }

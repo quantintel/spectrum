@@ -22,10 +22,39 @@ package org.quantintel.ql.cashflows
 
 import scala.collection.mutable.ArrayBuffer
 
+object Leg {
+
+  def apply() = {
+    new Leg(0)
+  }
+
+  def apply(n: Int) = {
+    new Leg(n)
+  }
+
+
+}
+
 /**
  * @author Paul Bernard
  */
-class Leg(n: Int) extends ArrayBuffer[CashFlow](n){
+class Leg(n: Int) extends ArrayBuffer[CashFlow](n) with Cloneable {
+
+  def this () {
+    this(0)
+  }
+
+  def first : CashFlow = {
+    this(0)
+  }
+
+  override def last : CashFlow = {
+    this(this.size-1)
+  }
+
+  override def clone: Leg = {
+    super.clone.asInstanceOf[Leg]
+  }
 
 
 

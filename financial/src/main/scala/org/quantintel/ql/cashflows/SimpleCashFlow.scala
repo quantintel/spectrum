@@ -20,20 +20,14 @@
 
 package org.quantintel.ql.cashflows
 
+import org.quantintel.ql.time.Date
+
 /**
  * @author Paul Bernard
  */
-abstract class CashFlow extends Event with Comparable[CashFlow] {
+class SimpleCashFlow (amt: Double, paymentDate: Date) extends CashFlow {
 
-  def amount : Double
+  def date: Date = paymentDate.clone
 
-  override def compareTo(c2: CashFlow): Int = {
-    if(date < c2.date) return -1
-    if(date == c2.date) {
-      if (amount < c2.amount) -1
-      return 0
-    }
-    1
-  }
-
+  override def amount(): Double = this.amt
 }
