@@ -30,4 +30,5 @@ class SimpleCashFlow (amt: Double, paymentDate: Date) extends CashFlow {
   def date: Date = paymentDate.clone
 
   override def amount(): Double = this.amt
+
 }
