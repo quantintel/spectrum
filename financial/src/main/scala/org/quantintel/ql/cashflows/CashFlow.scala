@@ -25,7 +25,8 @@ package org.quantintel.ql.cashflows
  */
 abstract class CashFlow extends Event with Comparable[CashFlow] {
 
-  def amount : Double
+  def amount() : Double
+  def amount(d: Double)
 
   override def compareTo(c2: CashFlow): Int = {
     if(date < c2.date) return -1

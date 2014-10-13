@@ -25,10 +25,25 @@ import org.quantintel.ql.time.Date
 /**
  * @author Paul Bernard
  */
-class SimpleCashFlow (amt: Double, paymentDate: Date) extends CashFlow {
+class SimpleCashFlow extends CashFlow {
 
-  def date: Date = paymentDate.clone
+  private var pDate: Date = null
+  private var amt : Double = 0.00
 
-  override def amount(): Double = this.amt
+  def date(): Date = pDate.clone
+  def date(d: Date) { pDate = d }
+
+
+  def amount() : Double = amt
+  def amount(d: Double) { amt = d }
+
+
+  def this(amount: Double, paymentDate: Date) {
+    this
+    pDate = paymentDate
+    amt= amount
+  }
+
+
 
 }
