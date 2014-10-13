@@ -36,6 +36,19 @@ object SouthAfricaEnum extends Enumeration {
 
 }
 
+object SouthAfrica {
+
+  def apply(): Calendar = {
+    new SouthAfrica()
+  }
+
+  def apply(market: org.quantintel.ql.time.calendars.SouthAfricaEnum.SouthAfricaEnum) : Calendar = {
+    new SouthAfrica(market)
+  }
+
+
+}
+
 /**
  *
  * South African non business days
@@ -60,15 +73,16 @@ object SouthAfricaEnum extends Enumeration {
  *
  * @author Paul Bernard
  */
-object SouthAfrica  {
+class SouthAfrica extends Calendar  {
 
-  def apply(): Calendar = new SouthAfrica
+  impl = new SouthAfrica
 
   import org.quantintel.ql.time.calendars.SouthAfricaEnum._
 
-  def apply(market: SouthAfricaEnum): Calendar = {
+  def this(market: org.quantintel.ql.time.calendars.SouthAfricaEnum.SouthAfricaEnum) {
+    this
     market match {
-      case SOUTHAFRICA => new SouthAfrica
+      case SOUTHAFRICA => impl = new SouthAfrica
       case _ => throw new Exception("Valid units = 1")
     }
   }

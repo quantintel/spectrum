@@ -39,6 +39,18 @@ object UnitedKingdomEnum extends Enumeration {
 
 }
 
+object UnitedKingdom {
+
+  def apply(): Calendar = {
+    new UnitedKingdom()
+  }
+
+  def apply(market: org.quantintel.ql.time.calendars.UnitedKingdomEnum.UnitedKingdomEnum): Calendar = {
+    new UnitedKingdom(market)
+  }
+
+}
+
 /**
  * United Kingdom calendars Public holidays
  *  Saturdays
@@ -80,17 +92,18 @@ object UnitedKingdomEnum extends Enumeration {
  *
  * @author Paul Bernard
  */
-object UnitedKingdom {
+class UnitedKingdom extends Calendar {
 
-  def apply(): Calendar = new Settlement
+  impl =  new Settlement
 
   import org.quantintel.ql.time.calendars.UnitedKingdomEnum._
 
-  def apply(market: UnitedKingdomEnum ): Calendar = {
+  def this(market: org.quantintel.ql.time.calendars.UnitedKingdomEnum.UnitedKingdomEnum ){
+    this
     market match {
-      case SETTLEMENT => new Settlement
-      case EXCHANGE => new Exchange
-      case METALS => new Metals
+      case SETTLEMENT => impl = new Settlement
+      case EXCHANGE => impl = new Exchange
+      case METALS => impl = new Metals
       case _ => throw new Exception("Valid units = 1 to 4")
     }
   }

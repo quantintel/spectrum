@@ -22,7 +22,7 @@ package org.quantintel.ql.time.calendars
 
 import org.quantintel.ql.time.Month._
 import org.quantintel.ql.time.Weekday._
-import org.quantintel.ql.time.{Calendar, Date, Western}
+import org.quantintel.ql.time.{Impl, Calendar, Date, Western}
 
 
 object AustraliaEnum extends Enumeration {
@@ -36,7 +36,17 @@ object AustraliaEnum extends Enumeration {
   }
 }
 
+object Australia {
 
+  def apply() : Calendar = {
+    new Australia()
+  }
+
+  def apply(market: org.quantintel.ql.time.calendars.AustraliaEnum.AustraliaEnum) : Calendar = {
+    new Australia(market)
+  }
+
+}
 
 /**
  * Australian calendar
@@ -56,17 +66,20 @@ object AustraliaEnum extends Enumeration {
  *
  * @author Paul Bernard
  */
-object Australia {
+class Australia extends Calendar {
 
   import org.quantintel.ql.time.calendars.AustraliaEnum._
 
-  def apply() : Calendar = new Settlement
+  impl = new AustraliaImpl
 
-  def apply(mkt: AustraliaEnum) : Calendar = mkt match {
-    case AUSTRALIA => new Settlement
+  def this(market: org.quantintel.ql.time.calendars.AustraliaEnum.AustraliaEnum) {
+    this
+    market match {
+      case AUSTRALIA => impl = new AustraliaImpl
+    }
   }
 
-  private class Settlement extends Western {
+  private class AustraliaImpl extends Western {
 
     override def name  = "Australia"
 

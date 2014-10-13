@@ -36,6 +36,19 @@ object SingaporeEnum extends Enumeration {
 
 }
 
+object Singapore {
+
+  def apply(): Calendar = {
+    new Singapore()
+  }
+
+  def apply(market: org.quantintel.ql.time.calendars.SingaporeEnum.SingaporeEnum): Calendar = {
+    new Singapore(market)
+  }
+
+
+}
+
 /**
  *
  * Singaporean non business days
@@ -60,15 +73,16 @@ object SingaporeEnum extends Enumeration {
  *
  * @author Paul Bernard
  */
-object Singapore  {
+class Singapore extends Calendar {
 
-  def apply(): Calendar = new Sgx
+  impl = new Sgx
 
   import org.quantintel.ql.time.calendars.SingaporeEnum._
 
-  def apply(market: SingaporeEnum): Calendar = {
+  def this(market: org.quantintel.ql.time.calendars.SingaporeEnum.SingaporeEnum){
+    this
     market match {
-      case SGX => new Sgx
+      case SGX => impl = new Sgx
       case _ => throw new Exception("Valid units = 1")
     }
   }

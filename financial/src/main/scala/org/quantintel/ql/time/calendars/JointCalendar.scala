@@ -38,44 +38,22 @@ object JointCalendarRule extends Enumeration {
 
 }
 
+
 /**
  * The basic design goal of the JointCalendar is to provide
  * methods which act on a collection of calendars.
  */
-object JointCalendar  {
+class JointCalendar extends Calendar {
 
   import org.quantintel.ql.time.calendars.JointCalendarRule._
 
-  def apply(c1: Calendar, c2: Calendar, rule: JointCalendarRule) : Calendar  = {
-    new JointCalendar(rule, c1, c2)
-  }
 
-  def apply(c1: Calendar, c2: Calendar)  : Calendar  = {
-    new JointCalendar(JOINHOLIDAYS, c1, c2)
-  }
-
-  def apply (c1: Calendar, c2: Calendar, c3: Calendar, rule: JointCalendarRule) : Calendar  =  {
-    new JointCalendar(rule, c1, c2, c3)
-  }
-
-  def apply (c1: Calendar, c2: Calendar, c3: Calendar) : Calendar  =  {
-    new JointCalendar(JOINHOLIDAYS, c1, c2, c3)
-  }
-
-  def apply (c1: Calendar, c2: Calendar, c3: Calendar, c4: Calendar, rule: JointCalendarRule) : Calendar  =  {
-    new JointCalendar(rule, c1, c2, c3, c4)
-  }
-
-  def apply (c1: Calendar, c2: Calendar, c3: Calendar, c4: Calendar)  : Calendar  =  {
-    new JointCalendar(JOINHOLIDAYS, c1, c2, c3)
-  }
-
-  private class JointCalendar(rule : JointCalendarRule, calendars : Calendar*)
-    extends Calendar {
+  private class Impl (rule : JointCalendarRule, calendars : Calendar*)
+    extends org.quantintel.ql.time.Impl {
 
     import org.quantintel.ql.time.calendars.JointCalendarRule._
 
-    def name : String = {
+    override def name : String = {
 
       val sb : StringBuilder = new StringBuilder
 
@@ -97,7 +75,33 @@ object JointCalendar  {
 
     }
 
-    def isWeekend(w: Weekday) : Boolean = {
+    def this(c1: Calendar, c2: Calendar, rule: JointCalendarRule) {
+      this(rule, c1, c2)
+    }
+
+    def this(c1: Calendar, c2: Calendar)  {
+      this(JOINHOLIDAYS, c1, c2)
+    }
+
+    def this (c1: Calendar, c2: Calendar, c3: Calendar, rule: JointCalendarRule)  {
+      this(rule, c1, c2, c3)
+    }
+
+    def this(c1: Calendar, c2: Calendar, c3: Calendar)   {
+      this(JOINHOLIDAYS, c1, c2, c3)
+    }
+
+    def this (c1: Calendar, c2: Calendar, c3: Calendar, c4: Calendar, rule: JointCalendarRule)  {
+      this(rule, c1, c2, c3, c4)
+    }
+
+    def this (c1: Calendar, c2: Calendar, c3: Calendar, c4: Calendar)  {
+      this(JOINHOLIDAYS, c1, c2, c3, c4)
+    }
+
+
+
+    override def isWeekend(w: Weekday) : Boolean = {
       rule match {
         case JOINHOLIDAYS => if (calendars.exists(p => p.isWeekend(w))) true else false
         case JOINBUSINESSDAYS => if (calendars.exists(p => p.isWeekend(w))) false else true

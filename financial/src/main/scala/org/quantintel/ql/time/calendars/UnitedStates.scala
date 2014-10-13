@@ -43,6 +43,18 @@ object UnitedStatesEnum extends Enumeration {
 
 }
 
+object UnitedStates {
+
+  def apply(): Calendar = {
+    new UnitedStates()
+  }
+
+  def apply(market: org.quantintel.ql.time.calendars.UnitedStatesEnum.UnitedStatesEnum): Calendar = {
+    new UnitedStates(market)
+  }
+
+}
+
 /**
  * United States calendars
  * Public holidays
@@ -127,18 +139,19 @@ object UnitedStatesEnum extends Enumeration {
  *  @author Paul Bernard
  *
  */
-object UnitedStates {
+class UnitedStates extends Calendar {
 
   import org.quantintel.ql.time.calendars.UnitedStatesEnum._
 
-  def apply(): Calendar = new Settlement
+  impl =  new Settlement
 
-  def apply(market: UnitedStatesEnum): Calendar = {
+  def this(market: org.quantintel.ql.time.calendars.UnitedStatesEnum.UnitedStatesEnum) {
+    this
     market match {
-      case SETTLEMENT => new Settlement
-      case NYSE => new NYSE
-      case GOVERNMENTBOND => new GovernmentBond
-      case NERC => new Nerc
+      case SETTLEMENT => impl = new Settlement
+      case NYSE => impl = new NYSE
+      case GOVERNMENTBOND => impl = new GovernmentBond
+      case NERC => impl = new Nerc
     }
   }
 

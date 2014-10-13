@@ -20,7 +20,7 @@
 
 package org.quantintel.ql.time.calendars
 
-import org.quantintel.ql.time.{Calendar, Western, Date}
+import org.quantintel.ql.time.{Impl, Calendar, Western, Date}
 import org.quantintel.ql.time.Month.Month
 import org.quantintel.ql.time.Month._
 import org.quantintel.ql.time.Weekday.Weekday
@@ -39,6 +39,16 @@ object ArgentinaEnum extends Enumeration {
 
 }
 
+object Argentina {
+
+  def apply() : Calendar = {
+    new Argentina()
+  }
+
+  def apply(market: org.quantintel.ql.time.calendars.ArgentinaEnum.ArgentinaEnum) : Calendar = {
+    new Argentina(market)
+  }
+}
 
 /**
  * Argentinian Calendar
@@ -67,15 +77,17 @@ object ArgentinaEnum extends Enumeration {
  *
  * @author Paul Bernard
  */
-object Argentina {
+class Argentina extends Calendar {
 
   import org.quantintel.ql.time.calendars.ArgentinaEnum._
 
-  def apply() : Calendar = new MERVAL
 
-  def apply(market: ArgentinaEnum) : Calendar = {
+  impl = new MERVAL
+
+  def this(market: org.quantintel.ql.time.calendars.ArgentinaEnum.ArgentinaEnum)   {
+    this
     market match {
-      case MERVAL => new MERVAL
+      case MERVAL => impl = new MERVAL
     }
   }
 

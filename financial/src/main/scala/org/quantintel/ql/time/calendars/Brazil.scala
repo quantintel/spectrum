@@ -22,7 +22,7 @@ package org.quantintel.ql.time.calendars
 
 import org.quantintel.ql.time.Month._
 import org.quantintel.ql.time.Weekday._
-import org.quantintel.ql.time.{Calendar, Date, Western}
+import org.quantintel.ql.time.{Impl, Calendar, Date, Western}
 
 
 object BrazilEnum extends Enumeration {
@@ -38,6 +38,19 @@ object BrazilEnum extends Enumeration {
   }
 
 }
+
+object Brazil {
+
+  def apply() : Calendar = {
+    new Brazil()
+  }
+
+  def apply(market: org.quantintel.ql.time.calendars.BrazilEnum.BrazilEnum) : Calendar = {
+    new Brazil(market)
+  }
+}
+
+
 /**
  * Banking holidays:
  *  Saturdays
@@ -76,16 +89,17 @@ object BrazilEnum extends Enumeration {
  *
  * @author Paul Bernard
  */
-object Brazil {
+class Brazil extends Calendar {
 
   import org.quantintel.ql.time.calendars.BrazilEnum._
 
-  def apply() : Calendar = new Settlement
+  impl = new Settlement
 
-  def apply(market: BrazilEnum) : Calendar = {
+  def this(market: org.quantintel.ql.time.calendars.BrazilEnum.BrazilEnum)  {
+    this
     market match {
-      case SETTLEMENT => new Settlement
-      case BOVESPA => new BOVESPA
+      case SETTLEMENT => impl = new Settlement
+      case BOVESPA => impl = new BOVESPA
     }
   }
 

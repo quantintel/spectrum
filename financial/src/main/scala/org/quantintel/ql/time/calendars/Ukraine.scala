@@ -36,6 +36,18 @@ object UkraineEnum extends Enumeration {
 
 }
 
+object Ukraine {
+
+  def apply(): Calendar = {
+    new Ukraine()
+  }
+
+  def apply(market: org.quantintel.ql.time.calendars.UkraineEnum.UkraineEnum): Calendar = {
+    new Ukraine(market)
+  }
+
+}
+
 /**
  *
  * Holidays for the Ukrainian stock exchange
@@ -56,15 +68,16 @@ object UkraineEnum extends Enumeration {
  *
  * @author Paul Bernard
  */
-object Ukraine  {
+class Ukraine extends Calendar  {
 
-  def apply(): Calendar = new Use
+  impl = new Use
 
   import org.quantintel.ql.time.calendars.UkraineEnum._
 
-  def apply(market: UkraineEnum ): Calendar = {
+  def this(market: org.quantintel.ql.time.calendars.UkraineEnum.UkraineEnum ) {
+    this
     market match {
-        case USE => new Use
+        case USE => impl = new Use
       case _ => throw new Exception("Valid units = 1")
     }
   }

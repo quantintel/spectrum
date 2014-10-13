@@ -22,7 +22,7 @@ package org.quantintel.ql.time.calendars
 
 import org.quantintel.ql.time.Month._
 import org.quantintel.ql.time.Weekday._
-import org.quantintel.ql.time.{Calendar, Date, Western}
+import org.quantintel.ql.time.{Impl, Calendar, Date, Western}
 
 object NewZealandEnum extends Enumeration {
 
@@ -32,6 +32,18 @@ object NewZealandEnum extends Enumeration {
   def valueOf(market: Int) = market match {
     case 1 => NEWZEALAND
     case _ => throw new Exception("Valid units = 1")
+  }
+
+}
+
+object NewZealand {
+
+  def apply() : Calendar = {
+    new NewZealand()
+  }
+
+  def apply(market: org.quantintel.ql.time.calendars.NewZealandEnum.NewZealandEnum): Calendar = {
+    new NewZealand(market)
   }
 
 }
@@ -58,15 +70,16 @@ object NewZealandEnum extends Enumeration {
  *
  * @author Paul Bernard
  */
-object NewZealand {
+class NewZealand extends Calendar {
 
-  def apply(): Calendar = new NewZealand
+  impl = new NewZealand
 
   import org.quantintel.ql.time.calendars.NewZealandEnum._
 
-  def apply(market: NewZealandEnum): Calendar = {
+  def this(market: org.quantintel.ql.time.calendars.NewZealandEnum.NewZealandEnum){
+    this
     market match {
-      case NEWZEALAND => new NewZealand
+      case NEWZEALAND => impl = new NewZealand
       case _ => throw new Exception("Valid units = 1")
     }
   }

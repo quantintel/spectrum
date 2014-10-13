@@ -22,7 +22,7 @@ package org.quantintel.ql.time.calendars
 
 import org.quantintel.ql.time.Month._
 import org.quantintel.ql.time.Weekday._
-import org.quantintel.ql.time.{Date, Calendar}
+import org.quantintel.ql.time.{Impl, Date, Calendar}
 
 object JapanEnum extends Enumeration {
 
@@ -32,6 +32,18 @@ object JapanEnum extends Enumeration {
   def valueOf(market: Int) = market match {
     case 1 => JAPAN
     case _ => throw new Exception("Valid units = 1")
+  }
+
+}
+
+object Japan {
+
+  def apply() : Calendar = {
+    new Japan()
+  }
+
+  def apply(market: org.quantintel.ql.time.calendars.JapanEnum.JapanEnum): Calendar = {
+    new Japan(market)
   }
 
 }
@@ -69,20 +81,21 @@ object JapanEnum extends Enumeration {
  *
  * @author Paul Bernard
  */
-object Japan  {
+class Japan extends Calendar  {
 
-  def apply(): Calendar = new Japan
+  impl = new Japan
 
   import org.quantintel.ql.time.calendars.JapanEnum._
 
-  def apply(market: JapanEnum): Calendar = {
+  def this (market: org.quantintel.ql.time.calendars.JapanEnum.JapanEnum){
+    this
     market match {
-      case JAPAN => new Japan
+      case JAPAN => impl = new Japan
       case _ => throw new Exception("Valid units = 1")
     }
   }
 
-  private class Japan extends Calendar {
+  private class Japan extends Impl {
 
     override def name = "Japan"
 

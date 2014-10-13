@@ -36,6 +36,18 @@ object SlovakiaEnum extends Enumeration {
 
 }
 
+object Slovakia {
+
+  def apply(): Calendar = {
+    new Slovakia()
+  }
+
+  def apply(market: org.quantintel.ql.time.calendars.SlovakiaEnum.SlovakiaEnum): Calendar = {
+    new Slovakia(market)
+  }
+
+}
+
 /**
  *
  * Slovak calendars
@@ -62,15 +74,16 @@ object SlovakiaEnum extends Enumeration {
  *
  * @author Paul Bernard
  */
-object Slovakia {
+class Slovakia extends Calendar {
 
-  def apply(): Calendar = new Bsse
+  impl = new Bsse
 
   import org.quantintel.ql.time.calendars.SlovakiaEnum._
 
-  def apply(market: SlovakiaEnum): Calendar = {
+  def this(market: org.quantintel.ql.time.calendars.SlovakiaEnum.SlovakiaEnum) {
+    this
     market match {
-      case BSSE => new Bsse
+      case BSSE => impl = new Bsse
       case _ => throw new Exception("Valid units = 1")
     }
   }

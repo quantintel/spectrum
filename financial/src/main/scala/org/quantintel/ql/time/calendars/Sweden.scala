@@ -35,6 +35,18 @@ object SwedenEnum extends Enumeration {
 
 }
 
+object Sweden {
+
+  def apply(): Calendar = {
+    new Sweden()
+  }
+
+  def apply(market: org.quantintel.ql.time.calendars.SwedenEnum.SwedenEnum): Calendar = {
+    new Sweden(market)
+  }
+
+}
+
 /**
  *
  * Holidays for Sweden
@@ -56,15 +68,16 @@ object SwedenEnum extends Enumeration {
  *
  * @author Paul Bernard
  */
-object Sweden {
+class Sweden extends Calendar {
 
-  def apply(): Calendar = new Sweden
+  impl = new Sweden
 
   import org.quantintel.ql.time.calendars.SwedenEnum._
 
-  def apply(market: SwedenEnum ): Calendar = {
+  def this (market: org.quantintel.ql.time.calendars.SwedenEnum.SwedenEnum ) {
+    this
     market match {
-      case SWEDEN => new Sweden
+      case SWEDEN => impl = new Sweden
       case _ => throw new Exception("Valid units = 1")
     }
   }

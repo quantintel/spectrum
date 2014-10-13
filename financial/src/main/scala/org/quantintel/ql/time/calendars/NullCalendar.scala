@@ -22,7 +22,7 @@ package org.quantintel.ql.time.calendars
 
 import org.quantintel.ql.time.Month._
 import org.quantintel.ql.time.Weekday._
-import org.quantintel.ql.time.{Calendar, Date, Western}
+import org.quantintel.ql.time.{Impl, Calendar, Date, Western}
 
 object NullCalendarEnum extends Enumeration {
 
@@ -36,21 +36,34 @@ object NullCalendarEnum extends Enumeration {
 
 }
 
+object NullCalendar {
+
+  def apply() : Calendar = {
+    new NullCalendar()
+  }
+
+  def apply(market: org.quantintel.ql.time.calendars.NullCalendarEnum.NullCalendarEnum): Calendar = {
+    new NullCalendar(market)
+  }
+
+}
+
 /**
  *
  * Calendar for reproducing theoretical calculations
  *
  * @author Paul Bernard
  */
-object NullCalendar  {
+class NullCalendar extends Calendar  {
 
-  def apply(): Calendar = new NullCalendar
+  impl = new NullCalendar
 
   import org.quantintel.ql.time.calendars.NullCalendarEnum._
 
-  def apply(market: NullCalendarEnum): Calendar = {
+  def this(market: org.quantintel.ql.time.calendars.NullCalendarEnum.NullCalendarEnum) {
+    this
     market match {
-      case NULLCALENDAR => new NullCalendar
+      case NULLCALENDAR => impl = new NullCalendar
       case _ => throw new Exception("Valid units = 1")
     }
   }

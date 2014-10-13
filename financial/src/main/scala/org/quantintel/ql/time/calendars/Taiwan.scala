@@ -22,7 +22,7 @@ package org.quantintel.ql.time.calendars
 
 import org.quantintel.ql.time.Month._
 import org.quantintel.ql.time.Weekday._
-import org.quantintel.ql.time.{Date, Western, Calendar}
+import org.quantintel.ql.time.{Impl, Date, Western, Calendar}
 
 object TaiwanEnum extends Enumeration {
 
@@ -32,6 +32,18 @@ object TaiwanEnum extends Enumeration {
   def valueOf(market: Int) = market match {
     case 1 => TSEC
     case _ => throw new Exception("Valid units = 1")
+  }
+
+}
+
+object Taiwan {
+
+  def apply(): Calendar = {
+    new Taiwan()
+  }
+
+  def apply(market: org.quantintel.ql.time.calendars.TaiwanEnum.TaiwanEnum): Calendar = {
+    new Taiwan(market)
   }
 
 }
@@ -56,20 +68,21 @@ object TaiwanEnum extends Enumeration {
  *
  * @author Paul Bernard
  */
-object Taiwan {
+class Taiwan extends Calendar {
 
-  def apply(): Calendar = new Tsec
+  impl =  new Tsec
 
   import org.quantintel.ql.time.calendars.TaiwanEnum._
 
-  def apply(market: TaiwanEnum ): Calendar = {
+  def this (market: org.quantintel.ql.time.calendars.TaiwanEnum.TaiwanEnum ){
+    this
     market match {
-      case TSEC => new Tsec
+      case TSEC => impl = new Tsec
       case _ => throw new Exception("Valid units = 1")
     }
   }
 
-  private class Tsec extends Calendar {
+  private class Tsec extends Impl {
 
     override def name = "Taiwan stock exchange"
 

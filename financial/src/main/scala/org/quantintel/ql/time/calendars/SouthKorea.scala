@@ -22,7 +22,7 @@ package org.quantintel.ql.time.calendars
 
 import org.quantintel.ql.time.Month._
 import org.quantintel.ql.time.Weekday._
-import org.quantintel.ql.time.{Date, Calendar}
+import org.quantintel.ql.time.{Impl, Date, Calendar}
 
 object SouthKoreaEnum extends Enumeration {
 
@@ -34,6 +34,18 @@ object SouthKoreaEnum extends Enumeration {
     case 1 => SETTLEMENT
     case 2 => KRX
     case _ => throw new Exception("Valid units = 1 or 2")
+  }
+
+}
+
+object SouthKorea {
+
+  def apply(): Calendar = {
+    new SouthKorea()
+  }
+
+  def apply(market: org.quantintel.ql.time.calendars.SouthKoreaEnum.SouthKoreaEnum): Calendar = {
+    new SouthKorea(market)
   }
 
 }
@@ -73,26 +85,27 @@ object SouthKoreaEnum extends Enumeration {
  *
  * @author Paul Bernard
  */
-object SouthKorea {
+class SouthKorea extends Calendar {
 
-  def apply(): Calendar = new Krx
+  impl = new Krx
 
-  import org.quantintel.ql.time.calendars.SouthKoreaEnum ._
+  import org.quantintel.ql.time.calendars.SouthKoreaEnum._
 
-  def apply(market: SouthKoreaEnum ): Calendar = {
+  def this(market: org.quantintel.ql.time.calendars.SouthKoreaEnum.SouthKoreaEnum ) {
+    this
     market match {
-      case SETTLEMENT => new Settlement
+      case SETTLEMENT => impl = new Settlement
       case KRX => new Krx
 
       case _ => throw new Exception("Valid units = 1")
     }
   }
 
-  private class Settlement extends Calendar {
+  private class Settlement extends Impl {
 
-    def name = "South-Korean settlement"
+    override def name = "South-Korean settlement"
 
-    def isWeekend(w: Weekday) : Boolean = w ==SATURDAY || w == SUNDAY
+    override def isWeekend(w: Weekday) : Boolean = w ==SATURDAY || w == SUNDAY
 
 
     override def isBusinessDay(date: Date): Boolean = {

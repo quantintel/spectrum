@@ -22,7 +22,7 @@ package org.quantintel.ql.time.calendars
 
 import org.quantintel.ql.time.Month._
 import org.quantintel.ql.time.Weekday._
-import org.quantintel.ql.time.{Date, Western, Calendar}
+import org.quantintel.ql.time.{Impl, Date, Western, Calendar}
 
 object IndonesiaEnum extends Enumeration {
 
@@ -34,6 +34,18 @@ object IndonesiaEnum extends Enumeration {
     case 1 => BEJ
     case 2 => JSX
     case _ => throw new Exception("Valid units = 1")
+  }
+
+}
+
+object Indonesia {
+
+  def apply() : Calendar = {
+    new Indonesia()
+  }
+
+  def apply(market: org.quantintel.ql.time.calendars.IndonesiaEnum.IndonesiaEnum): Calendar = {
+    new Indonesia(market)
   }
 
 }
@@ -69,17 +81,18 @@ object IndonesiaEnum extends Enumeration {
  *
  * @author Paul Bernard
  */
-object Indonesia {
+class Indonesia extends Calendar {
 
-  def apply(): Calendar = new Bej
+  impl =  new Bej
 
   import org.quantintel.ql.time.calendars.IndonesiaEnum._
 
-  def apply(market: IndonesiaEnum): Calendar = {
+  def this(market: org.quantintel.ql.time.calendars.IndonesiaEnum.IndonesiaEnum){
+    this
     market match {
       // Jakarta stock exchange is know by two id's : required reference
-      case BEJ => new Bej
-      case JSX => new Bej
+      case BEJ => impl = new Bej
+      case JSX => impl = new Bej
       case _ => throw new Exception("Valid units = 1 to 2")
     }
   }

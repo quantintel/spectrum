@@ -22,7 +22,7 @@ package org.quantintel.ql.time.calendars
 
 import org.quantintel.ql.time.Month._
 import org.quantintel.ql.time.Weekday._
-import org.quantintel.ql.time.{Date, Western, Calendar}
+import org.quantintel.ql.time.{Impl, Date, Western, Calendar}
 
 
 object CzechRepublicEnum extends Enumeration {
@@ -36,6 +36,19 @@ object CzechRepublicEnum extends Enumeration {
   }
 
 }
+
+object CzechRepublic {
+
+  def apply() : Calendar = {
+    new CzechRepublic()
+  }
+
+  def apply(market: org.quantintel.ql.time.calendars.CzechRepublicEnum.CzechRepublicEnum) : Calendar = {
+    new CzechRepublic(market)
+  }
+
+}
+
 /**
  *
  * Czech calendars Holidays for the Prague stock exchange
@@ -58,15 +71,16 @@ object CzechRepublicEnum extends Enumeration {
  *
  * @author Paul Bernard
  */
-object CzechRepublic  {
+class CzechRepublic extends Calendar  {
 
   import org.quantintel.ql.time.calendars.CzechRepublicEnum._
 
-  def apply() : Calendar = new PSE
+  impl = new PSE
 
-  def apply(market: CzechRepublicEnum) : Calendar = {
+  def this(market: org.quantintel.ql.time.calendars.CzechRepublicEnum.CzechRepublicEnum)  {
+    this
     market match {
-      case PSE => new PSE
+      case PSE => impl = new PSE
     }
   }
 

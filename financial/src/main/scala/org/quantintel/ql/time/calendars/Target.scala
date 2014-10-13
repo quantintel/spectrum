@@ -36,6 +36,17 @@ object TargetEnum extends Enumeration {
 
 }
 
+object Target {
+
+  def apply(): Calendar = {
+    new Target()
+  }
+
+  def apply(market: org.quantintel.ql.time.calendars.TargetEnum.TargetEnum): Calendar = {
+    new Target(market)
+  }
+
+}
 
 /**
  *
@@ -58,15 +69,16 @@ object TargetEnum extends Enumeration {
  *
  * @author Paul Bernard
  */
-object Target  {
+class Target extends Calendar  {
 
-  def apply(): Calendar = new Target
+  impl = new Target
 
   import org.quantintel.ql.time.calendars.TargetEnum._
 
-  def apply(market: TargetEnum ): Calendar = {
+  def this(market: org.quantintel.ql.time.calendars.TargetEnum.TargetEnum ) {
+    this
     market match {
-      case TARGET => new Target
+      case TARGET => impl = new Target
       case _ => throw new Exception("Valid units = 1")
     }
   }

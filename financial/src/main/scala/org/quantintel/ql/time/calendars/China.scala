@@ -22,7 +22,7 @@ package org.quantintel.ql.time.calendars
 
 import org.quantintel.ql.time.Month._
 import org.quantintel.ql.time.Weekday._
-import org.quantintel.ql.time.{Date, Western, Calendar}
+import org.quantintel.ql.time.{Impl, Date, Western, Calendar}
 
 
 object ChinaEnum extends Enumeration {
@@ -33,6 +33,18 @@ object ChinaEnum extends Enumeration {
   def valueOf(market: Int) = market match {
     case 1 => SSE
     case _ => throw new Exception("Valid units = 1")
+  }
+
+}
+
+object China {
+
+  def apply(): Calendar = {
+    new China()
+  }
+
+  def apply(market: org.quantintel.ql.time.calendars.ChinaEnum.ChinaEnum) : Calendar = {
+    new China(market)
   }
 
 }
@@ -56,15 +68,16 @@ object ChinaEnum extends Enumeration {
  *
  * @author Paul Bernard
  */
-object China  {
+class China extends Calendar  {
 
   import org.quantintel.ql.time.calendars.ChinaEnum._
 
-  def apply() : Calendar = new SSE
+  impl = new SSE
 
-  def apply(market: ChinaEnum) : Calendar = {
+  def this(market: org.quantintel.ql.time.calendars.ChinaEnum.ChinaEnum) {
+    this
     market match {
-      case SSE => new SSE
+      case SSE => impl = new SSE
     }
   }
 

@@ -36,6 +36,18 @@ object SaudiArabiaEnum extends Enumeration {
 
 }
 
+object SaudiArabia {
+
+  def apply() : Calendar = {
+    new SaudiArabia()
+  }
+
+  def apply(market: org.quantintel.ql.time.calendars.SaudiArabiaEnum.SaudiArabiaEnum): Calendar = {
+    new SaudiArabia(market)
+  }
+
+}
+
 /**
  *
  * Saudi Arabia calendar
@@ -47,15 +59,16 @@ object SaudiArabiaEnum extends Enumeration {
  *
  * @author Paul Bernard
  */
-object SaudiArabia {
+class SaudiArabia extends Calendar {
 
-  def apply(): Calendar = new Tadawul
+  impl= new Tadawul
 
   import org.quantintel.ql.time.calendars.SaudiArabiaEnum._
 
-  def apply(market: SaudiArabiaEnum): Calendar = {
+  def this(market: org.quantintel.ql.time.calendars.SaudiArabiaEnum.SaudiArabiaEnum) {
+    this
     market match {
-      case TADAWUL => new Tadawul
+      case TADAWUL => impl = new Tadawul
       case _ => throw new Exception("Valid units = 1")
     }
   }

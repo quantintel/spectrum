@@ -22,7 +22,7 @@ package org.quantintel.ql.time.calendars
 
 import org.quantintel.ql.time.Month._
 import org.quantintel.ql.time.Weekday._
-import org.quantintel.ql.time.{Western, Date, Calendar}
+import org.quantintel.ql.time.{Impl, Western, Date, Calendar}
 
 object HungaryEnum extends Enumeration {
   type HungaryEnum = Value
@@ -31,6 +31,18 @@ object HungaryEnum extends Enumeration {
   def valueOf(market: Int) = market match {
     case 1 => HUNGARY
     case _ => throw new Exception("Valid units = 1")
+  }
+
+}
+
+object Hungary {
+
+  def apply() : Calendar = {
+    new Hungary()
+  }
+
+  def apply(market: org.quantintel.ql.time.calendars.HungaryEnum.HungaryEnum): Calendar = {
+    new Hungary(market)
   }
 
 }
@@ -55,15 +67,16 @@ object HungaryEnum extends Enumeration {
  *
  * @author Paul Bernard
  */
-object Hungary {
+class Hungary extends Calendar {
 
-  def apply() : Calendar = new Hungary
+  impl = new Hungary
 
   import org.quantintel.ql.time.calendars.HungaryEnum._
 
-  def apply(market: HungaryEnum) : Calendar = {
+  def this(market: org.quantintel.ql.time.calendars.HungaryEnum.HungaryEnum)  {
+    this
     market match {
-      case HUNGARY => new Hungary
+      case HUNGARY => impl = new Hungary
       case _ => throw new Exception("Valid units = 1")
     }
   }

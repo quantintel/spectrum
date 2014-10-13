@@ -35,19 +35,32 @@ object RussiaEnum extends Enumeration {
   }
 
 }
+object Russia {
+
+  def apply(): Calendar = {
+    new Russia()
+  }
+
+  def apply(market: org.quantintel.ql.time.calendars.RussiaEnum.RussiaEnum): Calendar = {
+    new Russia(market)
+  }
+
+}
+
 
 /**
  * @author Paul Bernard
  */
-object Russia  {
+class Russia extends Calendar  {
 
-  def apply(): Calendar = new Russia
+  impl = new Russia
 
   import org.quantintel.ql.time.calendars.RussiaEnum._
 
-  def apply(market: RussiaEnum): Calendar = {
+  def this (market: org.quantintel.ql.time.calendars.RussiaEnum.RussiaEnum){
+    this
     market match {
-      case SETTLEMENT => new Russia
+      case SETTLEMENT => impl = new Russia
       case _ => throw new Exception("Valid units = 1")
     }
   }
