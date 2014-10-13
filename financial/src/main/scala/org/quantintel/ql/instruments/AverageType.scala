@@ -23,7 +23,7 @@ package org.quantintel.ql.instruments
 /**
  * @author Paul Bernard
  */
-object Average extends Enumeration {
+object AverageType extends Enumeration {
 
   type Average = Value
   val ARITHMETIC = Value(1)
