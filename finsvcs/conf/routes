@@ -2,7 +2,7 @@
 # Routes
 # This file defines all application routes (Higher priority routes first)
 # ~~~~
-
+#
 # functions available on today's date
 
 GET      /date/today/serialNumber                    controllers.Date.today
