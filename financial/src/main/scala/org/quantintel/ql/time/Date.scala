@@ -842,10 +842,6 @@ object Date {
     false)
 
 
-  //type DayOfMonth = Int
-  //type Year = Int
-
-
 
   def todaysDate: Date = {
     val cal : JCalendar = JCalendar.getInstance();
@@ -948,6 +944,52 @@ object Date {
   def yearOffset(year: Int) : Long = {
     yearOffsetArr(year - 1900)
   }
+
+  def lowerBound(dates: List[Date], value: Date) : Int = {
+
+    var len = dates.size
+    var from = 0
+    var half = 0
+    var middle = 0
+
+    while(len > 0){
+      half = len >> 1
+      middle = from
+      middle = middle + half
+
+      if(value.compareTo(dates(middle)) == 1){
+        from = middle
+        from = from + 1
+        len = len - half -1
+      } else {
+        len = half
+      }
+    }
+    from
+  }
+
+  def upperBound(dates: List[Date], value: Date) : Int = {
+
+    var len : Int = dates.size
+    var from : Int = 0
+    var half : Int = 0
+    var middle : Int = 0
+
+    while(len > 0){
+      half = half >> 1
+      middle = from
+      middle = middle + half
+      if(value.compareTo(dates(middle)) == -1) {
+        len = half
+      } else {
+        from = middle
+        from = from + 1
+        len = len - half -1
+      }
+    }
+    from
+  }
+
 
 
 
