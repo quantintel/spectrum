@@ -20,6 +20,7 @@
 
 package org.quantintel.ql.time
 
+import org.quantintel.ql.time.Month._
 import org.scalatest.{Matchers, FlatSpec}
 import java.util.{Calendar => JCalendar, Locale => JLocale, Formatter => JFormatter, Date => JDate}
 
@@ -510,5 +511,28 @@ class DateTest extends FlatSpec with Matchers {
     assert(date1.year == 1902)
   }
 
+  "lower bound" should "be 1" in {
+    import org.quantintel.ql.time.Month._
+    val ls: List[Date] = Date(1, JANUARY, 1980) :: Date(2, JANUARY, 1980) :: Date(3, JANUARY, 1980) :: Nil
+    assert(Date.lowerBound(ls, Date(2, JANUARY, 1980)) == 1)
+  }
+
+  "lower bound" should "be not be 1" in {
+    import org.quantintel.ql.time.Month._
+    val ls: List[Date] = Date(1, JANUARY, 1980) :: Date(2, JANUARY, 1980) :: Date(3, JANUARY, 1980) :: Nil
+    assert(Date.lowerBound(ls, Date(3, JANUARY, 1980)) != 1)
+  }
+
+  "upper bound" should "be 1" in {
+    import org.quantintel.ql.time.Month._
+    val ls: List[Date] = Date(1, JANUARY, 1980) :: Date(2, JANUARY, 1980) :: Date(3, JANUARY, 1980) :: Nil
+    assert(Date.upperBound(ls, Date(2, JANUARY, 1980)) == 2)
+  }
+
+  "upper bound" should "be not be 1" in {
+    import org.quantintel.ql.time.Month._
+    val ls: List[Date] = Date(1, JANUARY, 1980) :: Date(2, JANUARY, 1980) :: Date(3, JANUARY, 1980) :: Nil
+    assert(Date.upperBound(ls, Date(3, JANUARY, 1980)) != 1)
+  }
 
 }
