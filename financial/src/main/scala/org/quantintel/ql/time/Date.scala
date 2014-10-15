@@ -517,6 +517,13 @@ class Date() extends Comparable[Date] {
   }
 
 
+  /**
+   * Returns a date that is a specified number of units forward.
+   * @param date the initial date
+   * @param n number of units to forward
+   * @param units the unit type
+   * @return the new date.
+   */
   private def advance (date: Date, n: Int, units: TimeUnit) : Date = {
 
     import org.quantintel.ql.time.TimeUnit._
@@ -592,7 +599,6 @@ class Date() extends Comparable[Date] {
       else {
         val sb : JStringBuilder = new JStringBuilder()
         val formatter = new JFormatter(sb, JLocale.US)
-        // Implementation note.  explicit casting required due to vararg invocation
         formatter.format("%02d/%02d/%4d",
           month.id.asInstanceOf[AnyRef],
           dayOfMonth.asInstanceOf[AnyRef],
@@ -945,6 +951,14 @@ object Date {
     yearOffsetArr(year - 1900)
   }
 
+  /**
+   * Returns the position of the first date in a list of dates that
+   * is equal to or greater than the date provided.
+   *
+   * @param dates The list of dates
+   * @param value The date used for comparison
+   * @return an integer representing the position of the first date that is equal to or greater
+   */
   def lowerBound(dates: List[Date], value: Date) : Int = {
 
     var len = dates.size
@@ -968,6 +982,14 @@ object Date {
     from
   }
 
+  /**
+   * Returns the position of the first element in the list that is
+   * greater than the referenced date.
+   *
+   * @param dates A list of Dates
+   * @param value A date to compare to each item it the list
+   * @return the index of the first date greater than the date provided
+   */
   def upperBound(dates: List[Date], value: Date) : Int = {
 
     var len : Int = dates.size
@@ -979,6 +1001,7 @@ object Date {
       half = half >> 1
       middle = from
       middle = middle + half
+
       if(value.compareTo(dates(middle)) == -1) {
         len = half
       } else {
