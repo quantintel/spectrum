@@ -18,7 +18,7 @@
  *
  */
 
-package org.quantintel.ql.indexes
+package org.quantintel.ql.indexes.regions
 
 object Region {
 
