@@ -83,6 +83,9 @@ object Settings {
  */
 class Settings {
 
+  var includeReferenceDateEvents : Boolean = false
+  var enforcesTodaysHistoricFixings = false
+
   import org.quantintel.ql.Settings._
 
   implicit def b2B(x: Boolean) = java.lang.Boolean.valueOf(x)
