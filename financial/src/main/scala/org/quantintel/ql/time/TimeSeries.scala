@@ -29,7 +29,7 @@ package org.quantintel.ql.time
  *
  * @author Paul Bernard
  */
-class TimeSeries[V](classV: Class[V]) extends Series[Date, V](Class[Date], classV) {
+class TimeSeries[V](classV: V) extends Series[Date, V] {
 
 
 
