@@ -29,7 +29,7 @@ import java.util.function.{BiConsumer, BiFunction, Function}
 /**
  * @author Paul Bernard
  */
-class Series[K, V](classK: Class[K], classV: Class[V]) extends NavigableMap[K, V] {
+class Series[K, V] extends NavigableMap[K, V] {
 
   val delegate : util.NavigableMap[K, V] = new TreeMap[K, V]()
 
@@ -70,7 +70,7 @@ class Series[K, V](classK: Class[K], classV: Class[V]) extends NavigableMap[K, V
 
   override def pollLastEntry(): Entry[K, V] = delegate.pollLastEntry()
 
-  override def descendingKeySet(): NavigableSet[K] = ???
+  override def descendingKeySet(): NavigableSet[K] = delegate.descendingKeySet()
 
   override def lastEntry(): Entry[K, V] = delegate.lastEntry()
 
@@ -103,7 +103,7 @@ class Series[K, V](classK: Class[K], classV: Class[V]) extends NavigableMap[K, V
   override def replaceAll(function: BiFunction[_ >: K, _ >: V, _ <: V]): Unit
     = delegate.replaceAll(function)
 
-  override def get(key: scala.Any): V = delegate.get(key)
+  override def get(key: Any): V = delegate.get(key)
 
   override def replace(key: K, oldValue: V, newValue: V): Boolean
     = delegate.replace(key, oldValue, newValue)
