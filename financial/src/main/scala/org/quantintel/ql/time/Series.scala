@@ -20,12 +20,10 @@
 
 package org.quantintel.ql.time
 
-
 import java.util
 import java.util.Map.Entry
-import java.util._
-import java.util.NavigableMap
-import java.util.function.{Function, BiFunction, BiConsumer}
+import java.util.{NavigableMap, _}
+import java.util.function.{BiConsumer, BiFunction, Function}
 
 
 /**
