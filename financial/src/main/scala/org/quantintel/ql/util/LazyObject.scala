@@ -33,13 +33,14 @@ abstract class LazyObject {
 
 
   def recalculate {
-    var wasFrozen  : Boolean = frozen
+    val wasFrozen  : Boolean = frozen
     calculated = false
     frozen = false
     try {
       calculate
     } finally {
         frozen = wasFrozen
+        // TODO: notifyObservers
     }
 
   }
