@@ -20,9 +20,13 @@
 
 package org.quantintel.ql.time
 
+import java.util.Formatter
+
 import org.quantintel.ql.time.Frequency._
 import org.quantintel.ql.time.TimeUnit.TimeUnit
 import org.quantintel.ql.time.TimeUnit._
+import java.util.Locale
+
 
 /**
  * @author Paul Bernard
@@ -189,7 +193,7 @@ import org.quantintel.ql.time.TimeUnit._
 class Period  {
 
   var length: Int = 0
-  var units: TimeUnit = null
+  var units: TimeUnit= null
 
 
   import org.quantintel.ql.time.Period._
@@ -434,6 +438,33 @@ class Period  {
       case _ => throw new Exception(UNKNOWN_TIME_UNIT)
     }
 
+  }
+
+  override def toString : String = getLongFormat
+
+  def getLongFormat() : String = getInternalLongFormat
+
+
+  def getShortFormat() : String = getInternalShortFormat
+
+
+  def getInternalShortFormat : String = {
+    val sb : java.lang.StringBuilder = new java.lang.StringBuilder
+    val formatter = new java.util.Formatter(sb, Locale.US)
+    val args : Array[Any] = Array( length, TimeUnit.getLShortFormat(units) )
+    formatter.format("%d%s", args)
+    sb.toString
+
+  }
+
+  def getInternalLongFormat: String = {
+    var suffix: String = null
+    if(this.length == 1) suffix = "" else suffix = "s"
+    val sb = new java.lang.StringBuilder
+    val formatter: java.util.Formatter = new java.util.Formatter(sb, Locale.US)
+    val args : Array[Any] = Array(length, suffix)
+    formatter.format("%d %s%s", args)
+    sb.toString
   }
 
 

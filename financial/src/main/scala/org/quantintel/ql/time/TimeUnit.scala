@@ -35,4 +35,21 @@ object TimeUnit extends Enumeration {
     case 3 => YEARS
     case _ => throw new Exception("Valid units = 1 to 4")
   }
+
+  def getLongFormat(value: TimeUnit) : String = {
+    if (value == DAYS) "days"
+    if (value == WEEKS) "weeks"
+    if (value == MONTHS) "months"
+    if (value == YEARS) "years"
+    ""
+  }
+
+  def getLShortFormat(value: TimeUnit) : String = {
+    if (value == DAYS) "D"
+    if (value == WEEKS) "W"
+    if (value == MONTHS) "M"
+    if (value == YEARS) "Y"
+    ""
+  }
+
 }
