@@ -34,11 +34,12 @@ abstract class Event {
     hasOccured(d, new Settings().isTodaysPayments)
   }
 
-  def hasOccured(d: Date, includedToday: Boolean) : Boolean = {
-    if (includedToday){
-      date.compareTo(d) < 0
+  def hasOccured(d: Date, includeToday: Boolean) : Boolean = {
+
+    if (includeToday){
+      Date.todaysDate.compareTo(d) < 0
     } else {
-      date.compareTo(d) <= 0
+      Date.todaysDate.compareTo(d) <= 0
     }
   }
 
