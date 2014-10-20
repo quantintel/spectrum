@@ -38,7 +38,7 @@ abstract class Index {
    *
    * @return the calendar that defines the valid fixing dates
    */
-  def fixingCalendar : Calendar
+  def fixingCalendar() : Calendar
 
   /**
    *
