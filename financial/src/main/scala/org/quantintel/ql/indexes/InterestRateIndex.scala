@@ -20,7 +20,9 @@
 
 package org.quantintel.ql.indexes
 
+import org.quantintel.ql.Settings
 import org.quantintel.ql.currencies.Currency
+import org.quantintel.ql.math.Constants
 import org.quantintel.ql.quotes.Handle
 import org.quantintel.ql.termstructures.YieldTermStructure
 import org.quantintel.ql.time.daycounters.DayCounter
@@ -67,15 +69,6 @@ abstract class InterestRateIndex (val familyName: String, val tenor: Period,
 
   /**
    *
-   * @param fixingDate the actual calendar date of the fixing(no settlement days)
-   * @param forecastTodaysFixing
-   * @return the fixing at the given date.
-   */
-  override def fixing(fixingDate: Date, forecastTodaysFixing: Boolean): Double = { 0.00 }
-
-
-  /**
-   *
    * @param fixingDate the fixing date to be tested
    * @return true if the fixing date is valid
    */
@@ -89,5 +82,45 @@ abstract class InterestRateIndex (val familyName: String, val tenor: Period,
 
   def maturityDate(valueDate: Date): Date
 
+  override def fixing(fixingDate: Date, forecastingTodaysFixing: Boolean): Double = {
+    val today: Date = new Settings().evaluationDate
+    val enforceTodaysHistoricalFixings = new Settings().isEnforcesTodaysHistoricFixings
+
+    if (fixingDate < today || (fixingDate == today && enforceTodaysHistoricalFixings
+      && !forecastingTodaysFixing)) {
+      val pastFixing: Double = IndexManager.getHistory(name).get(fixingDate)
+      pastFixing
+    }
+
+    if ((fixingDate == today) && !forecastingTodaysFixing) {
+      try {
+        val pastFixing: Double = IndexManager.getHistory(name).get(fixingDate)
+        if (pastFixing != Constants.NULL_REAL) pastFixing
+      } catch {
+        case Exception => {
+          // exception is eaten
+        }
+      }
+    }
+    forecastFixing(fixingDate)
+  }
+
+
+  override def fixing(fixingDate: Date): Double = {
+    fixing(fixingDate, false)
+  }
+
+  def fixingDate(valueDate: Date): Date = {
+    fixingCalendar().advance(valueDate, fixingDays, DAYS)
+  }
+
+  def valueDate(fixingDate: Date): Date = {
+    fixingCalendar().advance(fixingDate, fixingDays, DAYS)
+  }
+
+
+
 
 }
+
+
