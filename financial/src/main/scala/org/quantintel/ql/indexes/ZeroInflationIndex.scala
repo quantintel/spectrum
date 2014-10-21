@@ -18,13 +18,11 @@
  *
  */
 
-package org.quantintel.ql.indexes.regions
+package org.quantintel.ql.indexes
 
 /**
  * @author Paul Bernard
  */
-class UKRegion extends Region {
-
-  this.data = new Data("UK", "UK")
+abstract class ZeroInflationIndex extends InflationIndex {
 
 }

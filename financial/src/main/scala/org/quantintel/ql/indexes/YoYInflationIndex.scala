@@ -18,14 +18,11 @@
  *
  */
 
-package org.quantintel.ql.indexes.regions
+package org.quantintel.ql.indexes
 
 /**
  * @author Paul Bernard
  */
-class EURegion extends Region {
-
-  this.data = new Data("EU", "EU")
-
+abstract class YoYInflationIndex extends InflationIndex {
 
 }
