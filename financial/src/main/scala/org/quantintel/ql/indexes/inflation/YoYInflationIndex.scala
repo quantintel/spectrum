@@ -18,11 +18,12 @@
  *
  */
 
-package org.quantintel.ql.indexes
+package org.quantintel.ql.indexes.inflation
+
 
 /**
  * @author Paul Bernard
  */
-abstract class ZeroInflationIndex extends InflationIndex {
+abstract class YoYInflationIndex extends InflationIndex {
 
 }

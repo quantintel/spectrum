@@ -21,6 +21,9 @@
 package org.quantintel.ql.pricingengines
 
 /**
+ *
+ * Interface for pricing engines
+ *
  * @author Paul Bernard
  */
 trait PricingEngine {

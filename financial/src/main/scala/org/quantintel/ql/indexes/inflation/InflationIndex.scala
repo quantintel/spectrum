@@ -18,8 +18,9 @@
  *
  */
 
-package org.quantintel.ql.indexes
+package org.quantintel.ql.indexes.inflation
 
+import org.quantintel.ql.indexes.Index
 import org.quantintel.ql.time.{Calendar, Date}
 
 /**

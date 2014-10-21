@@ -18,33 +18,13 @@
  *
  */
 
-package org.quantintel.ql.indexes.regions
+package org.quantintel.ql.indexes.inflation
 
-object Region {
-
-  def == (r1: Region, r2: Region) : Boolean = {
-    r1.name.equals(r2.name)
-  }
-
-  def != (r1: Region, r2: Region) : Boolean = {
-    !(r1.name.equals(r2.name))
-  }
-
-}
+import org.quantintel.ql.indexes.inflation.InflationIndex
 
 /**
  * @author Paul Bernard
  */
-abstract class Region {
-
-  protected var data : Data = null
-
-  protected class Data(val name: String, val code: String)
-
-  def name : String = data.name
-
-  def code : String = data.code
+abstract class ZeroInflationIndex extends InflationIndex {
 
 }
-
-
