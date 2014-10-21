@@ -24,6 +24,17 @@ import org.quantintel.ql.math.{Constants, Closeness}
 import org.quantintel.ql.time.{TimeSeries, Date, Calendar}
 
 /**
+ *
+ * Abstract representation of a Financial Index.
+ *
+ * A statistic measure of change in an economy or a securities market.  In the case
+ * of financial markets, and index is an imaginary portfolio of securities representing a
+ * particular market or a portion of it.  Each index has its own calculation methodology
+ * and is usually expressed in terms of a change from a base value.  Thus, the percentage
+ * change is more important than the actual numeric value.
+ * source - Investopedia 2014
+ *
+ *
  * @author Paul Bernard
  */
 abstract class Index {

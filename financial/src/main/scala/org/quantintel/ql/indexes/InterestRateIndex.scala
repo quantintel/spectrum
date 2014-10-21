@@ -30,11 +30,37 @@ import org.quantintel.ql.time.{Period, Date, Calendar}
 import org.quantintel.ql.time.TimeUnit._
 
 /**
+ *
+ * An index that is based off the interest rate of a financial instrument or baskt of
+ * financial instruments.  An interest rate index serves as a benchmark used to
+ * calculate the interest rate changed on financial products, such as mortgages.
+ *  - Source: Investopedia 2014
+ *
  * @author Paul Bernard
  */
-abstract class InterestRateIndex (val familyName: String, val tenor: Period,
-                         val fixingDays: Int, val currency: Currency,
-                         val pFixingCalendar: Calendar, val dayCounter: DayCounter) extends Index {
+abstract class InterestRateIndex extends Index {
+
+
+  var familyName: String = null
+  var tenor: Period = null
+  var fixingDays: Int = 0
+  var currency: Currency = null
+  var pFixingCalendar: Calendar = null
+  var dayCounter: DayCounter = null
+
+
+  def this(familyName: String, tenor: Period,
+      fixingDays: Int, currency: Currency,
+      pFixingCalendar: Calendar, dayCounter: DayCounter){
+    this
+    this.familyName = familyName
+    this.tenor = tenor
+    this.fixingDays = fixingDays
+    this.currency = currency
+    this.pFixingCalendar = pFixingCalendar
+    this.dayCounter = dayCounter
+  }
+
 
 
   this.tenor.normalize
@@ -97,7 +123,7 @@ abstract class InterestRateIndex (val familyName: String, val tenor: Period,
         val pastFixing: Double = IndexManager.getHistory(name).get(fixingDate)
         if (pastFixing != Constants.NULL_REAL) pastFixing
       } catch {
-        case Exception => {
+        case e: Exception => {
           // exception is eaten
         }
       }

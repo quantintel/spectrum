@@ -18,13 +18,21 @@
  *
  */
 
-package org.quantintel.ql.indexes.regions
+package org.quantintel.ql.indexes.ibor
+
+import org.quantintel.ql.indexes.InterestRateIndex
+import org.quantintel.ql.quotes.Handle
+import org.quantintel.ql.termstructures.YieldTermStructure
+import org.quantintel.ql.time.Date
 
 /**
  * @author Paul Bernard
  */
-class AutraliaRegion extends Region {
+class IborIndex  extends InterestRateIndex {
 
-  this.data = new Data("Australia", "AU")
+  override protected def forecastFixing(fixingDate: Date): Double = ???
 
+  override def maturityDate(valueDate: Date): Date = ???
+
+  override def termStructure(): Handle[YieldTermStructure] = ???
 }
