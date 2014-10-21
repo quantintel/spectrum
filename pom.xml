@@ -11,7 +11,7 @@
         <java-version>1.8</java-version>
 
         <scala-major-version>2.11</scala-major-version>
-        <scala-version>2.11.1</scala-version>
+        <scala-version>2.11.2</scala-version>
         <scala-continuations-version>1.0.2</scala-continuations-version>
         <scala-config>1.2.1</scala-config>
 
@@ -475,12 +475,12 @@
 
         <repository>
             <id>apache-releases</id>
-            <url>https://repository.apache.org/content/repositories/releases/</url>
+            <url>http://repository.apache.org/content/repositories/releases/</url>
         </repository>
 
         <repository>
             <id>oss-sonatype-releases</id>
-            <url>https://oss.sonatype.org/content/repositories/releases</url>
+            <url>http://oss.sonatype.org/content/repositories/releases</url>
             <snapshots>
                 <enabled>true</enabled>
             </snapshots>
@@ -494,7 +494,7 @@
         <repository>
             <id>scala-tools.org</id>
             <name>Scala-tools Maven2 Repository</name>
-            <url>http://scala-tools.org/repo-releases</url>
+            <url>https://oss.sonatype.org/content/groups/scala-tools/</url>
         </repository>
 
     </repositories>
@@ -503,7 +503,7 @@
         <pluginRepository>
             <id>scala-tools.org</id>
             <name>Scala-tools Maven2 Repository</name>
-            <url>http://scala-tools.org/repo-releases</url>
+            <url>https://oss.sonatype.org/content/groups/scala-tools/</url>
         </pluginRepository>
     </pluginRepositories>
 
