@@ -20,7 +20,6 @@
 
 package org.quantintel.ql.indexes.inflation
 
-import org.quantintel.ql.indexes.inflation.InflationIndex
 
 /**
  * @author Paul Bernard
