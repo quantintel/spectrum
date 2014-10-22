@@ -32,7 +32,7 @@ abstract class LazyObject  extends Observer with Observable with Observability {
   protected def performCalculations()
 
 
-  def recalculate (){
+  def recalculate () {
     val wasFrozen  : Boolean = frozen
     calculated = false
     frozen = false
@@ -45,7 +45,7 @@ abstract class LazyObject  extends Observer with Observable with Observability {
 
   }
 
-  def freeze() {
+  def freeze()  {
     frozen = true
   }
 
@@ -68,7 +68,7 @@ abstract class LazyObject  extends Observer with Observable with Observability {
      }
   }
 
-  def update(){
+  def update()  {
       calculated = false
   }
 

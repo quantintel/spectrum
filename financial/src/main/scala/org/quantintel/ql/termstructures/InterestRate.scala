@@ -55,7 +55,7 @@ class InterestRate(var rate: Double) {
    */
   def this(r: Double, dc: DayCounter, comp: Compounding, freq: Frequency) {
     this(r)
-    this dc = dc
+    this.dc = dc
     this.compound = comp
     this.freqMakesSense = false
 

@@ -32,7 +32,7 @@ class WeakReferenceObservable(observable: Observable) extends DefaultObservable(
     super.addObserver(new WeakReferenceObserver(referent))
   }
 
-  override def deleteObserver(observer: Observer): Unit = {
+  override def deleteObserver(observer: Observer){
     getObservers.asScala.foreach(
       (weakObserver : Observer) => {
         val weakReference: WeakReferenceObserver = weakObserver.asInstanceOf[WeakReferenceObserver]
@@ -42,13 +42,13 @@ class WeakReferenceObservable(observable: Observable) extends DefaultObservable(
     )
   }
 
-  private def deleteWeakReference(observer: WeakReferenceObserver) {
+  private def deleteWeakReference(observer: WeakReferenceObserver)  {
     super.deleteObserver(observer)
   }
 
 
   private class WeakReferenceObserver(observer: Observer) extends JWeakReference(observer) with Observer {
-    override def update(): Unit = {
+    override def update(){
       val referent : Observer = get()
       if (referent != null) referent.update() else deleteWeakReference(this)
     }

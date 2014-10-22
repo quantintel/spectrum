@@ -248,7 +248,7 @@ object ActualActual  {
 
         temp = newD2 + Period.ONE_YEAR_BACKWARD
         if (temp.dayOfMonth == 28 && temp.month.id == 2 && Date.isLeapYr(temp.year)) {
-          temp ++
+          temp.++
         }
         if (temp >= dateStart) {
           sum = sum + 1.0

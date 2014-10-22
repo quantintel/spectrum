@@ -35,7 +35,7 @@ class ObservableValue[T](var value: T) extends Observable with Observability {
     this.value = value
   }
 
-  def assign(observable: ObservableValue[T]): Unit ={
+  def assign(observable: ObservableValue[T]) {
     value = observable.value
     delegatedObservable.notifyObservers()
   }

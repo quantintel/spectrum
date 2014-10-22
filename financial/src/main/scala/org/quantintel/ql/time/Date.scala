@@ -28,6 +28,8 @@ import org.quantintel.ql.time.TimeUnit._
 import org.quantintel.ql.time.Weekday._
 import org.quantintel.ql.util.{Observability, Observable}
 
+import scala.annotation.tailrec
+
 /**
  * The Date class is not a generalization of Date in the conventional sense.
  * It is an implementation that imposes specific limitations which
@@ -508,7 +510,7 @@ class Date() extends Comparable[Date] with Observable with Observability {
    * @since 1.0
    * @author Paul Bernard
    */
-  private def checkSerialNumber() = {
+  private def checkSerialNumber()  {
 
     require(serialNumber >= Date.minimumSerialNumber &&
               serialNumber <= Date.maximumSerialNumber,
@@ -883,7 +885,7 @@ object Date {
     d + (if (wd > dow) 7 else 0) - wd + dow
   }
 
-  def nthWeekday(n: Int, w: Weekday, m: Month, y: Int) : Date = {
+  @tailrec def nthWeekday(n: Int, w: Weekday, m: Month, y: Int) : Date = {
     nthWeekday(n, w, m, y)
   }
 

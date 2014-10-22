@@ -27,7 +27,7 @@ import org.quantintel.ql.time.Weekday._
 import scala.collection.mutable
 import scala.collection.mutable.HashSet
 
-import language.postfixOps
+import scala.language.postfixOps
 
 
 abstract class Impl {
@@ -93,7 +93,7 @@ abstract class Calendar {
    * Adds a date to the set of holidays for the given calendar
    * @param d date to be added
    */
-  def addHoliday(d: Date): Unit = {
+  def addHoliday(d: Date) {
     impl.removedHolidays.remove(d)
     if (isBusinessDay(d)) addedHolidays.add(d)
   }
@@ -102,7 +102,7 @@ abstract class Calendar {
    * Remove the date from the set of holidays for a given calendar
    * @param d date to be removed
    */
-  def removeHoliday(d: Date): Unit = {
+  def removeHoliday(d: Date) {
     impl.addedHolidays.remove(d)
     if (isBusinessDay(d)) removedHolidays.add(d)
   }
@@ -131,13 +131,13 @@ abstract class Calendar {
     if (c == BusinessDayConvention.UNADJUSTED) return d.clone
     val d1: Date = d.clone
     if(c == BusinessDayConvention.FOLLOWING || c == BusinessDayConvention.MODIFIED_FOLLOWING) {
-      while (isHoliday(d1)) d1 ++
+      while (isHoliday(d1)) d1.++
 
       if (c == BusinessDayConvention.MODIFIED_FOLLOWING) {
         if (d1.month != d.month) return adjust(d, BusinessDayConvention.PRECEDING)
       }
     } else if (c == BusinessDayConvention.PRECEDING || c == BusinessDayConvention.MODIFIED_PRECEDING) {
-      while(isHoliday(d1)) { d1-- }
+      while(isHoliday(d1)) { d1.-- }
       if (c == BusinessDayConvention.MODIFIED_PRECEDING && d1.month != d.month)
         return adjust(d, BusinessDayConvention.FOLLOWING)
     } else {
@@ -170,13 +170,13 @@ abstract class Calendar {
       if(ln>0) {
         while(n>0) {
           d1 = d1 + 1
-          while (isHoliday(d1)) d1 ++;
+          while (isHoliday(d1)) d1.++;
           ln = ln - 1
         }
       } else {
           while (ln <0){
             d1 = d1 -1
-            while(isHoliday(d1)) d1--;
+            while(isHoliday(d1)) d1.--;
             ln = ln + 1
           }
         }

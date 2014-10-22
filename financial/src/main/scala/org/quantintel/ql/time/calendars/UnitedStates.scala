@@ -129,7 +129,7 @@ object UnitedStates {
  *  Labor Day, first Monday in September
  *  Thanksgiving Day, fourth Thursday in November
  *  Christmas, December 25th (moved to Monday if Sunday)
- * 
+ *
  * References:
  *  http://www.opm.gov/fedhol
  *  http://www.nyse.com

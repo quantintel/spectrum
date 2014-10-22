@@ -71,11 +71,11 @@ abstract class Index extends Observable with Observability {
   def timeSeries : TimeSeries[Double] = IndexManager.getHistory(name())
 
 
-  def addFixing(date: Date, value: Double): Unit = {
+  def addFixing(date: Date, value: Double) {
     addFixing(date, value, forceOverwrite = false)
   }
 
-  def addFixing(date: Date, value: Double, forceOverwrite: Boolean): Unit =  {
+  def addFixing(date: Date, value: Double, forceOverwrite: Boolean)  {
 
     val tag : String = name()
     var missingFixing: Boolean = false
@@ -103,7 +103,7 @@ abstract class Index extends Observable with Observability {
 
   }
 
-  def addFixing(dates: Iterator[Date], values: Iterator[Double], forceOverwite: Boolean): Unit ={
+  def addFixing(dates: Iterator[Date], values: Iterator[Double], forceOverwite: Boolean){
 
     val tag : String = name()
     var missingFixing : Boolean = false
@@ -134,7 +134,7 @@ abstract class Index extends Observable with Observability {
 
   }
 
-  def clearFixing(): Unit = {
+  def clearFixing() {
     IndexManager.clearHistory(name())
   }
 

@@ -22,7 +22,7 @@ package org.quantintel.ql.instruments
 
 import org.quantintel.ql.pricingengines.{PricingEngine, Arguments, Results}
 import org.quantintel.ql.util.LazyObject
-import collection.mutable
+import scala.collection.mutable
 
 object Instrument {
 
@@ -46,11 +46,11 @@ abstract class Instrument extends LazyObject  {
 
   protected def isExpired : Boolean
 
-  protected def setupArguments(a: Arguments): Unit = {
+  protected def setupArguments(a: Arguments){
     throw new Exception(SETUP_ARGUMENTS_NOT_IMPLEMENTED)
   }
 
-  def setPricingEngine(engine: PricingEngine): Unit = {
+  def setPricingEngine(engine: PricingEngine){
     m_engine = engine
     update()
   }
@@ -65,7 +65,7 @@ abstract class Instrument extends LazyObject  {
     m_errorEstimate
   }
 
-  def fetchResults(r: Results) {
+  def fetchResults(r: Results)  {
     val results: ResultsImpl = r.asInstanceOf[ResultsImpl]
     m_NPV = results.value
     m_errorEstimate = results.errorEstimate
@@ -76,7 +76,7 @@ abstract class Instrument extends LazyObject  {
     m_errorEstimate = 0.0
   }
 
-  override protected def performCalculations() {
+  override protected def performCalculations()  {
     m_engine.reset()
     setupArguments(m_engine.getArguments)
     m_engine.getArguments.validate()
@@ -84,7 +84,7 @@ abstract class Instrument extends LazyObject  {
     fetchResults(m_engine.getResults)
   }
 
-  override protected def calculate() {
+  override protected def calculate()  {
     if (isExpired) {
       setupExpired()
       calculated = true

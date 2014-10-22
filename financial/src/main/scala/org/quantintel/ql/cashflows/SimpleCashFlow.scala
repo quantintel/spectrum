@@ -35,7 +35,7 @@ class SimpleCashFlow extends CashFlow {
 
 
   def amount() : Double = amt
-  def amount(d: Double) { amt = d }
+  def amount(d: Double)  { amt = d }
 
 
   def this(amount: Double, paymentDate: Date) {

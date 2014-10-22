@@ -61,5 +61,5 @@ class EurLibor  extends IborIndex {
 
   class Euribor1Y extends EurLibor {}
   */
-  override def update(): Unit = ???
+  override def update() = ???
 }

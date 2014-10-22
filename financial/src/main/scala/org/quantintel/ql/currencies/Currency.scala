@@ -164,7 +164,7 @@ class Currency {
   def formatString: String = data.formatString
   def triangulationCurrency = data.triangulationCurrency
   def == (currency: Currency) : Boolean = equals(currency)
-  def != (currency: Currency) : Boolean = !(eq(currency))
+  def != (currency: Currency) : Boolean = !eq(currency)
 
 
   def empty : Boolean = data == null

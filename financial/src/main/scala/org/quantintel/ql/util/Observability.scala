@@ -27,7 +27,7 @@ trait Observability extends Observable {
 
   val delegatedObservable: DefaultObservable = new DefaultObservable(this)
 
-  override def addObserver(observer: Observer ) {
+  override def addObserver(observer: Observer )  {
     delegatedObservable.addObserver(observer)
   }
 
@@ -35,7 +35,7 @@ trait Observability extends Observable {
     delegatedObservable.countObservers()
   }
 
-  override def deleteObserver(observer: Observer) {
+  override def deleteObserver(observer: Observer)   {
     delegatedObservable.deleteObserver(observer)
   }
 
@@ -43,11 +43,11 @@ trait Observability extends Observable {
     delegatedObservable.notifyObservers()
   }
 
-  override def notifyObservers(arg: Any) {
+  override def notifyObservers(arg: Any)  {
     delegatedObservable.notifyObservers(arg)
   }
 
-  override def deleteObservers() {
+  override def deleteObservers(){
     delegatedObservable.deleteObservers()
   }
 

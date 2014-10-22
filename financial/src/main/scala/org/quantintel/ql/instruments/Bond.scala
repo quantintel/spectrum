@@ -140,7 +140,7 @@ class Bond extends Instrument {
 
     var ldate = date
 
-    if (date isNull) ldate = settlementDate
+    if (date.isNull) ldate = settlementDate
 
     if (ldate > notionalSchedule(notionalSchedule.size - 1)) return 0.0
 
@@ -176,7 +176,7 @@ class Bond extends Instrument {
 
   }
 
-  def setSingleRedemption(notional: Double, redemption: Double, date: Date): Unit = {
+  def setSingleRedemption(notional: Double, redemption: Double, date: Date) {
 
     redemptions.clear()
 

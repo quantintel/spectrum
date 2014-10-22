@@ -120,11 +120,11 @@ class Settings {
     if (varr==null) false else varr.asInstanceOf[Boolean]
   }
 
-  def setNegativeRates(negativeRates: Boolean) {
+  def setNegativeRates(negativeRates: Boolean)  {
     attrs.get().put(NEGATIVE_RATES, negativeRates.asInstanceOf[AnyRef])
   }
 
-  def setExtraSafetyChecks(extraSafetyChecks: Boolean) {
+  def setExtraSafetyChecks(extraSafetyChecks: Boolean)  {
     attrs.get().put(EXTRA_SAFETY_CHECKS, extraSafetyChecks.asInstanceOf[AnyRef])
   }
 
@@ -132,12 +132,12 @@ class Settings {
     attrs.get().put(TODAYS_PAYMENTS, todaysPayments.asInstanceOf[AnyRef])
   }
 
-  def setUseIndexedCoupon(todaysPayments: Boolean) {
+  def setUseIndexedCoupon(todaysPayments: Boolean)  {
     attrs.get().put(USE_INDEXED_COUPON, todaysPayments.asInstanceOf[AnyRef])
   }
 
 
-  def setEnforcesTodaysHistoricFixings(enforceTodaysHistoricFixings: Boolean) {
+  def setEnforcesTodaysHistoricFixings(enforceTodaysHistoricFixings: Boolean)  {
     attrs.get().put(ENFORCES_TODAYS_HISTORIC_FIXINGS, enforceTodaysHistoricFixings.asInstanceOf[AnyRef])
   }
 

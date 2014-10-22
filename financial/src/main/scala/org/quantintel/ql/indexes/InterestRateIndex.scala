@@ -145,7 +145,7 @@ abstract class InterestRateIndex extends Index with Observer {
   }
 
 
-  override def update(): Unit = {
+  override def update(){
     notifyObservers()
   }
 

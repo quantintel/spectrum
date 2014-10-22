@@ -34,11 +34,11 @@ object IndexManager {
 
   def getHistory(name: String) : TimeSeries[Double] = data.get(name)
 
-  def setHistory(name: String, history: TimeSeries[Double]) { data.put(name, history)}
+  def setHistory(name: String, history: TimeSeries[Double])  { data.put(name, history)}
 
   def clearHistory(name: String) { data.remove(name) }
 
-  def clearHistories() { data.clear() }
+  def clearHistories()  { data.clear() }
 
 
 

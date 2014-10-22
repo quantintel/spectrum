@@ -32,25 +32,25 @@ class DefaultObservable(observable: Observable) extends Observable {
   val observers: JList[Observer] = new CopyOnWriteArrayList[Observer]()
 
 
-  override def addObserver(observer: Observer): Unit =
-      observers.add(observer)
+  override def addObserver(observer: Observer) { observers.add(observer) }
+
 
   override def countObservers(): Int =
       observers.size()
 
-  override def deleteObserver(observer: Observer): Unit =
-    observers.remove(observer)
+  override def deleteObserver(observer: Observer) { observers.remove(observer)  }
+
 
   override def getObservers: JList[Observer] =
     JCollections.unmodifiableList(this.observers)
 
-  override def deleteObservers(): Unit =
-    observers.clear()
+  override def deleteObservers() {  observers.clear() }
 
-  override def notifyObservers(): Unit =
-    notifyObservers(null)
 
-  override def notifyObservers(arg: Any): Unit = {
+  override def notifyObservers() {  notifyObservers(null) }
+
+
+  override def notifyObservers(arg: Any) {
     try {
       observers.asScala.foreach((o : Observer) => wrappedNotify(o, observable, arg))
     } catch {
@@ -60,7 +60,7 @@ class DefaultObservable(observable: Observable) extends Observable {
 
   }
 
-  def wrappedNotify(observer: Observer, observable: Observable, arg: Any): Unit = {
+  def wrappedNotify(observer: Observer, observable: Observable, arg: Any){
     observer.update()
   }
 

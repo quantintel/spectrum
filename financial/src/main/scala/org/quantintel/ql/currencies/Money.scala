@@ -299,7 +299,7 @@ class Money {
     convertTo(baseCurrency)
   }
 
-  def convertTo(target: Currency) {
+  def convertTo(target: Currency)  {
     if(currency != target){
       val rate : ExchangeRate = ExchangeRateManager.lookup(currency, target)
       val money: Money = rate.exchange(this).rounded

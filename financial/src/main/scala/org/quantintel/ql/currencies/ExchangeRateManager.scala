@@ -22,7 +22,7 @@ import org.quantintel.ql.time.Date
 import org.quantintel.ql.currencies.EuropeEnum._
 import org.quantintel.ql.currencies.AmericaEnum._
 import org.quantintel.ql.time.Month._
-import collection.mutable
+import scala.collection.mutable
 import org.quantintel.ql.currencies.RateTypeEnum._
 
 /**
@@ -130,7 +130,7 @@ object ExchangeRateManager {
 
   }
 
-  def clear() {
+  def clear()  {
 
     m_data.clear()
     addKnownRates()
@@ -148,7 +148,7 @@ object ExchangeRateManager {
 
 
 
-  def addKnownRates(): Unit = {
+  def addKnownRates() {
     // currencies obsoleted by Euro
     add(ExchangeRate(Europe(EUR), Europe(ATS), 13.7603), Date(1,JANUARY,1999), Date.maxDate)
     add(ExchangeRate(Europe(EUR), Europe(BEF), 40.3399), Date(1,JANUARY,1999), Date.maxDate)

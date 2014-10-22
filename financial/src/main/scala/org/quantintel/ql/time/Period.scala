@@ -88,7 +88,7 @@ object Period {
   }
 
   def >=(p1: Period, p2: Period) : Boolean = {
-    !(Period.<(p1,p2))
+    !Period.<(p1, p2)
   }
 
   def + (p1: Period, p2: Period): Period = {
@@ -350,7 +350,7 @@ class Period  {
   }
 
 
-  def normalize(): Unit = {
+  def normalize() {
     if(length!=0){
       units match {
         case DAYS =>

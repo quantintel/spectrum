@@ -32,26 +32,26 @@ class Handle[T <: Observable](var observable: T) extends Observable {
   def currentLink : T = this.observable
 
 
-  override def addObserver(observer: Observer): Unit = ???
+  override def addObserver(observer: Observer)= ???
 
   override def countObservers(): Int = ???
 
-  override def deleteObserver(observer: Observer): Unit = ???
+  override def deleteObserver(observer: Observer) =  ???
 
   override def getObservers: util.List[Observer] = ???
 
-  override def deleteObservers(): Unit = ???
+  override def deleteObservers()= ???
 
-  override def notifyObservers(): Unit = ???
+  override def notifyObservers() = ???
 
-  override def notifyObservers(arg: Any): Unit = ???
+  override def notifyObservers(arg: Any) = ???
 
 
   def internalLinkTo(observable: T)  {
     this.internalLinkTo(observable, registerAsObserver = true)
   }
 
-  def internalLinkTo(observable: T, registerAsObserver: Boolean) {
+  def internalLinkTo(observable: T, registerAsObserver: Boolean)  {
 
     if(this.observable!=observable || this.isObserver!=registerAsObserver){
       if(this.observable!=null && this.isObserver){
@@ -71,7 +71,7 @@ class Handle[T <: Observable](var observable: T) extends Observable {
 
   private class Link(observable: Observable) extends WeakReferenceObservable(observable) with Observer {
 
-      def update(): Unit = {
+      def update(){
         if(observable!=null) super.notifyObservers()
       }
   }
