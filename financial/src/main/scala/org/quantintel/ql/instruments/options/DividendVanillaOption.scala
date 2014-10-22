@@ -18,11 +18,14 @@
  *
  */
 
-package org.quantintel.ql.instruments
+package org.quantintel.ql.instruments.options
 
 /**
+ * Dividend Vanilla Option is a Single-asset vanilla option (no barries) with
+ * discrete dividends.
+ *
  * @author Paul Bernard
  */
-class CliquetOption {
+class DividendVanillaOption {
 
 }

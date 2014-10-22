@@ -18,11 +18,21 @@
  *
  */
 
-package org.quantintel.ql.instruments
+package org.quantintel.ql.instruments.options
 
 /**
+ *
+ * A Barrier Option is an exotic derivative typically an option on the underyling asset
+ * whose price reaching the pre-set barrier level either springs the option into
+ * existence or extinguishes an already exising option.
+ * - Where the option springs into existence on the price of the underlying asset breaching a barrier,
+ * it may be known as an "up and in", or "down and in" option
+ * - Where the option is extinguished on the price of the underlying asset breaching a barrier, it
+ * may be known as an "up and out", "knick-out" or "down and out" option.
+ * source - Wikipedia 2014
+ *
  * @author Paul Bernard
  */
-class Swap {
+class BarrierOption {
 
 }

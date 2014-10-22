@@ -17,12 +17,19 @@
  *        QuantLib. http://quantlib.org/
  *
  */
-
-package org.quantintel.ql.instruments
+package org.quantintel.ql.instruments.options
 
 /**
+ *
+ * An exotic barrier option whose payoff is often paid in a currency other than the
+ * underlying currency pair.  For instance a barrier option can have the USD/JPY pair
+ * as its underlying exchange rate while its payoff is denominated in EUR.  The exhange
+ * rate for the EUR/JPY is pre-specified.
+ * This option has the features of both a quanto option and a barrier option.
+ * source www.majdbakir.com 2014
+ *
  * @author Paul Bernard
  */
-class CreditDefaultSwap {
+class QuantoBarrierOption {
 
 }

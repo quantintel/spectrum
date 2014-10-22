@@ -17,11 +17,18 @@
  *        QuantLib. http://quantlib.org/
  *
  */
-package org.quantintel.ql.instruments
+
+package org.quantintel.ql.instruments.options
 
 /**
+ * A Basket option is a financial derivative, more specifically an exotic option whose underlying
+ * is a (weighted) sum or averge of different assets that have been grouped together in a basket.
+ * For example an index option, where a number of stocks have been gruped together in an index
+ * and the option is based upon the price of the index.
+ * source - Wikipedia 2014
+ *
  * @author Paul Bernard
  */
-class QuantoBarrierOption {
+class BasketOption {
 
 }

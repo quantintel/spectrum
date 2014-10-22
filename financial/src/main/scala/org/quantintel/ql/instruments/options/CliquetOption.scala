@@ -18,11 +18,22 @@
  *
  */
 
-package org.quantintel.ql.instruments
+package org.quantintel.ql.instruments.options
 
 /**
+ *
+ * A cliquet option or 'ratchet option" is an exotic option consisting of a series
+ * of consecutive forward start options.  The first is active immediately.  The
+ * second becomes active when the first expires, ect.  Each option is struck at-th-
+ * money when it becomes active.
+ * A cliqet is, therefore, a series of at-the-money options but where the total
+ * premium is determined in advance.  A cliquet can be thought of a series of "pre-
+ * purchased" at-the-money options.  The payout on each option can either be paid at
+ * the final maturity, or at th eend of each reset period.
+ * source- Wikipedia 2014
+ *
  * @author Paul Bernard
  */
-class DividendVanillaOption {
+class CliquetOption {
 
 }

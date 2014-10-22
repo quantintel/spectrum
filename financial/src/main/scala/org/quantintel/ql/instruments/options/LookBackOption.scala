@@ -18,11 +18,18 @@
  *
  */
 
-package org.quantintel.ql.instruments
+package org.quantintel.ql.instruments.options
 
 /**
+ * Lookback options, are a type of exotic option with path dependency, amoung many other kind
+ * of options.  The payoff depends on the optimal(maximum or minimum) underlying asset's price
+ * occuring over the life of the option.  The option allows the holder to "look back" over time
+ * to determine the payoff.  There exists two kinds of lookback options: the floating strike
+ * and fixed strike.
+ * source: Wikipedia 2014
+ *
  * @author Paul Bernard
  */
-class AsianOption {
+class LookBackOption {
 
 }

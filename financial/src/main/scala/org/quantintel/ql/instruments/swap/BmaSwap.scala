@@ -18,11 +18,19 @@
  *
  */
 
-package org.quantintel.ql.instruments
+package org.quantintel.ql.instruments.swap
 
 /**
+ *
+ * A Bond Market Association (BMA) Swap (or municipal interest rate swap) is a type
+ * of swap arrangement in which two parties agree to exchange interest rates on debt
+ * obligations, where the floating rate is based on the bond market association's
+ * swap index.  One of the parties involved will swap a fixed interest rate for a
+ * floating rate, while the other party will swap a floating rate for a fixed rate.
+ * source- Investopedia 2014
+ *
  * @author Paul Bernard
  */
-class CpiSwap {
+class BmaSwap extends Swap {
 
 }

@@ -18,11 +18,13 @@
  *
  */
 
-package org.quantintel.ql.instruments
+package org.quantintel.ql.instruments.options
 
 /**
+ *
+ *
  * @author Paul Bernard
  */
-class BmaSwap {
+class DividendBarrierOption {
 
 }

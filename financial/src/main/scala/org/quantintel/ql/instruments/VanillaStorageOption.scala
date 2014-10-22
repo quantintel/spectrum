@@ -21,6 +21,9 @@
 package org.quantintel.ql.instruments
 
 /**
+ * A variance swap is an over-the-counter financial derivative that allows one
+ * to speculate on or hedge risks associated with the magnitude of movement,
+ * i.e vlati
  * @author Paul Bernard
  */
 class VanillaStorageOption {

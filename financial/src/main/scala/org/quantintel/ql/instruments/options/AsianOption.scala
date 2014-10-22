@@ -18,11 +18,20 @@
  *
  */
 
-package org.quantintel.ql.instruments
+package org.quantintel.ql.instruments.options
 
 /**
+ *
+ * An Asian option (also known as an 'average option') is a special type of option contract. For Asian
+ * options the payoff is determined by the average underlying price over some pre-set period of time.
+ * This is different from the case of the usual European option and American option, where the payoff
+ * of the option contract depends on the price of the underlying instrument at time of exercise;  Asian
+ * options are thus one of the basic forms of exotic options.
+ * - Source: Wikipedia 2014
+ *
+ *
  * @author Paul Bernard
  */
-class VanillaSwap {
+class AsianOption {
 
 }

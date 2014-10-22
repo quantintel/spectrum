@@ -18,11 +18,40 @@
  *
  */
 
-package org.quantintel.ql.instruments
+package org.quantintel.ql.instruments.options
 
 /**
+ * @see BarrierOption
+ *
  * @author Paul Bernard
  */
-class OvernightIndexedSwap {
+object BarrierType extends Enumeration {
+
+  type BarrierType = Value
+  val DOWN_IN = Value(0)
+  val UP_IN = Value(1)
+  val DOWN_OUT = Value(2)
+  val UP_OUT = Value(3)
+  val UNKNOWN = Value(4)
+
+  def valueOf(unit: Int) = unit match {
+    case 0 => DOWN_IN
+    case 1 => UP_IN
+    case 2 => DOWN_OUT
+    case 3 => UP_OUT
+    case 4 => UNKNOWN
+    case _ => throw new Exception("Valid units = 0 to 4")
+  }
+
+  def toString(unit: BarrierType): String = {
+    unit match {
+      case DOWN_IN => "Down & In"
+      case UP_IN => "Up & In"
+      case DOWN_OUT => "Down & Out"
+      case UP_OUT => "Up & Out"
+      case UNKNOWN => "Unknown"
+    }
+
+  }
 
 }

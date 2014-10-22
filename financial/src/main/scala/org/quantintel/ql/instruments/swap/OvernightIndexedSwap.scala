@@ -18,11 +18,20 @@
  *
  */
 
-package org.quantintel.ql.instruments
+package org.quantintel.ql.instruments.swap
 
 /**
+ * An interst rate swap involving the overnight rate being exchanged for a fixed
+ * interest rate.  An overnight index swap uses an overnight rate index, such as the
+ * Fed Funds Rate, as the underlying for its floating leg, while the fixed leg would
+ * be set at an assumed rate.  Overnight index swaps are popular amongst finanial
+ * institutions for the reason that the overnight index is considered to be a good
+ * indicator of the interbank credit markets, and less risky than other traditional
+ * interst rate spreads.
+ * source: Investopedia 2014
+ *
  * @author Paul Bernard
  */
-class MultiAssetOption {
+class OvernightIndexedSwap {
 
 }

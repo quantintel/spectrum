@@ -18,11 +18,20 @@
  *
  */
 
-package org.quantintel.ql.instruments
+package org.quantintel.ql.instruments.swap
+
+import org.quantintel.ql.instruments.Instrument
 
 /**
+ * Swap is the exchange of one security for another to change the maturity
+ * (bonds), quality of issues(stocks or bonds), or because investment objectives
+ * have changed.  Swaps have also grown to include currency swaps and interst
+ * rate swaps
+ * -source Investopedia 2014
+ *
  * @author Paul Bernard
  */
-class DividentBarrierOption {
+class Swap extends Instrument {
 
+  override protected def isExpired: Boolean = ???
 }

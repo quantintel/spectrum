@@ -32,6 +32,14 @@ import org.quantintel.ql.time.TimeUnit.DAYS
 import scala.collection.mutable.ArrayBuffer
 
 /**
+ * A debt investment in which an investor loans money to an entity (corporate or
+ * govermental) that borrows the funds for a defined period of time at a fixed interest
+ * rate.  Bond are used by companies, municipalities, states, as well as US and
+ * foreign governments to finance a variety of projects and acivities.
+ * Bonds are commonly referred to as fixed-income securities.
+ * source- Investopedia 2014
+ *
+ *
  * @author Paul Bernard
  */
 class Bond extends Instrument {
@@ -67,7 +75,7 @@ class Bond extends Instrument {
     }
 
     val evaluationDate : Date = new Settings().evaluationDate
-    // TODO: evaluationDate.addObserver(this)
+    evaluationDate.addObserver(this)
 
   }
 
@@ -111,7 +119,7 @@ class Bond extends Instrument {
     }
 
     val evaluationDate : Date = new Settings().evaluationDate
-    // TODO: evaluationDate.addObserver(this)
+    evaluationDate.addObserver(this)
 
 
   }

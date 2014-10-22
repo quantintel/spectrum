@@ -18,9 +18,17 @@
  *
  */
 
-package org.quantintel.ql.instruments
+package org.quantintel.ql.instruments.swap
 
 /**
+ *
+ * An intrument representing the exchange of the flow of payments from a given security (the asset)
+ * for a different set of cash flows.  An example of this is where an institution swaps the cash
+ * flow on a US Government Bond for LIBOR minus a spread(say 20 basis points).  Such swaps usually
+ * have stub period in order to bring the chronology of the cash flow into line with that of the
+ * underlying bond.
+ * source: Wikipedia 2014
+ *
  * @author Paul Bernard
  */
 class AssetSwap {
