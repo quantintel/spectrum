@@ -28,25 +28,26 @@ import org.quantintel.ql.termstructures.YieldTermStructure
 import org.quantintel.ql.time.daycounters.DayCounter
 import org.quantintel.ql.time.{Period, Date, Calendar}
 import org.quantintel.ql.time.TimeUnit._
+import org.quantintel.ql.util.Observer
 
 /**
  *
- * An index that is based off the interest rate of a financial instrument or baskt of
+ * An index that is based off the interest rate of a financial instrument or basket of
  * financial instruments.  An interest rate index serves as a benchmark used to
  * calculate the interest rate changed on financial products, such as mortgages.
  *  - Source: Investopedia 2014
  *
  * @author Paul Bernard
  */
-abstract class InterestRateIndex extends Index {
+abstract class InterestRateIndex extends Index with Observer {
 
 
-  var familyName: String = null
-  var tenor: Period = null
-  var fixingDays: Int = 0
-  var currency: Currency = null
-  var pFixingCalendar: Calendar = null
-  var dayCounter: DayCounter = null
+  protected var familyName: String = null
+  protected var tenor: Period = null
+  protected var fixingDays: Int = 0
+  protected var currency: Currency = null
+  protected var pFixingCalendar: Calendar = null
+  protected var dayCounter: DayCounter = null
 
 
   def this(familyName: String, tenor: Period,
@@ -63,7 +64,7 @@ abstract class InterestRateIndex extends Index {
 
 
 
-  this.tenor.normalize
+  this.tenor.normalize()
 
   /**
    *
@@ -76,10 +77,10 @@ abstract class InterestRateIndex extends Index {
         case 0 => fn ++= "ON"
         case 1 => fn ++= "TN"
         case 2 => fn ++= "SN"
-        case _ => fn ++= tenor.getShortFormat()
+        case _ => fn ++= tenor.getShortFormat
       }
     } else {
-      fn ++= tenor.getShortFormat()
+      fn ++= tenor.getShortFormat
     }
     fn ++= " "
     fn ++= dayCounter.name
@@ -99,7 +100,7 @@ abstract class InterestRateIndex extends Index {
    * @return true if the fixing date is valid
    */
   override def isValidFixingDate(fixingDate: Date): Boolean = {
-    fixingCalendar.isBusinessDay(fixingDate)
+    fixingCalendar().isBusinessDay(fixingDate)
   }
 
   protected def forecastFixing(fixingDate: Date) : Double
@@ -114,18 +115,17 @@ abstract class InterestRateIndex extends Index {
 
     if (fixingDate < today || (fixingDate == today && enforceTodaysHistoricalFixings
       && !forecastingTodaysFixing)) {
-      val pastFixing: Double = IndexManager.getHistory(name).get(fixingDate)
+      val pastFixing: Double = IndexManager.getHistory(name()).get(fixingDate)
       pastFixing
     }
 
     if ((fixingDate == today) && !forecastingTodaysFixing) {
       try {
-        val pastFixing: Double = IndexManager.getHistory(name).get(fixingDate)
+        val pastFixing: Double = IndexManager.getHistory(name()).get(fixingDate)
         if (pastFixing != Constants.NULL_REAL) pastFixing
       } catch {
-        case e: Exception => {
-          // exception is eaten
-        }
+        case e: Exception => // exception is eaten
+
       }
     }
     forecastFixing(fixingDate)
@@ -133,7 +133,7 @@ abstract class InterestRateIndex extends Index {
 
 
   override def fixing(fixingDate: Date): Double = {
-    fixing(fixingDate, false)
+    fixing(fixingDate, forecastingTodaysFixing = false)
   }
 
   def fixingDate(valueDate: Date): Date = {
@@ -145,6 +145,9 @@ abstract class InterestRateIndex extends Index {
   }
 
 
+  override def update(): Unit = {
+    notifyObservers()
+  }
 
 
 }

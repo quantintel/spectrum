@@ -23,7 +23,7 @@ package org.quantintel.ql.time
 /**
  * @author Paul Bernard
  */
-object BusinessDayConventionEnum extends Enumeration {
+object BusinessDayConvention extends Enumeration {
 
   type BusinessDayConventionEnum  = Value
   val FOLLOWING = Value(1)

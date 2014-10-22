@@ -30,7 +30,7 @@ trait Observable {
 
   def countObservers() : Int
 
-  def getObservers() : JList[Observer]
+  def getObservers : JList[Observer]
 
   def deleteObserver(observer: Observer)
 

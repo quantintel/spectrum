@@ -22,7 +22,7 @@ import org.quantintel.ql.time.Date
 import org.quantintel.ql.currencies.EuropeEnum._
 import org.quantintel.ql.currencies.AmericaEnum._
 import org.quantintel.ql.time.Month._
-import scala.collection.mutable.Map
+import collection.mutable
 import org.quantintel.ql.currencies.RateTypeEnum._
 
 /**
@@ -30,14 +30,14 @@ import org.quantintel.ql.currencies.RateTypeEnum._
  */
 object ExchangeRateManager {
 
-  private var m_data = Map[Any, List[Entry]]()
+  private var m_data = mutable.Map[Any, List[Entry]]()
 
-  addKnownRates
+  addKnownRates()
 
   /**
    * Helper class to decide whether a date is in the range of a specific entry
    *
-   * @param d
+   * @param d the date
    */
   class ValidAt (d: Date) {
 
@@ -130,15 +130,15 @@ object ExchangeRateManager {
 
   }
 
-  def clear {
+  def clear() {
 
-    m_data.clear
-    addKnownRates
+    m_data.clear()
+    addKnownRates()
 
   }
 
   def hash (c1: Currency, c2: Currency) : Int = {
-    return Math.min(c1.numericCode, c2.numericCode) * 1000 + Math.max(c1.numericCode, c2.numericCode);
+    Math.min(c1.numericCode, c2.numericCode) * 1000 + Math.max(c1.numericCode, c2.numericCode)
   }
 
   def hashes(k: Int, c: Currency) : Boolean = {
@@ -148,7 +148,7 @@ object ExchangeRateManager {
 
 
 
-  def addKnownRates: Unit = {
+  def addKnownRates(): Unit = {
     // currencies obsoleted by Euro
     add(ExchangeRate(Europe(EUR), Europe(ATS), 13.7603), Date(1,JANUARY,1999), Date.maxDate)
     add(ExchangeRate(Europe(EUR), Europe(BEF), 40.3399), Date(1,JANUARY,1999), Date.maxDate)
@@ -190,14 +190,14 @@ object ExchangeRateManager {
     val direct: ExchangeRate = fetch(source, target, date)
 
     if(direct != null) direct
-    val temp : Array[Int] = forbidden.clone
+    val temp : Array[Int] = forbidden.clone()
     forbidden = Array(temp.length + 1)
     System.arraycopy(temp, 0, forbidden, 0, temp.length)
     forbidden(forbidden.length -1) = source.numericCode
 
     m_data.foreach { keyVal =>
 
-      if (hashes(keyVal._1.asInstanceOf[Int] , source) && !(m_data(keyVal._1).isEmpty)) {
+      if (hashes(keyVal._1.asInstanceOf[Int] , source) && m_data(keyVal._1).nonEmpty) {
 
         val e : Entry = m_data(keyVal._1)(0)
         val other : Currency =
@@ -208,8 +208,8 @@ object ExchangeRateManager {
           val head : ExchangeRate = fetch(source, other, date)
 
             if (head != null) {
-              val tail : ExchangeRate = smartLookup(other, target, date, forbidden);
-              ExchangeRate.chain(head, tail);
+              val tail : ExchangeRate = smartLookup(other, target, date, forbidden)
+              ExchangeRate.chain(head, tail)
             }
 
         }
@@ -242,7 +242,7 @@ object ExchangeRateManager {
     for (i <- 0 to rates.size){
       if (va.operator(rates(i))) return i
     }
-    return -1
+    -1
 
   }
 

@@ -160,18 +160,18 @@ object ActualActual  {
         // here refPeriodEnd is a future (notional?) payment date
         if (d1 >= refPeriodStart)
 
-          return period * dayCount(d1, d2) /
+          period * dayCount(d1, d2) /
             dayCount(refPeriodStart, refPeriodEnd)
 
         else {
 
-          val previousRef : Date = refPeriodStart + (new Period(-months, TimeUnit.MONTHS))
+          val previousRef : Date = refPeriodStart + new Period(-months, TimeUnit.MONTHS)
 
 
           if (d2 > refPeriodStart) {
-            return (yearFraction(d1, refPeriodStart, previousRef, refPeriodStart) +
-               yearFraction(refPeriodStart, d2, refPeriodStart, refPeriodEnd)) }
-          else return yearFraction(d1, d2, previousRef, refPeriodStart)
+            yearFraction(d1, refPeriodStart, previousRef, refPeriodStart) +
+               yearFraction(refPeriodStart, d2, refPeriodStart, refPeriodEnd) }
+          else yearFraction(d1, d2, previousRef, refPeriodStart)
 
         }
       } else {
@@ -187,8 +187,8 @@ object ActualActual  {
 
         var check : Boolean = true
         do {
-            newRefStart = refPeriodEnd + (new Period(months * i, TimeUnit.MONTHS))
-            newRefEnd = refPeriodEnd + (new Period(months * (i + 1), TimeUnit.MONTHS))
+            newRefStart = refPeriodEnd + new Period(months * i, TimeUnit.MONTHS)
+            newRefEnd = refPeriodEnd + new Period(months * (i + 1), TimeUnit.MONTHS)
             if (d2 < newRefEnd) check = false
               else {
                 sum = sum + period
@@ -196,7 +196,7 @@ object ActualActual  {
               }
         } while (check)
         sum = sum + yearFraction(newRefStart, d2, newRefStart, newRefEnd)
-        return sum
+        sum
       }
 
     }
@@ -261,7 +261,7 @@ object ActualActual  {
 
       if (Date.isLeapYr(newD2.year)) {
         if ((newD2 > new Date(29, Month.FEBRUARY, newD2.year)) &&
-          (dateStart <= (new Date(29, Month.FEBRUARY, newD2.year))))
+          dateStart <= new Date(29, Month.FEBRUARY, newD2.year))
           den = den + 1.0
       } else if (Date.isLeapYr(dateStart.year)) {
         if ((newD2 > new Date(29, Month.FEBRUARY, dateStart.year)) &&

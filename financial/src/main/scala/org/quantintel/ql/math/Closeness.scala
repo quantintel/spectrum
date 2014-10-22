@@ -31,8 +31,8 @@ object Closeness {
 
   def isClose(x: Double, y: Double, n: Int) : Boolean = {
     val diff: Double = Math.abs(x-y)
-    val tolerance : Double = n * Constants.QL_EPSILON;
-    (diff <= tolerance*Math.abs(x) && diff <= tolerance*Math.abs(y))
+    val tolerance : Double = n * Constants.QL_EPSILON
+    diff <= tolerance*Math.abs(x) && diff <= tolerance*Math.abs(y)
   }
 
   def isCloseEnough(x: Double, y: Double) : Boolean = {
@@ -41,8 +41,8 @@ object Closeness {
 
   def isCloseEnough(x: Double, y: Double, n: Int) : Boolean = {
     val diff : Double = Math.abs(x-y)
-    val tolerance : Double = n * Constants.QL_EPSILON;
-    (diff <= tolerance*Math.abs(x) || diff <= tolerance*Math.abs(y))
+    val tolerance : Double = n * Constants.QL_EPSILON
+    diff <= tolerance*Math.abs(x) || diff <= tolerance*Math.abs(y)
   }
 
 

@@ -24,11 +24,12 @@ import org.quantintel.ql.termstructures.Compounding.Compounding
 import org.quantintel.ql.time.{Period, Date}
 import org.quantintel.ql.time.Frequency.Frequency
 import org.quantintel.ql.time.daycounters.DayCounter
+import org.quantintel.ql.util.{Observable, Observer}
 
 /**
  * @author Paul Bernard
  */
-abstract class YieldTermStructure extends TermStructure {
+abstract class YieldTermStructure extends TermStructure with Observer with Observable  {
 
   /**
    * Zero yield rates
@@ -57,11 +58,11 @@ abstract class YieldTermStructure extends TermStructure {
   /**
    * The resulting interest rate has the same day counting rule used by the term
    * structure.  The same rule should be used for calculating the passed double t.
-   * @param d
-   * @param dayCounter
-   * @param comp
-   * @param freq
-   * @param extrapolate
+   * @param d the date
+   * @param dayCounter day counter
+   * @param comp compounding method
+   * @param freq frequency
+   * @param extrapolate extrapolate flag
    * @return the implied zero yield rate for a given date or time.  In the former case, the
    *         time is calculated as a fraction of a year from the reference date.
    */
@@ -71,23 +72,23 @@ abstract class YieldTermStructure extends TermStructure {
   /**
    * Zero yield rates.
    *
-   * @param time
-   * @param comp
-   * @param freq
+   * @param time the time
+   * @param comp compounding
+   * @param freq frequency
    * @param extrapolate The resulting interest rate has the same day counting rule used by the
    *                    term structure.  The same rule should be used for calulating the passed
    *                    double t.
-   * @return
+   * @return Interest Rate
    */
   def zeroRate(time: Double, comp: Compounding, freq: Frequency, extrapolate: Boolean): InterestRate
 
   /**
    * Forward Rates
    * Dates are not adjusted for holidays
-   * @param d1
-   * @param d2
-   * @param resultDayCounter
-   * @param comp
+   * @param d1 start date
+   * @param d2 end date
+   * @param resultDayCounter day count method
+   * @param comp compounding method
    * @return the implied forward rate between two dates or times.  In the former case, times are
    *         calculated as fractions of year from the reference date.  The resulting rate has the required
    *         day counting rule.

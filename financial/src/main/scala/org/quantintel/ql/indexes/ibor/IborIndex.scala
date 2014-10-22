@@ -20,19 +20,80 @@
 
 package org.quantintel.ql.indexes.ibor
 
+import org.quantintel.ql.currencies.Currency
 import org.quantintel.ql.indexes.InterestRateIndex
 import org.quantintel.ql.quotes.Handle
 import org.quantintel.ql.termstructures.YieldTermStructure
-import org.quantintel.ql.time.Date
+import org.quantintel.ql.time.BusinessDayConvention.BusinessDayConventionEnum
+import org.quantintel.ql.time.daycounters.DayCounter
+import org.quantintel.ql.time.{Calendar, Period, Date}
 
 /**
  * @author Paul Bernard
  */
 class IborIndex  extends InterestRateIndex {
 
-  override protected def forecastFixing(fixingDate: Date): Double = ???
+  private var mTermStructure : Handle[YieldTermStructure] = null
+  private var endOfMonth : Boolean = false
+  private var convention : BusinessDayConventionEnum = null
 
-  override def maturityDate(valueDate: Date): Date = ???
 
-  override def termStructure(): Handle[YieldTermStructure] = ???
+  def this(familyName: String, tenor: Period, fixingDays: Int, currency: Currency,
+    fixingCalendar: Calendar, convention: BusinessDayConventionEnum,
+    endOfMonth: Boolean, dayCounter: DayCounter, h: Handle[YieldTermStructure]){
+      this()
+      this.convention = convention
+      this.mTermStructure = h
+      this.endOfMonth = endOfMonth
+      if(mTermStructure !=null) {
+        termStructure().addObserver(this)
+      }
+  }
+
+  def this(familyName: String, tenor: Period, fixingDays: Int, currency: Currency,
+           fixingCalendar: Calendar, convention: BusinessDayConventionEnum,
+           endOfMonth: Boolean, dayCounter: DayCounter){
+
+    this(familyName, tenor, fixingDays, currency, fixingCalendar,
+        convention, endOfMonth, dayCounter, new Handle[YieldTermStructure]())
+  }
+
+  def clone(h: Handle[YieldTermStructure]) : Handle[IborIndex] = {
+
+    new Handle[IborIndex](IborIndex(familyName, tenor, fixingDays, currency, fixingCalendar(),
+      convention, endOfMonth, dayCounter, h))
+
+  }
+
+
+  override protected def forecastFixing(fixingDate: Date): Double = {
+    val fixingValueDate: Date = valueDate(fixingDate)
+    val endValueDate : Date = maturityDate(fixingValueDate)
+    val fixingDiscount : Double = termStructure().currentLink.discount(fixingValueDate)
+    val endDiscount: Double = termStructure().currentLink.discount(endValueDate)
+
+    val fixingPeriod : Double = dayCounter.yearFraction(fixingValueDate, endValueDate)
+    (fixingDiscount / endDiscount - 1.0) / fixingPeriod
+  }
+
+  override def maturityDate(valueDate: Date): Date = fixingCalendar().advance(valueDate, tenor, convention, endOfMonth)
+
+  override def termStructure() : Handle[YieldTermStructure] = mTermStructure
+
+
+  def businessDayConvention() = {
+    convention
+  }
+}
+
+object IborIndex {
+
+  def apply(familyName: String, tenor: Period, fixingDays: Int, currency: Currency,
+            fixingCalendar: Calendar, convention: BusinessDayConventionEnum,
+            endOfMonth: Boolean, dayCounter: DayCounter, h: Handle[YieldTermStructure]) = {
+
+    new IborIndex(familyName, tenor, fixingDays, currency, fixingCalendar,
+      convention, endOfMonth, dayCounter, h)
+  }
+
 }

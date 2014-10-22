@@ -20,13 +20,13 @@
 
 package org.quantintel.ql.time.daycounters
 
-import org.quantintel.ql.time.{Date}
+import org.quantintel.ql.time.Date
 import org.quantintel.ql.time.Month._
 
 
 object Thirty360Convention extends Enumeration {
 
-  type Thrity360Convention = Value
+  type Thirty360Convention = Value
   val USA = Value(1)
   val BONDBASIS = Value(2)
   val EUROPEAN = Value(3)
@@ -93,7 +93,7 @@ object Thirty360 {
 
   import org.quantintel.ql.time.daycounters.Thirty360Convention._
 
-  def apply(convention: Thrity360Convention) : DayCounter = {
+  def apply(convention: Thirty360Convention) : DayCounter = {
     convention match {
       case USA => new USA
       case BONDBASIS => new USA
@@ -149,7 +149,7 @@ object Thirty360 {
         mm2= mm2 + 1
       }
 
-      360*(yy2-yy1) + 30*(mm2-mm1-1) + Math.max(0, 30-dd1) + Math.min(30, dd2);
+      360*(yy2-yy1) + 30*(mm2-mm1-1) + Math.max(0, 30-dd1) + Math.min(30, dd2)
 
     }
 

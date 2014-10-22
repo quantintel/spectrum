@@ -22,19 +22,20 @@ package org.quantintel.ql.cashflows
 
 import org.quantintel.ql._
 import org.quantintel.ql.time.Date
+import org.quantintel.ql.util.{Observability, Observer, DefaultObservable, Observable}
 
 /**
  * @author Paul Bernard
  */
-abstract class Event {
+abstract class Event extends Observable with Observability {
 
   def date : Date
 
-  def hasOccured(d: Date): Boolean = {
-    hasOccured(d, new Settings().isTodaysPayments)
+  def hasOccurred(d: Date): Boolean = {
+    hasOccurred(d, new Settings().isTodaysPayments)
   }
 
-  def hasOccured(d: Date, includeToday: Boolean) : Boolean = {
+  def hasOccurred(d: Date, includeToday: Boolean) : Boolean = {
 
     if (includeToday){
       Date.todaysDate.compareTo(d) < 0
@@ -42,7 +43,6 @@ abstract class Event {
       Date.todaysDate.compareTo(d) <= 0
     }
   }
-
 
 
 }

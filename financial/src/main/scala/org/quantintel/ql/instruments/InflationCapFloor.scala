@@ -21,7 +21,7 @@
 package org.quantintel.ql.instruments
 
 /**
- * Created by paulbernard on 10/7/14.
+ * @author Paul Bernard
  */
 class InflationCapFloor {
 

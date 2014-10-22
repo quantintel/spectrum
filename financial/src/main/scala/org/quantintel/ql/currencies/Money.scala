@@ -108,18 +108,18 @@ class Money {
 
   def + (money: Money) : Money = {
     var tmp : Money = this.clone()
-    tmp += (money)
+    tmp += money
     tmp
   }
 
   def += (money: Money) : Money = {
 
-    if (m_currency == Money) {
+    if (m_currency == money.m_currency) {
       m_value += money.value
     } else if (conversionType == BASE_CURRENCY_CONVERSION) {
-      convertToBase
+      convertToBase()
       var temp : Money = money.clone
-      temp.convertToBase
+      temp.convertToBase()
       this += temp
     } else if (conversionType == AUTOMATED_CONVERSION){
       var temp : Money = money.clone
@@ -135,7 +135,7 @@ class Money {
 
   def - (money: Money): Money = {
     var temp : Money = this.clone()
-    temp -= (money)
+    temp -= money
     temp
   }
 
@@ -143,9 +143,9 @@ class Money {
     if (m_currency == money.currency){
       m_value -= money.value
     } else if (conversionType == BASE_CURRENCY_CONVERSION){
-      convertToBase
-      var temp : Money = money.clone
-      temp.convertToBase
+      convertToBase()
+      val temp : Money = money.clone()
+      temp.convertToBase()
     } else if (conversionType == AUTOMATED_CONVERSION){
       var temp : Money = money.clone
       temp.convertTo(m_currency)
@@ -177,13 +177,13 @@ class Money {
       if (m_currency == money.currency){
         m_value / money.value
       } else if (conversionType == BASE_CURRENCY_CONVERSION) {
-        var temp1 : Money = clone
-        temp1.convertToBase
-        var temp2 : Money = money.clone
-        temp2.convertToBase
+        val temp1 : Money = clone()
+        temp1.convertToBase()
+        val temp2 : Money = money.clone()
+        temp2.convertToBase()
         this / temp2
       } else if (conversionType == AUTOMATED_CONVERSION){
-        var temp : Money = money.clone
+        val temp : Money = money.clone()
         temp.convertTo(money.currency)
         this / temp
       } else {
@@ -197,9 +197,9 @@ class Money {
         m_value == money.value
       } else if (conversionType == BASE_CURRENCY_CONVERSION){
         val temp1: Money = clone
-        temp1.convertToBase
+        temp1.convertToBase()
         val temp2 : Money = money.clone
-        temp2.convertToBase
+        temp2.convertToBase()
         temp1 == temp2
       } else if (conversionType == AUTOMATED_CONVERSION){
         val temp : Money = money.clone
@@ -229,9 +229,9 @@ class Money {
       m_value < money.value
     } else if (conversionType == BASE_CURRENCY_CONVERSION){
       val temp1 : Money = clone
-      temp1.convertToBase
+      temp1.convertToBase()
       val temp2 : Money = money
-      temp2.convertToBase
+      temp2.convertToBase()
       temp1 < temp2
     } else if (conversionType == AUTOMATED_CONVERSION){
       val temp : Money = money
@@ -247,55 +247,55 @@ class Money {
       value <= money.value
     } else if (conversionType == BASE_CURRENCY_CONVERSION){
       val temp1 : Money = clone
-      temp1.convertToBase
+      temp1.convertToBase()
       val temp2 : Money = money
-      temp2.convertToBase
+      temp2.convertToBase()
       temp1 < temp2
     } else if (conversionType == AUTOMATED_CONVERSION) {
       val temp : Money = money.clone
-      temp.convertTo(currency);
+      temp.convertTo(currency)
       this < temp
     } else
-      throw new Exception("currency mismatch and no conversion specified");
+      throw new Exception("currency mismatch and no conversion specified")
   }
 
   def close (money: Money, n: Int): Boolean = {
     if (currency == money.currency)
-      return Closeness.isClose(m_value, money.value, n);
+      Closeness.isClose(m_value, money.value, n)
     else if (conversionType == BASE_CURRENCY_CONVERSION) {
       val temp1: Money = clone
-      temp1.convertToBase
+      temp1.convertToBase()
       val temp2 : Money = money.clone
-      temp2.convertToBase
-      temp1.close(temp2, n);
+      temp2.convertToBase()
+      temp1.close(temp2, n)
     } else if (conversionType == AUTOMATED_CONVERSION) {
       val temp : Money = money.clone
       temp.convertTo(currency)
-      return this.close(temp, n);
+      this.close(temp, n)
     } else
-      throw new Exception("currency mismatch and no conversion specified");
+      throw new Exception("currency mismatch and no conversion specified")
 
 
   }
   def closeEnough(money: Money, n: Int) : Boolean = {
     if (m_currency == money.currency)
-      Closeness.isCloseEnough(m_value, money.value, n);
+      Closeness.isCloseEnough(m_value, money.value, n)
     else if (conversionType == BASE_CURRENCY_CONVERSION) {
       val temp1 : Money = clone
-      temp1.convertToBase
-      val temp2: Money = money;
-      temp2.convertToBase
-      temp1.closeEnough(temp1, n);
+      temp1.convertToBase()
+      val temp2: Money = money
+      temp2.convertToBase()
+      temp1.closeEnough(temp1, n)
     } else if (conversionType == AUTOMATED_CONVERSION) {
-      val temp: Money = money;
-      temp.convertTo(currency);
-      closeEnough(temp, n);
+      val temp: Money = money
+      temp.convertTo(currency)
+      closeEnough(temp, n)
     } else
       throw new Exception("currency mismatch and no conversion specified")
   }
 
 
-  def convertToBase {
+  def convertToBase () {
     convertTo(baseCurrency)
   }
 

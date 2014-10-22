@@ -38,7 +38,7 @@ object IndexManager {
 
   def clearHistory(name: String) { data.remove(name) }
 
-  def clearHistories { data.clear }
+  def clearHistories() { data.clear() }
 
 
 

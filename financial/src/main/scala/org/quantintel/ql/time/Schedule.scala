@@ -21,7 +21,7 @@
 package org.quantintel.ql.time
 
 import org.quantintel.ql.Settings
-import org.quantintel.ql.time.BusinessDayConventionEnum.BusinessDayConventionEnum
+import org.quantintel.ql.time.BusinessDayConvention.BusinessDayConventionEnum
 import org.quantintel.ql.time.DateGeneration.DateGeneration
 import org.quantintel.ql.time.DateGeneration._
 import org.quantintel.ql.time.Month.Month
@@ -88,8 +88,8 @@ class Schedule(val fullInterface: Boolean,
   private var firstDate: Date = null
   private var nextToLastDate: Date = null
 
-  import org.quantintel.ql.time.BusinessDayConventionEnum._
-  import org.quantintel.ql.time.BusinessDayConventionEnum.UNADJUSTED
+  import org.quantintel.ql.time.BusinessDayConvention._
+  import org.quantintel.ql.time.BusinessDayConvention.UNADJUSTED
 
   def this (effectiveDate: Date,
             terminationDate: Date,
@@ -123,13 +123,13 @@ class Schedule(val fullInterface: Boolean,
 
 
     rule match {
-      case ZERO => {
+      case ZERO =>
         this.tenor = Period(0, DAYS)
         dates.append(effectiveDate)
         dates.append(terminationDate)
         this.m_isRegular.append(true)
-      }
-      case BACKWARD => {
+
+      case BACKWARD =>
         dates.append(terminationDate)
         seed = terminationDate.clone
         if(nextToLastDate != null && !nextToLastDate.isNull){
@@ -145,7 +145,7 @@ class Schedule(val fullInterface: Boolean,
         breakable {
           while(true){
             val temp : Date = nullCalendar.advance(seed, (this.tenor * periods) * -1, convention, endOfMonth)
-            if(temp < exitDate) break
+            if(temp < exitDate) break()
             else {
               insertAt(temp, 0, dates.toList)
               insertAt(true, 0, m_isRegular.toList)
@@ -160,12 +160,12 @@ class Schedule(val fullInterface: Boolean,
           insertAt(false, 0, m_isRegular.toList)
         }
 
-      }
+
 
       case TWENTIETH | TWENTIETH_IMM | THIRD_WEDNESDAY => assert(!endOfMonth, "endOfMonth convention incompatible with " +
             this.rule + " date generation rule")
 
-      case FORWARD => {
+      case FORWARD =>
 
         dates.append(effectiveDate)
 
@@ -196,7 +196,7 @@ class Schedule(val fullInterface: Boolean,
         breakable {
             while(true) {
                 val temp : Date = nullCalendar.advance(seed, tenor * periods, convention, endOfMonth)
-                if(temp > exitDate) break
+                if(temp > exitDate) break()
                   else {
                   dates.append(temp)
                   m_isRegular.append(true)
@@ -219,13 +219,12 @@ class Schedule(val fullInterface: Boolean,
 
         }
 
-        break
+        break()
 
-      }
 
-      case _ => {
-        throw new Exception("unknown Rule (" + rule + ")")
-      }
+
+      case _ => throw new Exception("unknown Rule (" + rule + ")")
+
     }
 
 
@@ -256,19 +255,19 @@ class Schedule(val fullInterface: Boolean,
   def this(dates: ListBuffer[Date], calendar: Calendar, convention: BusinessDayConventionEnum) {
     this(false, calendar, convention, convention, false, true, dates, ListBuffer[Boolean]())
 
-    this.tenor = new Period();
-    this.rule = FORWARD;
+    this.tenor = new Period()
+    this.rule = FORWARD
 
   }
 
 
   def this (dates: ListBuffer[Date]) {
 
-    this(dates, new NullCalendar(), org.quantintel.ql.time.BusinessDayConventionEnum.UNADJUSTED)
+    this(dates, new NullCalendar(), org.quantintel.ql.time.BusinessDayConvention.UNADJUSTED)
   }
 
   def this (dates: ListBuffer[Date], calendar: Calendar) {
-    this(dates, calendar, org.quantintel.ql.time.BusinessDayConventionEnum.UNADJUSTED)
+    this(dates, calendar, org.quantintel.ql.time.BusinessDayConvention.UNADJUSTED)
   }
 
   def this(effectiveDate: Date,
@@ -332,7 +331,7 @@ class Schedule(val fullInterface: Boolean,
         val d: Date = dates(i)
         if(d.eq(date)){
           index = i
-          break
+          break()
         }
       } }
       if (index > 0){

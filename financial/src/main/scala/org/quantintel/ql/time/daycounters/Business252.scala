@@ -53,7 +53,7 @@ object Business252 {
    * BD/252
    *
    *
-   * @param calendar
+   * @param calendar the calendar
    */
   class Business252 (calendar: Calendar) extends DayCounter {
 

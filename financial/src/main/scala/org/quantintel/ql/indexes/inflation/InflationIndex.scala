@@ -22,6 +22,7 @@ package org.quantintel.ql.indexes.inflation
 
 import org.quantintel.ql.indexes.Index
 import org.quantintel.ql.time.{Calendar, Date}
+import org.quantintel.ql.util.Observer
 
 /**
  * Abstract representation of an inflation adjusted Index and specialization of an index
@@ -29,7 +30,7 @@ import org.quantintel.ql.time.{Calendar, Date}
  *
  * @author Paul Bernard
  */
-abstract class InflationIndex extends Index {
+abstract class InflationIndex extends Index with Observer {
   /**
    *
    * @return name of the index
@@ -45,7 +46,7 @@ abstract class InflationIndex extends Index {
   /**
    *
    * @param fixingDate the actual calendar date of the fixing(no settlement days)
-   * @param forecastTodaysFixing
+   * @param forecastTodaysFixing fixing date
    * @return the fixing at the given date.
    */
   override def fixing(fixingDate: Date, forecastTodaysFixing: Boolean): Double = ???

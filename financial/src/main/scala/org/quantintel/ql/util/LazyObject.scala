@@ -23,21 +23,21 @@ package org.quantintel.ql.util
 /**
  * @author Paul Bernard
  */
-abstract class LazyObject {
+abstract class LazyObject  extends Observer with Observable with Observability {
 
   protected var calculated: Boolean = false
 
   protected var frozen: Boolean = false
 
-  protected def performCalculations
+  protected def performCalculations()
 
 
-  def recalculate {
+  def recalculate (){
     val wasFrozen  : Boolean = frozen
     calculated = false
     frozen = false
     try {
-      calculate
+      calculate()
     } finally {
         frozen = wasFrozen
         // TODO: notifyObservers
@@ -45,32 +45,33 @@ abstract class LazyObject {
 
   }
 
-  def freeze {
+  def freeze() {
     frozen = true
   }
 
-  def unfreeze {
+  def unfreeze() {
     frozen = false
   }
 
-  protected def calculate {
+  protected def calculate() {
      if(!calculated && !frozen){
        calculated = true
        try {
-         performCalculations
+         performCalculations()
        } catch {
-         case e : ArithmeticException => {
+         case e : ArithmeticException =>
            calculated = false
            throw e
-         }
+
        }
 
      }
   }
 
-  def update{
+  def update(){
       calculated = false
   }
+
 
 
 

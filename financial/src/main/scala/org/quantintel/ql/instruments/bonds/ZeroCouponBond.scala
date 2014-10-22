@@ -21,7 +21,7 @@
 package org.quantintel.ql.instruments.bonds
 
 import org.quantintel.ql.instruments.Bond
-import org.quantintel.ql.time.BusinessDayConventionEnum._
+import org.quantintel.ql.time.BusinessDayConvention._
 import org.quantintel.ql.time.{Date, Calendar}
 
 /**

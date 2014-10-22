@@ -41,11 +41,11 @@ class DefaultObservable(observable: Observable) extends Observable {
   override def deleteObserver(observer: Observer): Unit =
     observers.remove(observer)
 
-  override def getObservers(): JList[Observer] =
+  override def getObservers: JList[Observer] =
     JCollections.unmodifiableList(this.observers)
 
   override def deleteObservers(): Unit =
-    observers.clear
+    observers.clear()
 
   override def notifyObservers(): Unit =
     notifyObservers(null)
@@ -54,14 +54,14 @@ class DefaultObservable(observable: Observable) extends Observable {
     try {
       observers.asScala.foreach((o : Observer) => wrappedNotify(o, observable, arg))
     } catch {
-      case e: Exception => { throw new Exception(DefaultObservable.CANNOT_NOTIFY_OBSERVERS, e)}
+      case e: Exception =>  throw new Exception(DefaultObservable.CANNOT_NOTIFY_OBSERVERS, e)
     }
 
 
   }
 
   def wrappedNotify(observer: Observer, observable: Observable, arg: Any): Unit = {
-    observer.update
+    observer.update()
   }
 
 

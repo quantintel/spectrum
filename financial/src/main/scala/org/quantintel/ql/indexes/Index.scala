@@ -22,6 +22,7 @@ package org.quantintel.ql.indexes
 
 import org.quantintel.ql.math.{Constants, Closeness}
 import org.quantintel.ql.time.{TimeSeries, Date, Calendar}
+import org.quantintel.ql.util.{Observability, Observer, DefaultObservable, Observable}
 
 /**
  *
@@ -37,7 +38,7 @@ import org.quantintel.ql.time.{TimeSeries, Date, Calendar}
  *
  * @author Paul Bernard
  */
-abstract class Index {
+abstract class Index extends Observable with Observability {
 
   /**
    *
@@ -61,7 +62,7 @@ abstract class Index {
   /**
    *
    * @param fixingDate the actual calendar date of the fixing(no settlement days)
-   * @param forecastTodaysFixing
+   * @param forecastTodaysFixing forecast todays fixing
    * @return the fixing at the given date.
    */
   def fixing (fixingDate: Date, forecastTodaysFixing: Boolean) : Double
@@ -71,7 +72,7 @@ abstract class Index {
 
 
   def addFixing(date: Date, value: Double): Unit = {
-    addFixing(date, value, false)
+    addFixing(date, value, forceOverwrite = false)
   }
 
   def addFixing(date: Date, value: Double, forceOverwrite: Boolean): Unit =  {
@@ -133,11 +134,12 @@ abstract class Index {
 
   }
 
-  def clearFixing: Unit = {
+  def clearFixing(): Unit = {
     IndexManager.clearHistory(name())
   }
 
-  def fixing(fixingDate: Date) : Double = fixing(fixingDate, false)
+  def fixing(fixingDate: Date) : Double = fixing(fixingDate, forecastTodaysFixing = false)
+
 
 
 }

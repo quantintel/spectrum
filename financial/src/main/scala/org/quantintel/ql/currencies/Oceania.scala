@@ -18,7 +18,7 @@
 package org.quantintel.ql.currencies
 
 // Oceania
-import org.quantintel.ql.math.{Rounding}
+import org.quantintel.ql.math.Rounding
 
 object OceaniaEnum extends Enumeration {
 

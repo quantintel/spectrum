@@ -65,7 +65,7 @@ object Constants {
   /**
    * 2 pi
    */
-  val M_TWOPI : Double    = (M_PI * 2.0)
+  val M_TWOPI : Double    = M_PI * 2.0
 
   /**
    * pi/2

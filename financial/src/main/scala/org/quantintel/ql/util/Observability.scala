@@ -20,24 +20,40 @@
 
 package org.quantintel.ql.util
 
-import java.util.{List => JList}
-
 /**
  * @author Paul Bernard
  */
-class ObservableValue[T](var value: T) extends Observable with Observability {
+trait Observability extends Observable {
 
-  def this(observable: ObservableValue[T]){
-    this(observable.value)
+  val delegatedObservable: DefaultObservable = new DefaultObservable(this)
+
+  override def addObserver(observer: Observer ) {
+    delegatedObservable.addObserver(observer)
   }
 
-  def assign(value: T){
-    this.value = value
+  override def countObservers() : Int = {
+    delegatedObservable.countObservers()
   }
 
-  def assign(observable: ObservableValue[T]): Unit ={
-    value = observable.value
+  override def deleteObserver(observer: Observer) {
+    delegatedObservable.deleteObserver(observer)
+  }
+
+  override def notifyObservers() {
     delegatedObservable.notifyObservers()
   }
+
+  override def notifyObservers(arg: Any) {
+    delegatedObservable.notifyObservers(arg)
+  }
+
+  override def deleteObservers() {
+    delegatedObservable.deleteObservers()
+  }
+
+  override def getObservers: java.util.List[Observer]  =  {
+    delegatedObservable.getObservers
+  }
+
 
 }

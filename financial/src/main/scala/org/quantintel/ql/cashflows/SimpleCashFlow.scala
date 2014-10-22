@@ -30,7 +30,7 @@ class SimpleCashFlow extends CashFlow {
   private var pDate: Date = null
   private var amt : Double = 0.00
 
-  def date(): Date = pDate.clone
+  def date: Date = pDate.clone
   def date(d: Date) { pDate = d }
 
 

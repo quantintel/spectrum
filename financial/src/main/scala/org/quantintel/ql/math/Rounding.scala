@@ -98,23 +98,21 @@ class Rounding {
     lvalue = lvalue - modVal
 
     method match {
-      case DOWN => { }
+      case DOWN =>
       case UP => if (modVal != 0.0) lvalue = lvalue + 1.0
       case CLOSEST => if (modVal >= (digit/10.0)) lvalue = lvalue + 1.0
-      case FLOOR => {
-        if (!neg) {
+      case FLOOR =>  if (!neg) {
           if (modVal >= (digit/10.0)){
             lvalue = lvalue + 1.0
           }
         }
-      }
-      case CEILING => {
-        if (neg) {
+
+      case CEILING => if (neg) {
           if (modVal>= (digit/10.0)){
             lvalue = lvalue + 1.0
           }
         }
-      }
+
       case _ => throw new Exception("unknown rounding method")
     }
 

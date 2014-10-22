@@ -117,8 +117,8 @@ object Period {
     val p1lim : (Int, Int) = daysMinMax(p1)
     val p2lim : (Int, Int) = daysMinMax(p2)
 
-    if (p1lim._2 < p2lim._1) return true
-    else if (p1lim._1 > p2lim._2) return false
+    if (p1lim._2 < p2lim._1) true
+    else if (p1lim._1 > p2lim._2) false
     else throw new Exception("undecidable comparison between " + p1 + " and " + p2)
 
   }
@@ -208,30 +208,30 @@ class Period  {
   def this(f: Frequency)  {
     this()
     f match {
-      case NO_FREQUENCY => {
+      case NO_FREQUENCY =>
         units = DAYS
         length = 0
-      }
-      case ONCE => {
+
+      case ONCE =>
         units = YEARS
         length = 0
-      }
-      case ANNUAL => {
+
+      case ANNUAL =>
         units = YEARS
         length = 1
-      }
-      case SEMIANNUAL | EVERY_FOURTH_MONTH | QUARTERLY | BIMONTHLY | MONTHLY => {
+
+      case SEMIANNUAL | EVERY_FOURTH_MONTH | QUARTERLY | BIMONTHLY | MONTHLY =>
         units = MONTHS
         length = 12/f.id
-      }
-      case EVERY_FOURTH_WEEK | BIWEEKLY | WEEKLY => {
+
+      case EVERY_FOURTH_WEEK | BIWEEKLY | WEEKLY =>
         units = WEEKS
         length = 52/f.id
-      }
-      case DAILY => {
+
+      case DAILY =>
         units = DAYS
         length = 1
-      }
+
       case OTHER_FREQUENCY => throw new Exception("unknown frequency")
       case _ => throw new Exception("unknown frequency")
 
@@ -253,12 +253,11 @@ class Period  {
       case YEARS => if (length ==1) ANNUAL else OTHER_FREQUENCY
       case MONTHS => if (12%length == 0 && length <=12)
         Frequency.valueOf(12/length) else OTHER_FREQUENCY
-      case WEEKS => {
-        if (length == 1) WEEKLY
+      case WEEKS => if (length == 1) WEEKLY
         else if (length == 2) BIWEEKLY
         else if (length == 4) EVERY_FOURTH_WEEK
         else OTHER_FREQUENCY
-      }
+
       case DAYS => if (length==1) DAILY else OTHER_FREQUENCY
       case _ => throw new Exception("unknown time unit (" + units.id + ")")
 
@@ -274,44 +273,42 @@ class Period  {
       length = length + p.length
     } else {
       this.units match {
-        case YEARS => {
+        case YEARS =>
           p.units match {
-            case MONTHS => {
+            case MONTHS =>
               units = p.units
               length = length*12 + p.length
-            }
+
             case WEEKS | DAYS => throw new IllegalArgumentException(INCOMPATIBLE_TIME_UNIT)
             case _ => throw new Exception(UNKNOWN_TIME_UNIT)
           }
-        }
-        case MONTHS => {
+
+        case MONTHS =>
           p.units match {
-            case YEARS => {
+            case YEARS =>
               length = length + p.length * 12
-            }
+
             case WEEKS | DAYS => throw new IllegalArgumentException(INCOMPATIBLE_TIME_UNIT)
             case _ => throw new Exception(UNKNOWN_TIME_UNIT)
           }
-        }
-        case WEEKS => {
+
+        case WEEKS =>
           p.units match {
-            case DAYS => {
+            case DAYS =>
               units = p.units
               length = length*7 + p.length
-            }
+
             case YEARS | MONTHS => throw new IllegalArgumentException(INCOMPATIBLE_TIME_UNIT)
             case _ => throw new Exception(UNKNOWN_TIME_UNIT)
           }
-        }
-        case DAYS => {
+
+        case DAYS =>
           p.units match {
-            case WEEKS => {
-              length = length + p.length*7
-            }
+            case WEEKS => length = length + p.length*7
             case YEARS | MONTHS => throw new IllegalArgumentException(INCOMPATIBLE_TIME_UNIT)
             case _ => throw new Exception(UNKNOWN_TIME_UNIT)
           }
-        }
+
         case _ => new Exception(UNKNOWN_TIME_UNIT)
       }
     }
@@ -321,7 +318,7 @@ class Period  {
   }
 
   def -=(p: Period): Period = {
-    this += (negate(p))
+    this += negate(p)
   }
 
   def /= (scalar: Int): Period = {
@@ -333,14 +330,14 @@ class Period  {
       var u : TimeUnit = units
       var l : Int = length
       u match {
-        case YEARS => {
+        case YEARS =>
           u = MONTHS
           l = l * 12
-        }
-        case WEEKS => {
+
+        case WEEKS =>
           u = DAYS
           l = l * 7
-        }
+
       }
       require(l % scalar == 0, this + "cannot be divided by " + scalar)
 
@@ -353,25 +350,24 @@ class Period  {
   }
 
 
-  def normalize: Unit = {
+  def normalize(): Unit = {
     if(length!=0){
       units match {
-        case DAYS => {
+        case DAYS =>
             if (!((length%7)==0)) {
               length /=7
               units = WEEKS
             }
-        }
-        case MONTHS => {
-            if (!(length%12==0)){
+
+        case MONTHS => if (!(length%12==0)){
               length /= 12
               units = YEARS
             }
-        }
-        case WEEKS => { // no op
-         }
-        case YEARS => { // no op
-         }
+
+        case WEEKS => // no op
+
+        case YEARS =>  // no op
+
         case _ => throw new Exception("unknown time unit (" + units.id + ")")
       }
     }
@@ -442,10 +438,10 @@ class Period  {
 
   override def toString : String = getLongFormat
 
-  def getLongFormat() : String = getInternalLongFormat
+  def getLongFormat : String = getInternalLongFormat
 
 
-  def getShortFormat() : String = getInternalShortFormat
+  def getShortFormat : String = getInternalShortFormat
 
 
   def getInternalShortFormat : String = {

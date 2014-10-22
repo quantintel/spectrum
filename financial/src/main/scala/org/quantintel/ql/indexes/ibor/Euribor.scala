@@ -35,6 +35,7 @@ class Euribor extends IborIndex {
 
   override def termStructure(): Handle[YieldTermStructure] = ???
 
+  /*
   class EuriborSW extends Euribor {}
 
   class Euribor1W extends Euribor {}
@@ -54,7 +55,7 @@ class Euribor extends IborIndex {
   class Euribor11M extends Euribor {}
 
   class Euribor1Y extends Euribor {}
-
+  */
 }
 
 

@@ -22,7 +22,7 @@ package org.quantintel.ql.instruments
 
 import org.quantintel.ql.pricingengines.{PricingEngine, Arguments, Results}
 import org.quantintel.ql.util.LazyObject
-import scala.collection.mutable.Map
+import collection.mutable
 
 object Instrument {
 
@@ -52,16 +52,16 @@ abstract class Instrument extends LazyObject  {
 
   def setPricingEngine(engine: PricingEngine): Unit = {
     m_engine = engine
-    update
+    update()
   }
 
   def NPV : Double = {
-    calculate
+    calculate()
     m_NPV
   }
 
   def errorEstimate : Double = {
-    calculate
+    calculate()
     m_errorEstimate
   }
 
@@ -71,25 +71,25 @@ abstract class Instrument extends LazyObject  {
     m_errorEstimate = results.errorEstimate
   }
 
-  def setupExpired {
+  def setupExpired() {
     m_NPV = 0.0
     m_errorEstimate = 0.0
   }
 
-  override protected def performCalculations {
-    m_engine.reset
+  override protected def performCalculations() {
+    m_engine.reset()
     setupArguments(m_engine.getArguments)
-    m_engine.getArguments.validate
-    m_engine.calculate
+    m_engine.getArguments.validate()
+    m_engine.calculate()
     fetchResults(m_engine.getResults)
   }
 
-  override protected def calculate {
+  override protected def calculate() {
     if (isExpired) {
-      setupExpired
+      setupExpired()
       calculated = true
     } else {
-      super.calculate
+      super.calculate()
     }
 
   }
@@ -100,20 +100,20 @@ abstract class Instrument extends LazyObject  {
 
     var errorEstimate : Double = Double.NaN
 
-    private val m_additionalResults = Map[String, Any]()
+    private val m_additionalResults = mutable.Map[String, Any]()
 
     def result(key: String) : Any = {
       m_additionalResults (key)
     }
 
-    def additionalResults : Map[String, Any] = {
+    def additionalResults : mutable.Map[String, Any] = {
       m_additionalResults
     }
 
-    def reset {
+    def reset() {
       value = Double.NaN
       errorEstimate = Double.NaN
-      m_additionalResults.clear
+      m_additionalResults.clear()
 
     }
 

@@ -87,22 +87,21 @@ class InterestRate(var rate: Double) {
     val r: Double = rate
 
     if(compound == SIMPLE){
-      return 1.0 + r * t
+      1.0 + r * t
     } else if (compound == COMPOUNDED){
-      return math.pow((1 + r /freq), (freq * t))
+      math.pow(1 + r /freq, freq * t)
     } else if (compound == CONTINUOUS){
-      math.exp((r * t))
+      math.exp(r * t)
     } else if (compound == SIMPLE_THEN_COMPOUNDED){
       if (t < 1 / freq.asInstanceOf[Double]){
-        return 1.0 + r * t
+        1.0 + r * t
       } else {
-        return math.pow((1 + r / freq), (freq * t))
+        math.pow(1 + r / freq, freq * t)
       }
     }
 
-    else {
-        throw new Exception("unknown compounding convention")
-    }
+    else throw new Exception("unknown compounding convention")
+
   }
 
   def compoundFactor(d1: Date, d2: Date) : Double = {
@@ -144,8 +143,8 @@ class InterestRate(var rate: Double) {
    *
    * @param d1 start date
    * @param d2 end date
-   * @param refStart
-   * @return
+   * @param refStart reference start date
+   * @return discount factor
    */
   def discountFactor (d1: Date, d2: Date, refStart: Date) : Double = {
     discountFactor(d1, d2, refStart, new Date())
@@ -175,7 +174,7 @@ class InterestRate(var rate: Double) {
   }
 
 
-  override def toString () : String = {
+  override def toString  : String = {
     if (rate == 0.0) return "null interest rate"
 
     val sb : java.lang.StringBuilder = new java.lang.StringBuilder()
@@ -218,15 +217,14 @@ object InterestRate {
 
     comp match {
       case SIMPLE => rate = (c -1) / t
-      case COMPOUNDED => rate = (math.pow(c, (1 / (f * t))) -1 ) * f
+      case COMPOUNDED => rate = (math.pow(c, 1 / (f * t)) -1 ) * f
       case CONTINUOUS => math.log(c) / t
-      case SIMPLE_THEN_COMPOUNDED => {
-        if (t < (1 / f)) {
+      case SIMPLE_THEN_COMPOUNDED => if (t < (1 / f)) {
           rate = (c -1) /t
         } else {
-          rate = (math.pow(c, (1 / (f * t))) - 1) * f
+          rate = (math.pow(c, 1 / (f * t)) - 1) * f
         }
-      }
+
       case _ => throw new Exception("unknown compounding convention")
     }
     new InterestRate(rate, resultDC, comp, freq)

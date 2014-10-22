@@ -19,19 +19,21 @@
  */
 package org.quantintel.ql.time
 
-import org.quantintel.ql.time.BusinessDayConventionEnum.BusinessDayConventionEnum
-import org.quantintel.ql.time.BusinessDayConventionEnum._
+import org.quantintel.ql.time.BusinessDayConvention.BusinessDayConventionEnum
+import org.quantintel.ql.time.BusinessDayConvention._
 import org.quantintel.ql.time.TimeUnit.TimeUnit
-import org.quantintel.ql.time.TimeUnit.{DAYS, WEEKS, YEARS, MONTHS}
+import org.quantintel.ql.time.TimeUnit.{DAYS, WEEKS}
 import org.quantintel.ql.time.Weekday._
 import scala.collection.mutable
-import scala.collection.mutable.{ArrayBuffer, HashSet}
+import scala.collection.mutable.HashSet
+
+import language.postfixOps
 
 
 abstract class Impl {
 
-    var addedHolidays = new HashSet[Date]()
-    var removedHolidays = new HashSet[Date]()
+    var addedHolidays = new mutable.HashSet[Date]()
+    var removedHolidays = new mutable.HashSet[Date]()
 
     def name : String
     def isBusinessDay(d: Date): Boolean
@@ -84,7 +86,7 @@ abstract class Calendar {
     true
   }
   def endOfMonth(d: Date): Date = {
-    adjust(Date.endOfMonth(d), BusinessDayConventionEnum.PRECEDING)
+    adjust(Date.endOfMonth(d), BusinessDayConvention.PRECEDING)
   }
 
   /**
@@ -122,22 +124,22 @@ abstract class Calendar {
   }
 
   def adjust(date: Date) : Date = {
-    adjust(date, BusinessDayConventionEnum.FOLLOWING)
+    adjust(date, BusinessDayConvention.FOLLOWING)
   }
 
   def adjust(d: Date, c: BusinessDayConventionEnum) : Date = {
-    if (c == BusinessDayConventionEnum.UNADJUSTED) return d.clone
+    if (c == BusinessDayConvention.UNADJUSTED) return d.clone
     val d1: Date = d.clone
-    if(c == BusinessDayConventionEnum.FOLLOWING || c == BusinessDayConventionEnum.MODIFIED_FOLLOWING) {
+    if(c == BusinessDayConvention.FOLLOWING || c == BusinessDayConvention.MODIFIED_FOLLOWING) {
       while (isHoliday(d1)) d1 ++
 
-      if (c == BusinessDayConventionEnum.MODIFIED_FOLLOWING) {
-        if (d1.month != d.month) return adjust(d, BusinessDayConventionEnum.PRECEDING)
+      if (c == BusinessDayConvention.MODIFIED_FOLLOWING) {
+        if (d1.month != d.month) return adjust(d, BusinessDayConvention.PRECEDING)
       }
-    } else if (c == BusinessDayConventionEnum.PRECEDING || c == BusinessDayConventionEnum.MODIFIED_PRECEDING) {
+    } else if (c == BusinessDayConvention.PRECEDING || c == BusinessDayConvention.MODIFIED_PRECEDING) {
       while(isHoliday(d1)) { d1-- }
-      if (c == BusinessDayConventionEnum.MODIFIED_PRECEDING && d1.month != d.month)
-        return adjust(d, BusinessDayConventionEnum.FOLLOWING)
+      if (c == BusinessDayConvention.MODIFIED_PRECEDING && d1.month != d.month)
+        return adjust(d, BusinessDayConvention.FOLLOWING)
     } else {
       throw new Exception(Calendar.UNKNOWN_BUSINESS_DAY_CONVENTION)
     }
@@ -145,17 +147,17 @@ abstract class Calendar {
   }
 
   def advance(date: Date, period: Period, convention: BusinessDayConventionEnum) : Date =
-    advance(date, period, convention, false)
+    advance(date, period, convention, endOfMonth = false)
 
   def advance(date: Date, period: Period, convention: BusinessDayConventionEnum,
                endOfMonth: Boolean) : Date =
     advance(date, period.length, period.units, convention, endOfMonth)
 
   def advance(date: Date, n: Int, unit: TimeUnit) : Date =
-    advance(date, n, unit, FOLLOWING, false)
+    advance(date, n, unit, FOLLOWING, endOfMonth = false)
 
   def advance (date : Date, period: Period) : Date =
-    advance(date, period, FOLLOWING, false)
+    advance(date, period, FOLLOWING, endOfMonth = false)
 
   def advance(d: Date, n: Int, unit: TimeUnit, c: BusinessDayConventionEnum,
               endOfMonth: Boolean) : Date = {
@@ -178,21 +180,21 @@ abstract class Calendar {
             ln = ln + 1
           }
         }
-      return d1
+      d1
       } else if (unit == WEEKS) {
         val d1: Date = d + ln * unit.id
-        return adjust(d1, c)
+        adjust(d1, c)
       } else {
         val d1: Date = d + n * unit.id
         if(endOfMonth && isEndOfMonth(d)) return this.endOfMonth(d1)
-        return adjust(d1, c)
+        adjust(d1, c)
       }
 
   }
 
 
   def businessDaysBetween(from: Date, to: Date) : Int = {
-    businessDaysBetween(from, to, true, false)
+    businessDaysBetween(from, to, includeFirst = true, includeLast = false)
   }
   def businessDaysBetween(from: Date, to: Date, includeFirst: Boolean, includeLast: Boolean) : Int = {
 
@@ -231,7 +233,7 @@ abstract class Calendar {
       }
 
       if (from > to) {
-        wd = -wd;
+        wd = -wd
       }
     }
 

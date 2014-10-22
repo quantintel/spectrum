@@ -52,8 +52,8 @@ class Leg(n: Int) extends ArrayBuffer[CashFlow](n) with Cloneable {
     this(this.size-1)
   }
 
-  override def clone: Leg = {
-    super.clone.asInstanceOf[Leg]
+  override def clone(): Leg = {
+    super.clone().asInstanceOf[Leg]
   }
 
 

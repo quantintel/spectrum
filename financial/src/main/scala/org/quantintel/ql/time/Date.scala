@@ -26,6 +26,7 @@ import java.lang.{StringBuilder => JStringBuilder}
 import org.quantintel.ql.time.Month._
 import org.quantintel.ql.time.TimeUnit._
 import org.quantintel.ql.time.Weekday._
+import org.quantintel.ql.util.{Observability, Observable}
 
 /**
  * The Date class is not a generalization of Date in the conventional sense.
@@ -50,14 +51,14 @@ import org.quantintel.ql.time.Weekday._
  * @author Paul Bernard
  * @version 1.0
  */
-class Date() extends Comparable[Date] {
+class Date() extends Comparable[Date] with Observable with Observability {
 
   var serialNumber = 0L
 
   def this(sn: Long){
     this()
     serialNumber = sn
-    checkSerialNumber
+    checkSerialNumber()
   }
 
 
@@ -133,12 +134,12 @@ class Date() extends Comparable[Date] {
    */
   def this(date: JDate)  {
     this()
-    val c: JCalendar  = JCalendar.getInstance();
-    c.setTime(date);
-    val d = c.get(JCalendar.DAY_OF_MONTH);
-    val m = c.get(JCalendar.MONTH);
-    val y = c.get(JCalendar.YEAR);
-    serialNumber = Date.fromDMY(d, m + 1, y);  // java months are 0 based, so need to adjust
+    val c: JCalendar  = JCalendar.getInstance()
+    c.setTime(date)
+    val d = c.get(JCalendar.DAY_OF_MONTH)
+    val m = c.get(JCalendar.MONTH)
+    val y = c.get(JCalendar.YEAR)
+    serialNumber = Date.fromDMY(d, m + 1, y) // java months are 0 based, so need to adjust
   }
 
   /**
@@ -228,7 +229,7 @@ class Date() extends Comparable[Date] {
    */
   def += (days: Int) : Date = {
     serialNumber = serialNumber + days
-    checkSerialNumber
+    checkSerialNumber()
     this
   }
 
@@ -241,19 +242,19 @@ class Date() extends Comparable[Date] {
    */
   def +=(period: Period): Date = {
     serialNumber = advance(this, period.length, period.units).serialNumber
-    checkSerialNumber
+    checkSerialNumber()
     this
   }
 
   def -=(days: Int) : Date = {
     serialNumber = serialNumber - days
-    checkSerialNumber
+    checkSerialNumber()
     this
   }
 
   def -=(period: Period) : Date = {
     serialNumber = advance(this, -period.length, period.units).serialNumber
-    checkSerialNumber
+    checkSerialNumber()
     this
   }
 
@@ -270,7 +271,7 @@ class Date() extends Comparable[Date] {
    */
   def ++ : Date = {
     serialNumber = serialNumber + 1
-    checkSerialNumber
+    checkSerialNumber()
     this
   }
 
@@ -287,7 +288,7 @@ class Date() extends Comparable[Date] {
    */
   def -- : Date = {
     serialNumber = serialNumber - 1
-    checkSerialNumber
+    checkSerialNumber()
     this
   }
 
@@ -492,11 +493,11 @@ class Date() extends Comparable[Date] {
    * @return a serial number representing the current date
    */
   def todaysSerialNumber : Long = {
-    val cal : JCalendar = JCalendar.getInstance();
-    val d : Int = cal.get(JCalendar.DAY_OF_MONTH);
-    val m : Int = cal.get(JCalendar.MONTH);
-    val y : Int = cal.get(JCalendar.YEAR);
-    Date.fromDMY(d, m+1, y);
+    val cal : JCalendar = JCalendar.getInstance()
+    val d : Int = cal.get(JCalendar.DAY_OF_MONTH)
+    val m : Int = cal.get(JCalendar.MONTH)
+    val y : Int = cal.get(JCalendar.YEAR)
+    Date.fromDMY(d, m+1, y)
   }
 
   /**
@@ -507,7 +508,7 @@ class Date() extends Comparable[Date] {
    * @since 1.0
    * @author Paul Bernard
    */
-  private def checkSerialNumber = {
+  private def checkSerialNumber() = {
 
     require(serialNumber >= Date.minimumSerialNumber &&
               serialNumber <= Date.maximumSerialNumber,
@@ -529,9 +530,9 @@ class Date() extends Comparable[Date] {
     import org.quantintel.ql.time.TimeUnit._
 
     units match {
-      case DAYS => return date + n
-      case WEEKS => return date + 7 * n
-      case MONTHS => {
+      case DAYS => date + n
+      case WEEKS => date + 7 * n
+      case MONTHS =>
         var d = date.dayOfMonth
         var m = date.month.id + n
         var y = date.year
@@ -549,9 +550,9 @@ class Date() extends Comparable[Date] {
 
         val length = Date.monthLength(m, Date.isLeapYr(y))
         if (d > length) d = length
-        return Date(Date.fromDMY(d, m, y))
-      }
-      case YEARS => {
+        Date(Date.fromDMY(d, m, y))
+
+      case YEARS =>
 
         var d: Int = date.dayOfMonth
         val m : Month = date.month
@@ -562,8 +563,8 @@ class Date() extends Comparable[Date] {
              "year " + y + " out of bounds.  It must be in [1901, 2199]")
 
         if (d == 29 && m == FEBRUARY && !Date.isLeapYr(y)) d = 28
-        return Date(Date.fromDMY(d, m.id, y))
-      }
+        Date(Date.fromDMY(d, m.id, y))
+
       case _ => throw new Exception("undefined time units")
     }
   }
@@ -593,9 +594,9 @@ class Date() extends Comparable[Date] {
 
     setTime((serialNumber-25569)*86400000L)
 
-    override def toString(): String = {
+    override def toString: String = {
 
-      if (isNull) return "null date"
+      if (isNull) "null date"
       else {
         val sb : JStringBuilder = new JStringBuilder()
         val formatter = new JFormatter(sb, JLocale.US)
@@ -614,8 +615,8 @@ class Date() extends Comparable[Date] {
 
     setTime((serialNumber-25569)*86400000L)
 
-    override def toString(): String = {
-      if (isNull) return "null date"
+    override def toString: String = {
+      if (isNull) "null date"
       else {
         val sb : JStringBuilder = new JStringBuilder()
         val formatter = new JFormatter(sb, JLocale.US)
@@ -633,8 +634,8 @@ class Date() extends Comparable[Date] {
 
     setTime((serialNumber-25569)*86400000L)
 
-    override def toString(): String = {
-      if (isNull) return "null date"
+    override def toString: String = {
+      if (isNull) "null date"
       else {
 
         val sb : JStringBuilder = new JStringBuilder()
@@ -850,11 +851,11 @@ object Date {
 
 
   def todaysDate: Date = {
-    val cal : JCalendar = JCalendar.getInstance();
-    val d  : Int = cal.get(JCalendar.DAY_OF_MONTH);
-    val m  : Int = cal.get(JCalendar.MONTH);
-    val y : Int  = cal.get(JCalendar.YEAR);
-    new Date(d, m + 1, y);
+    val cal : JCalendar = JCalendar.getInstance()
+    val d  : Int = cal.get(JCalendar.DAY_OF_MONTH)
+    val m  : Int = cal.get(JCalendar.MONTH)
+    val y : Int  = cal.get(JCalendar.YEAR)
+    new Date(d, m + 1, y)
   }
 
 
@@ -889,11 +890,11 @@ object Date {
   def nthWeekday(nth: Int, dayOfWeek: Weekday, m: Int, y: Int) : Date = {
 
     require(nth>0, "zeroth day of week in a given (month, year) is undefined")
-    require(nth<6, "no more than 5 weekeday in a given (month, year)")
+    require(nth<6, "no more than 5 weekday in a given (month, year)")
 
     val first: Int = new Date(1, m, y).weekday.id
     val skip = nth - (if (dayOfWeek.id >= first) 1 else 0)
-    new Date((1 + dayOfWeek.id - first + skip * 7), m, y)
+    new Date(1 + dayOfWeek.id - first + skip * 7, m, y)
   }
 
 
@@ -928,9 +929,9 @@ object Date {
 
   def fromDMY(d: Int, m: Int, y: Int)  : Long = {
 
-    val leap: Boolean = isLeapYr(y);
-    val offset: Int = monthOffset(m, leap);
-    val result: Long = d + offset + yearOffset(y);
+    val leap: Boolean = isLeapYr(y)
+    val offset: Int = monthOffset(m, leap)
+    val result: Long = d + offset + yearOffset(y)
     result
   }
 

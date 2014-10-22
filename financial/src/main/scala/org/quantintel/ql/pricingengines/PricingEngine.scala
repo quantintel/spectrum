@@ -34,18 +34,18 @@ trait PricingEngine {
 
   def getResults : Results
 
-  def reset
+  def reset()
 
-  def calculate
+  def calculate()
 
-  def update
+  def update()
 
 }
 
 trait Arguments {
-  def validate
+  def validate ()
 }
 
 trait Results {
-  def reset
+  def reset()
 }

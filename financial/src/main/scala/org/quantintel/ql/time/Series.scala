@@ -24,6 +24,7 @@ import java.util
 import java.util.Map.Entry
 import java.util.{NavigableMap, _}
 import java.util.function.{BiConsumer, BiFunction, Function}
+import collection.mutable
 
 
 /**
@@ -116,7 +117,7 @@ class Series[K, V] extends NavigableMap[K, V] {
   override def merge(key: K, value: V, remappingFunction: BiFunction[_ >: V, _ >: V, _ <: V]): V
       = delegate.merge(key, value, remappingFunction)
 
-  override def clear() = delegate.clear
+  override def clear() = delegate.clear()
 
   override def getOrDefault(key: scala.Any, defaultValue: V): V
       = delegate.getOrDefault(key, defaultValue)
@@ -135,7 +136,7 @@ class Series[K, V] extends NavigableMap[K, V] {
 
   override def containsValue(value: scala.Any): Boolean = delegate.containsValue(value)
 
-  override def isEmpty: Boolean = delegate.isEmpty()
+  override def isEmpty: Boolean = delegate.isEmpty
 
   override def compute(key: K, remappingFunction: BiFunction[_ >: K, _ >: V, _ <: V]): V
         = delegate.compute(key, remappingFunction)

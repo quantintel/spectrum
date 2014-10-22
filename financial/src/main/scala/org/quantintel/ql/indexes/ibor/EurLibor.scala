@@ -27,6 +27,12 @@ import org.quantintel.ql.time.Date
 /**
  * @author Paul Bernard
  */
+
+/*
+familyName: String, tenor: Period, fixingDays: Int, currency: Currency,
+                 fixingCalendar: Calendar, convention: BusinessDayConventionEnum,
+                 endOfMonth: Boolean, dayCounter: Boolean, h: Handle[YieldTermStructure]
+ */
 class EurLibor  extends IborIndex {
 
   override protected def forecastFixing(fixingDate: Date): Double = ???
@@ -35,6 +41,7 @@ class EurLibor  extends IborIndex {
 
   override def termStructure(): Handle[YieldTermStructure] = ???
 
+  /*
   class EuriborON extends EurLibor {}
   class EuriborSW extends EurLibor {}
 
@@ -53,6 +60,6 @@ class EurLibor  extends IborIndex {
   class Euribor11M extends EurLibor {}
 
   class Euribor1Y extends EurLibor {}
-
-
+  */
+  override def update(): Unit = ???
 }

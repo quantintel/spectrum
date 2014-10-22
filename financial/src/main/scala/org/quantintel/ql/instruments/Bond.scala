@@ -60,7 +60,7 @@ class Bond extends Instrument {
     this.notionalSchedule = ArrayBuffer[Date]()
     this.redemptions = Leg()
 
-    if (!coupons.isEmpty){
+    if (coupons.nonEmpty){
       cashflows.sortWith(_.date <= _.date)
       maturityDate = coupons.last.date
       //addRedemptionsToCashFlows
@@ -93,7 +93,7 @@ class Bond extends Instrument {
     this.notionals = ArrayBuffer[Double]()
     this.redemptions = Leg()
 
-    if(!cashflows.isEmpty){
+    if(cashflows.nonEmpty){
       notionalSchedule.add(new Date())
       notionals.add(faceAmount)
 
@@ -149,10 +149,10 @@ class Bond extends Instrument {
     if (index < 0) index = (index + 1) * -1
 
     if (date <= notionalSchedule(index)) {
-      return notionals(index-1)
+      notionals(index-1)
     } else {
       if (new Settings().isTodaysPayments){
-        return notionals(index-1)
+        notionals(index-1)
       } else {
         notionals(index)
       }
@@ -165,10 +165,11 @@ class Bond extends Instrument {
   def settlementDate : Date = settlementDate(new Date())
 
 
-  def settlementDate (d: Date): Date = {
+  def settlementDate (date: Date): Date = {
 
-    var wdate = d
-    if(wdate==Date) wdate = new Settings().evaluationDate
+    var d : Date = null
+    if (date.isNull) d = new Settings().evaluationDate else d = date
+
     val settlement: Date = calendar.advance(d, settlementDays, DAYS)
 
     if (issueDate.isNull) settlement else Date.max(settlement, issueDate.clone)
@@ -191,7 +192,7 @@ class Bond extends Instrument {
 
   }
 
-  def isExpired : Boolean = cashflows.last.hasOccured(settlementDate)
+  def isExpired : Boolean = cashflows.last.hasOccurred(settlementDate)
 
 
 

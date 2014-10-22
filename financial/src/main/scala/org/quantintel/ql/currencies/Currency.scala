@@ -135,7 +135,7 @@ object Currency {
   }
 
   def != (c1: Currency, c2: Currency) : Boolean = {
-    !(Currency.==(c1, c2))
+    Currency != (c1, c2)
   }
 
 }
@@ -178,9 +178,8 @@ class Currency {
   override def equals(obj: Any): Boolean = {
     if (this == obj) true
     else if (obj == null) false
-    else {
-      (obj.isInstanceOf[Currency]) && (obj.asInstanceOf[Currency].fEquals(this))
-    }
+    else obj.isInstanceOf[Currency] && obj.asInstanceOf[Currency].fEquals(this)
+
   }
 
   override def hashCode: Int = {
