@@ -204,7 +204,7 @@ class DateTest extends FlatSpec with Matchers {
       var d = Date(1)
       assert(d.year == 1900)
     } catch {
-      case e: Exception => { assert(true)}
+      case e: Exception => assert(true)
     }
   }
 
@@ -245,121 +245,121 @@ class DateTest extends FlatSpec with Matchers {
 
   "legacy java date" should "" in {
 
-    val c: JCalendar = JCalendar.getInstance();
+    val c: JCalendar = JCalendar.getInstance()
     c.set(JCalendar.DAY_OF_MONTH, 31)
     c.set(JCalendar.MONTH, JCalendar.DECEMBER)
     c.set(JCalendar.YEAR, 2199)
-    var date = Date(c.getTime())
+    var date = Date(c.getTime)
     assert(date.serialNumber == 109574)
   }
 
   "get day of month" should "5" in {
 
-    val c: JCalendar = JCalendar.getInstance();
+    val c: JCalendar = JCalendar.getInstance()
     c.set(JCalendar.DAY_OF_MONTH, 31)
     c.set(JCalendar.MONTH, JCalendar.DECEMBER)
     c.set(JCalendar.YEAR, 2199)
-    var date = Date(c.getTime())
+    var date = Date(c.getTime)
     assert(date.dayOfMonth == 31)
 
   }
 
   "get month of year" should "1" in {
 
-    val c: JCalendar = JCalendar.getInstance();
+    val c: JCalendar = JCalendar.getInstance()
     c.set(JCalendar.DAY_OF_MONTH, 31)
     c.set(JCalendar.MONTH, JCalendar.DECEMBER)
     c.set(JCalendar.YEAR, 2199)
-    var date = Date(c.getTime())
+    var date = Date(c.getTime)
     assert(date.month.id== 12)
 
   }
 
   "get year" should "2199" in {
 
-    val c: JCalendar = JCalendar.getInstance();
+    val c: JCalendar = JCalendar.getInstance()
     c.set(JCalendar.DAY_OF_MONTH, 31)
     c.set(JCalendar.MONTH, JCalendar.DECEMBER)
     c.set(JCalendar.YEAR, 2199)
-    var date = Date(c.getTime())
+    var date = Date(c.getTime)
     assert(date.year== 2199)
 
   }
 
   "get day of week" should "be tuesday" in {
 
-    val c: JCalendar = JCalendar.getInstance();
+    val c: JCalendar = JCalendar.getInstance()
     c.set(JCalendar.DAY_OF_MONTH, 31)
     c.set(JCalendar.MONTH, JCalendar.DECEMBER)
     c.set(JCalendar.YEAR, 2199)
-    var date = Date(c.getTime())
+    var date = Date(c.getTime)
     assert(date.weekday== Weekday.TUESDAY)
 
   }
 
   "get is end of month" should "be yes" in {
 
-    val c: JCalendar = JCalendar.getInstance();
+    val c: JCalendar = JCalendar.getInstance()
     c.set(JCalendar.DAY_OF_MONTH, 31)
     c.set(JCalendar.MONTH, JCalendar.DECEMBER)
     c.set(JCalendar.YEAR, 2199)
-    var date = Date(c.getTime())
-    assert(date.isEndOfMonth== true)
+    var date = Date(c.getTime)
+    assert(date.isEndOfMonth)
 
   }
 
   "get is end of month" should "be no" in {
 
-    val c: JCalendar = JCalendar.getInstance();
+    val c: JCalendar = JCalendar.getInstance()
     c.set(JCalendar.DAY_OF_MONTH, 30)
     c.set(JCalendar.MONTH, JCalendar.DECEMBER)
     c.set(JCalendar.YEAR, 2199)
-    val date = Date(c.getTime())
-    assert(date.isEndOfMonth== false)
+    val date = Date(c.getTime)
+    assert(!date.isEndOfMonth)
 
   }
 
   "get is null date" should "be yes" in {
 
     var date = Date()
-    assert(date.isNull== true)
+    assert(date.isNull)
 
   }
 
   "get is null date" should "be no" in {
 
-    val c: JCalendar = JCalendar.getInstance();
+    val c: JCalendar = JCalendar.getInstance()
     c.set(JCalendar.DAY_OF_MONTH, 30)
     c.set(JCalendar.MONTH, JCalendar.DECEMBER)
     c.set(JCalendar.YEAR, 2199)
-    val date = Date(c.getTime())
-    assert(date.isNull== false)
+    val date = Date(c.getTime)
+    assert(!date.isNull)
 
   }
 
   "is today" should "be true" in {
 
-    val c: JCalendar = JCalendar.getInstance();
-    val date = Date(c.getTime())
-    assert(date.isToday== true)
+    val c: JCalendar = JCalendar.getInstance()
+    val date = Date(c.getTime)
+    assert(date.isToday)
 
   }
 
   "is today" should "be false" in {
 
-    val c: JCalendar = JCalendar.getInstance();
+    val c: JCalendar = JCalendar.getInstance()
     c.set(JCalendar.DAY_OF_YEAR, c.get(JCalendar.DAY_OF_YEAR + 1))
-    val date = Date(c.getTime())
-    assert(date.isToday== false)
+    val date = Date(c.getTime)
+    assert(!date.isToday)
 
   }
 
   "is the min date" should "1, Month.JANUARY, 1901" in {
-    val c: JCalendar = JCalendar.getInstance();
+    val c: JCalendar = JCalendar.getInstance()
     c.set(JCalendar.DAY_OF_MONTH, 1)
     c.set(JCalendar.MONTH, JCalendar.JANUARY)
     c.set(JCalendar.YEAR, 1901)
-    val date = Date(c.getTime())
+    val date = Date(c.getTime)
     assert(date.serialNumber== 367)
   }
 
@@ -376,52 +376,52 @@ class DateTest extends FlatSpec with Matchers {
   }
 
   "long date formatting" should "" in {
-    val c: JCalendar = JCalendar.getInstance();
+    val c: JCalendar = JCalendar.getInstance()
     c.set(JCalendar.DAY_OF_MONTH, 1)
     c.set(JCalendar.MONTH, JCalendar.JANUARY)
     c.set(JCalendar.YEAR, 1901)
-    val date = Date(c.getTime())
+    val date = Date(c.getTime)
     assert(date.toString == "01/01/1901")
   }
 
   "object identity" should "true" in {
-    val c: JCalendar = JCalendar.getInstance();
+    val c: JCalendar = JCalendar.getInstance()
     c.set(JCalendar.DAY_OF_MONTH, 1)
     c.set(JCalendar.MONTH, JCalendar.JANUARY)
     c.set(JCalendar.YEAR, 1901)
-    val date1 = Date(c.getTime())
+    val date1 = Date(c.getTime)
 
     assert(c.equals(c))
   }
 
   "object identity" should "false" in {
-    val c: JCalendar = JCalendar.getInstance();
+    val c: JCalendar = JCalendar.getInstance()
     c.set(JCalendar.DAY_OF_MONTH, 1)
     c.set(JCalendar.MONTH, JCalendar.JANUARY)
     c.set(JCalendar.YEAR, 1901)
-    val date1 = Date(c.getTime())
+    val date1 = Date(c.getTime)
 
-    val d: JCalendar = JCalendar.getInstance();
+    val d: JCalendar = JCalendar.getInstance()
     d.set(JCalendar.DAY_OF_MONTH, 1)
     d.set(JCalendar.MONTH, JCalendar.JANUARY)
     d.set(JCalendar.YEAR, 1901)
-    val date2 = Date(d.getTime())
+    val date2 = Date(d.getTime)
 
     assert(date1 == date2)
   }
 
   "object comparison less than" should "-1" in {
-    val c: JCalendar = JCalendar.getInstance();
+    val c: JCalendar = JCalendar.getInstance()
     c.set(JCalendar.DAY_OF_MONTH, 1)
     c.set(JCalendar.MONTH, JCalendar.JANUARY)
     c.set(JCalendar.YEAR, 1901)
-    val date1 = Date(c.getTime())
+    val date1 = Date(c.getTime)
 
-    val d: JCalendar = JCalendar.getInstance();
+    val d: JCalendar = JCalendar.getInstance()
     d.set(JCalendar.DAY_OF_MONTH, 2)
     d.set(JCalendar.MONTH, JCalendar.JANUARY)
     d.set(JCalendar.YEAR, 1901)
-    val date2 = Date(d.getTime())
+    val date2 = Date(d.getTime)
 
     assert(true)
 
@@ -430,17 +430,17 @@ class DateTest extends FlatSpec with Matchers {
   }
 
   "object comparison less than" should "1" in {
-    val c: JCalendar = JCalendar.getInstance();
+    val c: JCalendar = JCalendar.getInstance()
     c.set(JCalendar.DAY_OF_MONTH, 2)
     c.set(JCalendar.MONTH, JCalendar.JANUARY)
     c.set(JCalendar.YEAR, 1901)
-    val date1 = Date(c.getTime())
+    val date1 = Date(c.getTime)
 
-    val d: JCalendar = JCalendar.getInstance();
+    val d: JCalendar = JCalendar.getInstance()
     d.set(JCalendar.DAY_OF_MONTH, 1)
     d.set(JCalendar.MONTH, JCalendar.JANUARY)
     d.set(JCalendar.YEAR, 1901)
-    val date2 = Date(d.getTime())
+    val date2 = Date(d.getTime)
 
     assert(true)
 
@@ -449,17 +449,17 @@ class DateTest extends FlatSpec with Matchers {
   }
 
   "object comparison less than" should "0" in {
-    val c: JCalendar = JCalendar.getInstance();
+    val c: JCalendar = JCalendar.getInstance()
     c.set(JCalendar.DAY_OF_MONTH, 1)
     c.set(JCalendar.MONTH, JCalendar.JANUARY)
     c.set(JCalendar.YEAR, 1901)
-    val date1 = Date(c.getTime())
+    val date1 = Date(c.getTime)
 
-    val d: JCalendar = JCalendar.getInstance();
+    val d: JCalendar = JCalendar.getInstance()
     d.set(JCalendar.DAY_OF_MONTH, 1)
     d.set(JCalendar.MONTH, JCalendar.JANUARY)
     d.set(JCalendar.YEAR, 1901)
-    val date2 = Date(d.getTime())
+    val date2 = Date(d.getTime)
 
     assert(true)
 
@@ -468,44 +468,44 @@ class DateTest extends FlatSpec with Matchers {
   }
 
   "addAssign" should " + 1 int" in {
-    val c: JCalendar = JCalendar.getInstance();
+    val c: JCalendar = JCalendar.getInstance()
     c.set(JCalendar.DAY_OF_MONTH, 1)
     c.set(JCalendar.MONTH, JCalendar.JANUARY)
     c.set(JCalendar.YEAR, 1901)
-    val date1 = Date(c.getTime())
+    val date1 = Date(c.getTime)
 
     date1 += 1
     assert(date1.dayOfMonth == 2)
   }
 
   "addAssign" should " + 1 one month forward" in {
-    val c: JCalendar = JCalendar.getInstance();
+    val c: JCalendar = JCalendar.getInstance()
     c.set(JCalendar.DAY_OF_MONTH, 1)
     c.set(JCalendar.MONTH, JCalendar.JANUARY)
     c.set(JCalendar.YEAR, 1901)
-    val date1 = Date(c.getTime())
+    val date1 = Date(c.getTime)
 
     date1 += Period.ONE_DAY_FORWARD
     assert(date1.dayOfMonth == 2)
   }
 
   "addAssign" should " + 1 one day forward" in {
-    val c: JCalendar = JCalendar.getInstance();
+    val c: JCalendar = JCalendar.getInstance()
     c.set(JCalendar.DAY_OF_MONTH, 1)
     c.set(JCalendar.MONTH, JCalendar.JANUARY)
     c.set(JCalendar.YEAR, 1901)
-    val date1 = Date(c.getTime())
+    val date1 = Date(c.getTime)
 
     date1 += Period.ONE_MONTH_FORWARD
     assert(date1.month == Month.FEBRUARY)
   }
 
   "addAssign" should " + 1 one year forward" in {
-    val c: JCalendar = JCalendar.getInstance();
+    val c: JCalendar = JCalendar.getInstance()
     c.set(JCalendar.DAY_OF_MONTH, 1)
     c.set(JCalendar.MONTH, JCalendar.JANUARY)
     c.set(JCalendar.YEAR, 1901)
-    val date1 = Date(c.getTime())
+    val date1 = Date(c.getTime)
 
     date1 += Period.ONE_YEAR_FORWARD
     assert(date1.year == 1902)

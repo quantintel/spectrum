@@ -37,9 +37,9 @@ class PeriodTest extends FlatSpec with Matchers {
   }
 
   "1a. Period Equality Years" should "true" in {
-    var p1 = Period(1, YEARS)
-    var p2 = Period(2, YEARS)
-    assert((p1 == p2) == false)
+    val p1 = Period(1, YEARS)
+    val p2 = Period(2, YEARS)
+    assert(p1 != p2)
   }
 
 
@@ -57,7 +57,7 @@ class PeriodTest extends FlatSpec with Matchers {
   "2a. Period inequality Years" should "true" in {
     var p1 = Period(1, YEARS)
     var p2 = Period(1, YEARS)
-    assert((p1 != p2) == false)
+    assert(p1 == p2)
   }
 
 
@@ -74,7 +74,7 @@ class PeriodTest extends FlatSpec with Matchers {
   "4. Period equality months" should "true" in {
     var p1 = Period(1, MONTHS)
     var p2 = Period(2, MONTHS)
-    assert((p1 == p2) == false)
+    assert(p1 != p2)
   }
 
   "3a. Period iequality months" should "true" in {
@@ -87,7 +87,7 @@ class PeriodTest extends FlatSpec with Matchers {
   "4a. Period iequality months" should "true" in {
     var p1 = Period(1, MONTHS)
     var p2 = Period(1, MONTHS)
-    assert((p1 != p2) == false)
+    assert(p1 == p2)
   }
 
 
@@ -103,7 +103,7 @@ class PeriodTest extends FlatSpec with Matchers {
   "6. Period equality weeks" should "true" in {
     var p1 = Period(1, WEEKS)
     var p2 = Period(2, WEEKS)
-    assert((p1 == p2) == false)
+    assert(p1 != p2)
   }
 
   "5. Period inequality weeks" should "true" in {
@@ -115,7 +115,7 @@ class PeriodTest extends FlatSpec with Matchers {
   "6. Period inequality weeks" should "true" in {
     var p1 = Period(1, WEEKS)
     var p2 = Period(1, WEEKS)
-    assert((p1 != p2) == false)
+    assert(p1 == p2)
   }
 
 
@@ -129,7 +129,7 @@ class PeriodTest extends FlatSpec with Matchers {
   "8. Period equality days" should "true" in {
     var p1 = Period(1, DAYS)
     var p2 = Period(2, DAYS)
-    assert((p1 == p2) == false)
+    assert(p1 != p2)
   }
 
   "7a. Period inequality days" should "true" in {
@@ -141,7 +141,7 @@ class PeriodTest extends FlatSpec with Matchers {
   "8a. Period inequality days" should "true" in {
     var p1 = Period(1, DAYS)
     var p2 = Period(1, DAYS)
-    assert((p1 != p2) == false)
+    assert(p1 == p2)
   }
 
 
@@ -149,13 +149,13 @@ class PeriodTest extends FlatSpec with Matchers {
   "9. Period < years" should "true" in {
     var p1 = Period(1, YEARS)
     var p2 = Period(1, YEARS)
-    assert((p1 < p2) == false)
+    assert(p1 >= p2)
   }
 
   "10. Period < years" should "true" in {
     var p1 = Period(2, YEARS)
     var p2 = Period(1, YEARS)
-    assert((p1 < p2) == false)
+    assert(p1 >= p2)
   }
 
   "10a. Period < years" should "true" in {
@@ -169,13 +169,13 @@ class PeriodTest extends FlatSpec with Matchers {
   "11. Period < months" should "true" in {
     var p1 = Period(1, MONTHS)
     var p2 = Period(1, MONTHS)
-    assert((p1 < p2) == false)
+    assert(p1 >= p2)
   }
 
   "12. Period < months" should "true" in {
     var p1 = Period(2, MONTHS)
     var p2 = Period(1, MONTHS)
-    assert((p1 < p2) == false)
+    assert(p1 >= p2)
   }
 
   "12a. Period < months" should "true" in {
@@ -190,13 +190,13 @@ class PeriodTest extends FlatSpec with Matchers {
   "13. Period < weeks" should "true" in {
     var p1 = Period(1, WEEKS)
     var p2 = Period(1, WEEKS)
-    assert((p1 < p2) == false)
+    assert(p1 >= p2)
   }
 
   "14. Period < weeks" should "true" in {
     var p1 = Period(2, WEEKS)
     var p2 = Period(1, WEEKS)
-    assert((p1 < p2) == false)
+    assert(p1 >= p2)
   }
 
 
@@ -213,13 +213,13 @@ class PeriodTest extends FlatSpec with Matchers {
   "16. Period < days" should "true" in {
     var p1 = Period(1, DAYS)
     var p2 = Period(1, DAYS)
-    assert((p1 < p2) == false)
+    assert(p1 >= p2)
   }
 
   "17. Period < days" should "true" in {
     var p1 = Period(2, DAYS)
     var p2 = Period(1, DAYS)
-    assert((p1 < p2) == false)
+    assert(p1 >= p2)
   }
 
 
@@ -362,13 +362,13 @@ class PeriodTest extends FlatSpec with Matchers {
   "35. Period > years" should "true" in {
     var p1 = Period(1, YEARS)
     var p2 = Period(1, YEARS)
-    assert((p1 > p2) == false)
+    assert(p1 <= p2)
   }
 
   "36. Period > years" should "true" in {
     var p1 = Period(1, YEARS)
     var p2 = Period(2, YEARS)
-    assert((p1 > p2) == false)
+    assert(p1 <= p2)
   }
 
   "37 Period > years" should "true" in {
@@ -382,13 +382,13 @@ class PeriodTest extends FlatSpec with Matchers {
   "38. Period > months" should "true" in {
     var p1 = Period(1, MONTHS)
     var p2 = Period(1, MONTHS)
-    assert((p1 > p2) == false)
+    assert(p1 <= p2)
   }
 
   "39. Period > months" should "true" in {
     var p1 = Period(1, MONTHS)
     var p2 = Period(2, MONTHS)
-    assert((p1 > p2) == false)
+    assert(p1 <= p2)
   }
 
   "40. Period > months" should "true" in {
@@ -403,13 +403,13 @@ class PeriodTest extends FlatSpec with Matchers {
   "41. Period > weeks" should "true" in {
     var p1 = Period(1, WEEKS)
     var p2 = Period(1, WEEKS)
-    assert((p1 > p2) == false)
+    assert(p1 <= p2)
   }
 
   "42. Period > weeks" should "true" in {
     var p1 = Period(1, WEEKS)
     var p2 = Period(2, WEEKS)
-    assert((p1 > p2) == false)
+    assert(p1 <= p2)
   }
 
 
@@ -426,13 +426,13 @@ class PeriodTest extends FlatSpec with Matchers {
   "44. Period > days" should "true" in {
     var p1 = Period(1, DAYS)
     var p2 = Period(1, DAYS)
-    assert((p1 > p2) == false)
+    assert(p1 <= p2)
   }
 
   "45. Period > days" should "true" in {
     var p1 = Period(1, DAYS)
     var p2 = Period(2, DAYS)
-    assert((p1 > p2) == false)
+    assert(p1 <= p2)
   }
 
 

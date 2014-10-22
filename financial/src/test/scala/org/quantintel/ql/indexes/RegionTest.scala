@@ -10,8 +10,8 @@ class RegionTest extends FlatSpec with Matchers {
 
   "Australia name" should "equal Australia" in {
 
-    assert(Region().AustraliaRegion.name == "Australia")
-    assert(Region().AustraliaRegion.code == "AU")
+    assert(Region().AustraliaRegion().name == "Australia")
+    assert(Region().AustraliaRegion().code == "AU")
 
   }
 

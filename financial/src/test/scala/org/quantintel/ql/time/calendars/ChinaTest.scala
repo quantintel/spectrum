@@ -24,7 +24,7 @@ import org.quantintel.ql.time.Calendar
 import org.scalatest.{Matchers, FlatSpec}
 
 /**
- * @author Paul Beranrd
+ * @author Paul Bernard
  */
 class ChinaTest extends FlatSpec with Matchers {
 
