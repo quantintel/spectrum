@@ -25,6 +25,6 @@ package org.quantintel.ql.util
  */
 trait PolymorphicVisitor {
 
-  def visitor[T](element: _ <: T) : T
+  def  visitor[T](element: Class[_<: T]) : Visitor[T]
 
 }
