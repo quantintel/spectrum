@@ -21,6 +21,13 @@
 package org.quantintel.ql.instruments.options
 
 /**
+ * Swaption (also known as a Swap Option)
+ *
+ * The option to enter into an interest rate swap.  In exchange for an option premium,
+ * the buyer gains the right but not the obligation to enter into a specified swap
+ * agreemenet with the issuer on a specified futur date
+ * - source Investopedia
+ *
  * @author Paul Bernard
  */
 class Swaption extends Option {

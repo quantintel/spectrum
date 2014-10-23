@@ -23,6 +23,12 @@ package org.quantintel.ql.instruments.options
 import org.quantintel.ql.instruments.Instrument
 
 /**
+ * An Option is a financial derivative that represents a contract sold by one party (option
+ * writer) to another party (option holder).  The contract offers the buyer the right,
+ * but not the obligation, to buy (call) or sell (put) a security or other financial
+ * asset at an agreed-upon price (the strike price) during a certain period of time or
+ * on a specified date (the exercise date).
+ *
  * @author Paul Bernard
  */
 class Option extends Instrument {

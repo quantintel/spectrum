@@ -20,6 +20,13 @@
 package org.quantintel.ql.instruments.options
 
 /**
+ * A Swing Option is a type of contract used by investors in energy markets that lets the option
+ * holder buy a predetermined quantity of energy at a predetermined price while
+ * having some flexibility in the amount purchased as the price paid.  A swing option contract
+ * states the least an dmost energy an option holder can buy (or "take") per day and per
+ * month, how much that energy will cost (its strike price) and how many ntimes during the
+ * month the holder can change (or "swing") the daily quanity of energy purchased.
+ *
  * @author Paul Bernard
  */
 class VanillaSwingOption extends OneAssetOption {

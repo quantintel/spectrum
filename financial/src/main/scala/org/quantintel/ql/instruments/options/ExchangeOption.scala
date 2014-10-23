@@ -21,6 +21,12 @@
 package org.quantintel.ql.instruments.options
 
 /**
+ * An Exchange Option also known as an "outperformance option" or "spread option,
+ * this gives the holder the right to receive on asset (A1) in exchange for another
+ * asset (A2) according to a specified conversion ratio, or the right to receive
+ * the amount by which the price of one asset exceeds that of another.
+ *
+ *
  * @author Paul Bernard
  */
 class ExchangeOption extends Option {
