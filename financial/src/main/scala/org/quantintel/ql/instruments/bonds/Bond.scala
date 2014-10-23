@@ -20,6 +20,7 @@
 
 package org.quantintel.ql.instruments.bonds
 
+import java.util
 import java.util.Collections
 
 import org.quantintel.ql.Settings
@@ -71,7 +72,7 @@ class Bond extends Instrument {
     if (coupons.nonEmpty){
       cashflows.sortWith(_.date <= _.date)
       maturityDate = coupons.last.date
-      //addRedemptionsToCashFlows
+      //addRedemptionsToCashFlows()
     }
 
     val evaluationDate : Date = new Settings().evaluationDate
@@ -203,6 +204,43 @@ class Bond extends Instrument {
   def isExpired : Boolean = cashflows.last.hasOccurred(settlementDate)
 
 
+  protected def addRedemptionsToCashFlow(): Unit = {
+    //addRedemptionsToCashflows(new List[Double]())
+  }
+
+
+  protected def addRedemptionsToCashflows(redemptions: List[Double]) {
+
+    calculateNotionalsFromCashflows()
+    this.redemptions.clear()
+
+    (1 to notionalSchedule.size -1).foreach(
+      (i: Int) => {
+        val R : Double = if (i< redemptions.size) redemptions.get(i)
+          else if (!redemptions.isEmpty) redemptions.get(redemptions.size-1) else
+            100.00
+        val amount : Double = (R/100.0)*(this.notionals.get(i-1)-notionals.get(i))
+        val redemption = new SimpleCashFlow(amount, notionalSchedule.get(i))
+        this.cashflows.add(redemption)
+        this.redemptions.add(redemption)
+      }
+    )
+  }
+
+  protected def calculateNotionalsFromCashflows(): Unit = {
+    notionalSchedule clear()
+    notionals clear()
+    var lastPaymentDate : Date = Date()
+    notionalSchedule add Date()
+    (0 to (cashflows.size - 1)).foreach(
+      (i: Int) => {
+        val cfObj : Object = cashflows.get(i)
+        // TODO:
+      }
+    )
+
+
+  }
 
 
 }
