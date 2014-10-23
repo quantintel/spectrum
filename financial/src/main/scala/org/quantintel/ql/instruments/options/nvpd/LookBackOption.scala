@@ -18,19 +18,18 @@
  *
  */
 
-package org.quantintel.ql.instruments.swap
+package org.quantintel.ql.instruments.options.nvpd
 
 /**
- * CPI swap (also known as a 'Inflation swap') is a derivative used to transfer inflation risk from
- * on party to another through an exchange of cash flows.  In an inflation swap, on party pays a fixed
- * rate on a notional principal amount, while the other party pays a floating rate linked to an
- * inflation index, such as the Consumer Price Index (CPI).  The party paying the floating rate pays the
- * inflation adjusted rate multiplied by the notional principal amount.  For example, one party may pay
- * a fixed rate of 3% on a two year inflation swap, and in return receive the actual inflation
- * source - Investopedia 2014
+ * Lookback options, are a type of exotic option with path dependency, amoung many other kind
+ * of options.  The payoff depends on the optimal(maximum or minimum) underlying asset's price
+ * occuring over the life of the option.  The option allows the holder to "look back" over time
+ * to determine the payoff.  There exists two kinds of lookback options: the floating strike
+ * and fixed strike.
+ * source: Wikipedia 2014
  *
  * @author Paul Bernard
  */
-class CpiSwap extends Swap {
+class LookBackOption {
 
 }

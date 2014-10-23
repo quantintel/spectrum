@@ -32,6 +32,6 @@ package org.quantintel.ql.instruments.swap
  *
  * @author Paul Bernard
  */
-class OvernightIndexedSwap {
+class OvernightIndexedSwap extends Swap {
 
 }

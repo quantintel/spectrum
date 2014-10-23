@@ -18,19 +18,22 @@
  *
  */
 
-package org.quantintel.ql.instruments.swap
+package org.quantintel.ql.instruments.options.nvpd
 
 /**
- * CPI swap (also known as a 'Inflation swap') is a derivative used to transfer inflation risk from
- * on party to another through an exchange of cash flows.  In an inflation swap, on party pays a fixed
- * rate on a notional principal amount, while the other party pays a floating rate linked to an
- * inflation index, such as the Consumer Price Index (CPI).  The party paying the floating rate pays the
- * inflation adjusted rate multiplied by the notional principal amount.  For example, one party may pay
- * a fixed rate of 3% on a two year inflation swap, and in return receive the actual inflation
- * source - Investopedia 2014
+ *
+ * A cliquet option or 'ratchet option" is an exotic option consisting of a series
+ * of consecutive forward start options.  The first is active immediately.  The
+ * second becomes active when the first expires, ect.  Each option is struck at-th-
+ * money when it becomes active.
+ * A cliqet is, therefore, a series of at-the-money options but where the total
+ * premium is determined in advance.  A cliquet can be thought of a series of "pre-
+ * purchased" at-the-money options.  The payout on each option can either be paid at
+ * the final maturity, or at th eend of each reset period.
+ * source- Wikipedia 2014
  *
  * @author Paul Bernard
  */
-class CpiSwap extends Swap {
+class CliquetOption {
 
 }

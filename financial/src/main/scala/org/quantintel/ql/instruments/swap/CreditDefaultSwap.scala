@@ -20,6 +20,8 @@
 
 package org.quantintel.ql.instruments.swap
 
+import org.quantintel.ql.instruments.Instrument
+
 /**
  * Credit Default Swap (also known as: CDS) is a swap designed to transfer the credit
  * exposure of fixed income products between parties.  A credit default swap is also
@@ -32,6 +34,7 @@ package org.quantintel.ql.instruments.swap
  *
  * @author Paul Bernard
  */
-class CreditDefaultSwap {
+class CreditDefaultSwap extends Instrument {
 
+  override protected def isExpired: Boolean = ???
 }

@@ -18,11 +18,23 @@
  *
  */
 
-package org.quantintel.ql.instruments
+package org.quantintel.ql.instruments.cap
+
+import org.quantintel.ql.instruments.Instrument
 
 /**
+ * An interest rate cap is a derivative in which the buyer receives payment at the end
+ * of each period in which the interest rate exceeds the agreed strike prices.  An
+ * example of a cap would be an agreement to receive a payment for each month the LIBOR
+ * rate exceeds 2.5%.
+ * Similiarly an interest rate floor is a derivative contract in which the buyer receives
+ * at the end of each period in which the interest reate is below the agreed stike price.
+ * Caps and floors can be used to hedge agaist interest reate fluctuations.
+ * source - Wikipedia 2014
+ *
  * @author Paul Bernard
  */
-class CompositeInstrument extends Instrument {
+class CapFloor extends Instrument {
+
   override protected def isExpired: Boolean = ???
 }

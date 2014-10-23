@@ -18,19 +18,11 @@
  *
  */
 
-package org.quantintel.ql.instruments.swap
+package org.quantintel.ql.instruments.util
 
 /**
- * CPI swap (also known as a 'Inflation swap') is a derivative used to transfer inflation risk from
- * on party to another through an exchange of cash flows.  In an inflation swap, on party pays a fixed
- * rate on a notional principal amount, while the other party pays a floating rate linked to an
- * inflation index, such as the Consumer Price Index (CPI).  The party paying the floating rate pays the
- * inflation adjusted rate multiplied by the notional principal amount.  For example, one party may pay
- * a fixed rate of 3% on a two year inflation swap, and in return receive the actual inflation
- * source - Investopedia 2014
- *
  * @author Paul Bernard
  */
-class CpiSwap extends Swap {
+class DividedSchedule {
 
 }

@@ -20,7 +20,7 @@
 
 package org.quantintel.ql.instruments
 
-import org.quantintel.ql.pricingengines.{PricingEngine, Arguments, Results}
+import org.quantintel.ql.pricingengines.{Results, Arguments, PricingEngine}
 import org.quantintel.ql.util.LazyObject
 import scala.collection.mutable
 
@@ -51,7 +51,18 @@ abstract class Instrument extends LazyObject  {
   }
 
   def setPricingEngine(engine: PricingEngine){
+
+    if(m_engine !=null) {
+      m_engine = engine
+      m_engine.deleteObserver(this)
+    }
+
     m_engine = engine
+
+    if(m_engine !=null) {
+      m_engine.addObserver(this)
+    }
+
     update()
   }
 

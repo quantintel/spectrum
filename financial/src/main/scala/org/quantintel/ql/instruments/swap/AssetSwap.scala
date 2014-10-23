@@ -31,6 +31,6 @@ package org.quantintel.ql.instruments.swap
  *
  * @author Paul Bernard
  */
-class AssetSwap {
+class AssetSwap extends Swap {
 
 }

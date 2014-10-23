@@ -18,19 +18,19 @@
  *
  */
 
-package org.quantintel.ql.instruments.swap
+package org.quantintel.ql.instruments.options.exotic
+
+import org.quantintel.ql.instruments.options.Option
 
 /**
- * CPI swap (also known as a 'Inflation swap') is a derivative used to transfer inflation risk from
- * on party to another through an exchange of cash flows.  In an inflation swap, on party pays a fixed
- * rate on a notional principal amount, while the other party pays a floating rate linked to an
- * inflation index, such as the Consumer Price Index (CPI).  The party paying the floating rate pays the
- * inflation adjusted rate multiplied by the notional principal amount.  For example, one party may pay
- * a fixed rate of 3% on a two year inflation swap, and in return receive the actual inflation
- * source - Investopedia 2014
+ * A Basket option is a financial derivative, more specifically an exotic option whose underlying
+ * is a (weighted) sum or averge of different assets that have been grouped together in a basket.
+ * For example an index option, where a number of stocks have been gruped together in an index
+ * and the option is based upon the price of the index.
+ * source - Wikipedia  2014
  *
  * @author Paul Bernard
  */
-class CpiSwap extends Swap {
+class BasketOption extends Option {
 
 }

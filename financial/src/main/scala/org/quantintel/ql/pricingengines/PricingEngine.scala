@@ -20,13 +20,15 @@
 
 package org.quantintel.ql.pricingengines
 
+import org.quantintel.ql.util.{Observable, Observability}
+
 /**
  *
  * Interface for pricing engines
  *
  * @author Paul Bernard
  */
-trait PricingEngine {
+trait PricingEngine extends Observable  {
 
   val PRICING_ENGINE_NOT_SET = "Pricing engine not set"
 
@@ -49,3 +51,5 @@ trait Arguments {
 trait Results {
   def reset()
 }
+
+
