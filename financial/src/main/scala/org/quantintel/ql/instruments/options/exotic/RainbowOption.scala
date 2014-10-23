@@ -23,6 +23,10 @@ package org.quantintel.ql.instruments.options.exotic
 import org.quantintel.ql.instruments.options.Option
 
 /**
+ *
+ * Rainbow Option (also known as a "better of" option), entitles the holder to receive
+ * the gain on the best performaning of two or more assets.
+ *
  * @author Paul Bernard
  */
 class RainbowOption extends Option {
