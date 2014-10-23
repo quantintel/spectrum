@@ -23,6 +23,8 @@ package org.quantintel.ql.instruments.options.nver
 import org.quantintel.ql.instruments.options.Option
 
 /**
+ *
+ *
  * @author Paul Bernard
  */
 class CanaryOption extends Option {

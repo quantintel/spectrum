@@ -23,6 +23,14 @@ package org.quantintel.ql.instruments.options.nver
 import org.quantintel.ql.instruments.options.Option
 
 /**
+ * A Bermuda Option is a type of exotic option that cn be exercised only a a predetermined dates,
+ * typically every month.  Bermuda options are a combination of American and European options.
+ * American options are exercisable anytime between the purchase date and the date of expiration.
+ * European options, conversely, are exercisable only at the date of expiration.  Bermuda options are
+ * exercisable at the date of expiration, and on certain specified dates that occur bewteen the
+ * purchase date and the date of expiration.  Other exotic options include binary options and quanity
+ * adjusting options, often called quanto options for short.
+ *
  * @author Paul Bernard
  */
 class BermudanOption extends Option {

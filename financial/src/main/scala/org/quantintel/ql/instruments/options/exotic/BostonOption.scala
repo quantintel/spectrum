@@ -23,6 +23,9 @@ package org.quantintel.ql.instruments.options.exotic
 import org.quantintel.ql.instruments.options.Option
 
 /**
+ * Any Over the counter option where the Premium is paid at maturity
+ * rather than trade date.
+ *
  * @author Paul Bernard
  */
 class BostonOption extends Option {
