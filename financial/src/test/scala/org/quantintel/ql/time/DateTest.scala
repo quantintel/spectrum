@@ -159,7 +159,7 @@ class DateTest extends FlatSpec with Matchers {
   "20. date inc beyond range" should "exception" in {
     var d = Date(Date.maximumSerialNumber)
     try {
-      d++
+      d.++
     } catch {
         case e: Exception => assert(true)
     }
@@ -168,7 +168,7 @@ class DateTest extends FlatSpec with Matchers {
   "21. date dec beyond range" should "exception" in {
     var d = Date(Date.minimumSerialNumber)
     try {
-      d--
+      d.--
     } catch {
       case e: Exception => assert(true)
     }
@@ -365,13 +365,13 @@ class DateTest extends FlatSpec with Matchers {
 
   "inc date" should "be 368" in {
     val d = Date(367)
-    (d++)
+    d.++
     assert(d.serialNumber == 368)
   }
 
   "dec date" should "be 367" in {
     val d = Date(368)
-    (d--)
+    d.--
     assert(d.serialNumber == 367)
   }
 
