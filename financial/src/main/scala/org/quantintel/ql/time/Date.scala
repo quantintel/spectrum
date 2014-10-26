@@ -851,7 +851,10 @@ object Date {
     false)
 
 
-
+  /**
+   * Returns an instance of the current date.
+   * @return the current date
+   */
   def todaysDate: Date = {
     val cal : JCalendar = JCalendar.getInstance()
     val d  : Int = cal.get(JCalendar.DAY_OF_MONTH)
@@ -869,6 +872,11 @@ object Date {
     Date.yearIsLeapArr(year - 1900)
   }
 
+  /**
+   * Returns the last day of the month in the month of the date provided.
+   * @param date Any date in the month to be used as reference
+   * @return The last day of the month based upon the date referenced.
+   */
   def endOfMonth(date: Date): Date = {
     val m : Int = date.month.id
     val y : Int = date.year
