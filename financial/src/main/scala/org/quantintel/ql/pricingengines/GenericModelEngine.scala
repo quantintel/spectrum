@@ -26,6 +26,10 @@ package org.quantintel.ql.pricingengines
  *
  * @author Paul Bernard
  */
-class GenericModelEngine {
+class GenericModelEngine
+  [M <: CalibratedModel,
+   A <: Arguments,
+   R <: Results] (arguments: A, results: R)
+  extends GenericEngine[A, R] {
 
 }
