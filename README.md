@@ -7,9 +7,10 @@ A series of capability distributions packaged as libraries.
     The initial focus will be in the Financial/Quantitative area
 
 
-## Wiki:
+## Links:
     
 [Spectrum Wiki](https://github.com/quantintel/spectrum/wiki)
+[Spectrum Homepage](http://quantintel.github.io/spectrum/)
     
 ## Concept:
     
