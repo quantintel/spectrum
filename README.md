@@ -9,7 +9,7 @@ A series of capability distributions packaged as libraries.
 
 ## Wiki:
     
-    https://github.com/quantintel/spectrum/wiki
+[Spectrum Wiki](https://github.com/quantintel/spectrum/wiki)
     
 ## Concept:
     
