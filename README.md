@@ -1,10 +1,15 @@
 Spectrum
 ========
 
+
 A series of capability distributions packaged as libraries.
 
     The initial focus will be in the Financial/Quantitative area
 
+
+## Wiki:
+    
+    https://github.com/quantintel/spectrum/wiki
     
 ## Concept:
     
