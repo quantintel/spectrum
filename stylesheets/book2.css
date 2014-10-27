@@ -1,0 +1,132 @@
+/* LICENSE
+This work by Robert Zaremba (http://rz.scale-it.pl) is licensed under the Creative Commons Attribution 3.0 Unported License. To view a copy of this license, visit http://creativecommons.org/licenses/by/3.0/.
+*/
+
+/* used by Scala tutorial */
+body {
+    background: white;
+    counter-reset: sect;
+    width: 900px;
+    padding: 0;
+    margin: 8px 8px 8px 20px;
+}
+
+code i, .comment{
+    font-family: "Liberation Sans","DejaVu Serif", "serif";
+    font-style: italic;
+}
+pre code {
+    padding: 0 0 0 20px;
+}
+code {
+    color: #500505;
+    font-size: 0.9em ;
+    font-family: "monospace" ;
+}
+/*
+pre {
+   background: #f5f5c3;
+   margin: 6px 0;
+}
+*/
+
+.main_title {
+    font: 300% bold Antykwa Poltawskiego,Copperplate, Georgia, serif;
+    margin: 30px;
+}
+.subtitle {
+    font-size: 60%;
+}
+h1,h2,h3,h4,h5,h6{
+    font-family: Antykwa Poltawskiego,Copperplate, Georgia, serif;
+    margin-left:-15px;
+}
+h2,h3,h4,h5,h6 {
+    font-variant: small-caps;
+    text-decoration: underline;
+}
+h1 { counter-reset: s_sect; }
+h2 { counter-reset: ss_sect; }
+h3 { counter-reset: sss_sect; }
+h1:before {
+    counter-increment: sect;
+    content: counter(sect) ". ";
+}
+h2:before {
+    counter-increment: s_sect;
+    content: counter(sect) "." counter(s_sect) " ";
+}
+h3:before {
+    counter-increment: ss_sect;
+    content: counter(sect) "." counter(s_sect) "." counter(ss_sect) " ";
+}
+h4:before {
+    counter-increment: sss_sect;
+    content: counter(sect) "." counter(s_sect) "." counter(ss_sect) "." counter(sss_sect) " ";
+}
+
+h1 {
+    font-size: 170%;
+    background: #ddd;
+    margin-top: 36px;
+}
+h2 {
+    font-size: 140%;
+    color: #111199;
+    margin-top: 8px;
+}
+h3 {
+    font-size: 110%;
+    margin-bottom: 10px;
+}
+h4 { margin: 16px 0; }
+h5 { margin: 16px 0 10px 0; font-size: 95%;}
+h6 { margin: 10px 0 6px 0; font-size: 84%;}
+h1+div,h2+div,h3+div,h4+div, h5+div, h6+div{
+    margin: 8px 0;
+}
+h4+div, h5+div, h6+div{
+    margin-left: 20px;
+}
+
+ul {
+    margin: 5px 0px;
+}
+dt {
+    margin-top: 6px;
+    color: #540560;
+    font-size: 106%;
+}
+p {
+    margin: 10px 0px;
+}
+b {
+    color: #005910;
+}
+code b {
+    color: #400505;
+}
+.small {
+    font-size: 80%;
+}
+.none {
+    visibility: hidden;
+    font-size: 0;
+    line-height: 0;
+    margin: 0;
+    padding: 0;
+    height: 0;
+}
+
+.space {margin-left: 12px;}
+
+@media print {
+    body {
+        margin: 0;
+        padding: 0;
+        width: 170mm;
+    }
+    h1+div, h2+div, h3 +div, h4+div {
+        margin-left: 0;
+    }
+}
