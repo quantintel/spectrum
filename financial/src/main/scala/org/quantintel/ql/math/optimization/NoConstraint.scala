@@ -33,7 +33,7 @@ class NoConstraint extends Constraint {
 
 class NoCostaintImpl extends ConstraintBase {
 
-  override def test(params: org.quantintel.ql.math.matrixutilities.Array[Any]): Boolean = true
+  override def test(params: org.quantintel.ql.math.matrixutilities.Array): Boolean = true
 }
 
 
