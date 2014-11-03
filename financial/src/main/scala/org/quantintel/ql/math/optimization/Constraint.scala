@@ -20,7 +20,6 @@
 
 package org.quantintel.ql.math.optimization
 
-import org.quantintel.ql.math.matrixutilities.Array
 
 /**
  * @author Paul Bernard
@@ -64,7 +63,7 @@ abstract class Constraint extends ConstraintBase {
 
 }
 
-abstract class ConstraintBase {
+trait ConstraintBase {
 
   def test(params: org.quantintel.ql.math.matrixutilities.Array) : Boolean
 
