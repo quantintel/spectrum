@@ -64,8 +64,9 @@ abstract class Constraint extends ConstraintBase {
 
 }
 
-trait ConstraintBase {
+abstract class ConstraintBase {
 
-  def test(params: Array): Boolean
+  def test(params: org.quantintel.ql.math.matrixutilities.Array) : Boolean
+
 
 }
