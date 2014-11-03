@@ -20,13 +20,15 @@
 
 package org.quantintel.ql.termstructures
 
+
 import org.quantintel.ql.time.daycounters.DayCounter
 import org.quantintel.ql.time.{Calendar, Date}
+import org.quantintel.ql.util.{Observability, Observer}
 
 /**
  * @author Paul Bernard
  */
-abstract class TermStructure {
+abstract class TermStructure extends Observer with Observability {
 
   def maxDate() : Date
 

@@ -29,7 +29,7 @@ import org.quantintel.ql.util.{Observable, Observer}
 /**
  * @author Paul Bernard
  */
-abstract class YieldTermStructure extends TermStructure with Observer with Observable  {
+trait YieldTermStructure extends TermStructure with Observer with Observable  {
 
 
 
