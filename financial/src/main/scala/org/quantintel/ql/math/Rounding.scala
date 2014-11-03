@@ -47,6 +47,7 @@ package org.quantintel.ql.math
 object RoundingMethods extends Enumeration  {
 
 
+
     type RoundingMethods = Value
     val NONE = Value(1)
     val UP = Value(2)
@@ -68,9 +69,12 @@ object RoundingMethods extends Enumeration  {
 
 }
 
+
+
 import org.quantintel.ql.math.RoundingMethods._
 
 class Rounding {
+
 
   var precision : Int = 0
   var method: RoundingMethods = NONE
