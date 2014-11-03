@@ -26,6 +26,11 @@ import org.bouncycastle.pqc.math.linearalgebra.Matrix
  * @author Paul Bernard
  */
 class Array extends Cloneable with Iterable[Double] with Algebra[Array] {
+
+  def this(size: Int) {
+    this()
+  }
+
   /**
    * Adds this instance and another instance of T
    * @param scalar
@@ -409,6 +414,8 @@ class Array extends Cloneable with Iterable[Double] with Algebra[Array] {
   def fill(scalar: Double): Array = ???
 
   def fill(another : Array): Array = ???
+
+  def set(pos: Int, value: Double)
 
 
 }
