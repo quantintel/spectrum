@@ -405,4 +405,10 @@ class Array extends Cloneable with Iterable[Double] with Algebra[Array] {
   override def *(matrix: Matrix): Array = ???
 
   override def iterator: Iterator[Double] = ???
+
+  def fill(scalar: Double): Array = ???
+
+  def fill(another : Array): Array = ???
+
+
 }
