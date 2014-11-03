@@ -31,6 +31,8 @@ import org.quantintel.ql.util.{Observable, Observer}
  */
 abstract class YieldTermStructure extends TermStructure with Observer with Observable  {
 
+
+
   /**
    * Zero yield rates
    *
