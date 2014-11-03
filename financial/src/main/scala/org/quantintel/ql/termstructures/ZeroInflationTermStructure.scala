@@ -8,16 +8,21 @@ import org.quantintel.ql.time.daycounters.DayCounter
 /**
  * @author Paul Bernard
  */
-abstract class ZeroInflationTermStructure(dayCounter: DayCounter,
-                                 lag: Period,
-                                 frequency: Frequency,
-                                 baseZeroRate: Double,
-                                  yTS: Handle[YieldTermStructure])
-  extends InflationTermStructure(lag,
-                                frequency,
-                                baseZeroRate,
-                                yTS,
-                                dayCounter) {
+abstract class ZeroInflationTermStructure extends InflationTermStructure {
+
+  def this(dayCounter: DayCounter,
+           lag: Period,
+           frequency: Frequency,
+           baseZeroRate: Double,
+           yTS: Handle[YieldTermStructure]){
+    this()
+    this.lag = lag
+    this.frequency = frequency
+    this.baseRate = baseZeroRate
+    this.nominalTermStructure = yTS
+    this.dayCounter = dayCounter
+  }
+
 
   def this(referenceDate: Date,
             calendar: Calendar,
@@ -26,8 +31,14 @@ abstract class ZeroInflationTermStructure(dayCounter: DayCounter,
             frequency: Frequency,
             baseZeroRate: Double,
             yTS: Handle[YieldTermStructure]) {
+    this()
+    this.m_referenceDate = referenceDate
+    this.lag = lag
+    this.frequency = frequency
+    this.baseRate = baseZeroRate
+    this.nominalTermStructure = yTS
+    this.dayCounter = dayCounter
 
-    this(referenceDate, lag, frequency, baseZeroRate, yTS, calendar, dayCounter)
   }
 
   def this(settlementDays: Int,
@@ -37,7 +48,14 @@ abstract class ZeroInflationTermStructure(dayCounter: DayCounter,
             frequency: Frequency,
             baseZeroRate: Double,
             yTS: Handle[YieldTermStructure]) {
-    this(settlementDays, calendar, lag, frequency, baseZeroRate, yTS, dayCounter)
+    this()
+    this.settlementDays = settlementDays
+    this.calendar = calendar
+    this.lag = lag
+    this.frequency = frequency
+    this.baseRate = baseZeroRate
+    this.nominalTermStructure = yTS
+    this.dayCounter = dayCounter
   }
 
 
