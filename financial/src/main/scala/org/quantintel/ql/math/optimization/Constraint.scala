@@ -26,38 +26,7 @@ package org.quantintel.ql.math.optimization
  */
 abstract class Constraint extends ConstraintBase {
 
-  protected var impl : ConstraintBase = null
 
-  def this(impl: ConstraintBase) {
-    this
-    this.impl = impl
-  }
-
-  def empty() : Boolean = {
-    impl == null
-  }
-
-  def test(p: org.quantintel.ql.math.matrixutilities.Array) : Boolean = impl.test(p)
-
-  def update(params: org.quantintel.ql.math.matrixutilities.Array,
-             direction: org.quantintel.ql.math.matrixutilities.Array, beta: Double) : Double = {
-
-    var diff: Double = beta
-    var newParams : org.quantintel.ql.math.matrixutilities.Array = params + (direction * diff)
-    var valid : Boolean = test(newParams)
-    var icount: Int = 0
-    while(!valid) {
-      if(icount > 200) {
-        throw new Exception("can't update parameter vector")
-      }
-      diff *= 0.5
-      icount = icount + 1
-      newParams = params + (direction * diff)
-      valid = test(newParams)
-    }
-    params.fill(newParams)
-    diff
-  }
 
 
 
@@ -65,7 +34,7 @@ abstract class Constraint extends ConstraintBase {
 
 trait ConstraintBase {
 
-  def test(params: org.quantintel.ql.math.matrixutilities.Array) : Boolean
+
 
 
 }

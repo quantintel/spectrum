@@ -25,7 +25,6 @@ package org.quantintel.ql.math.optimization
  */
 class NoConstraint extends Constraint {
 
-  super.impl = new NoCostaintImpl()
 
 
 
@@ -33,7 +32,7 @@ class NoConstraint extends Constraint {
 
 class NoCostaintImpl extends Constraint {
 
-  override def test(params: org.quantintel.ql.math.matrixutilities.Array): Boolean = true
+
 }
 
 
