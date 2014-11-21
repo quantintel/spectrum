@@ -12,6 +12,29 @@
     <packaging>jar</packaging>
     <artifactId>financial</artifactId>
 
+    <dependencies>
+
+        <dependency>
+            <groupId>org.scalanlp</groupId>
+            <artifactId>breeze_2.11</artifactId>
+            <version>0.10</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.scalanlp</groupId>
+            <artifactId>breeze-natives_2.11</artifactId>
+            <version>0.10</version>
+        </dependency>
+
+
+
+        <dependency>
+            <groupId>org.scalanlp</groupId>
+            <artifactId>breeze-macros_2.11</artifactId>
+            <version>0.3.1</version>
+        </dependency>
+    </dependencies>
+
     <build>
         <sourceDirectory>src/main/scala</sourceDirectory>
         <testSourceDirectory>src/test/scala</testSourceDirectory>
