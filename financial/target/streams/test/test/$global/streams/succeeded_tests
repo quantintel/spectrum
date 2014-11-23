@@ -1,0 +1,34 @@
+#Successful Tests
+#Sun Nov 23 14:58:54 EST 2014
+org.quantintel.ql.time.daycounters.ActNL365_=1416772734192
+org.quantintel.ql.time.daycounters.OneOne_=1416772734172
+org.quantintel.ql.time.daycounters.Thirty360Test=1416772734351
+org.quantintel.ql.time.calendars.FinlandTest=1416772734367
+org.quantintel.ql.time.daycounters.ThirtyEP360=1416772734172
+org.quantintel.ql.time.calendars.AustraliaTest=1416772734234
+org.quantintel.ql.math.RoundingTest=1416772734330
+org.quantintel.ql.time.DateTest=1416772734425
+org.quantintel.ql.time.daycounters.Act360Test=1416772734387
+org.quantintel.ql.time.calendars.ArgentinaTest=1416772734234
+org.quantintel.ql.time.PeriodTest=1416772734287
+org.quantintel.ql.time.daycounters.ThirtyE360Test=1416772734334
+org.quantintel.ql.time.daycounters.Thirty360ITTest=1416772734343
+org.quantintel.ql.time.calendars.DenmarkTest=1416772734266
+org.quantintel.ql.time.daycounters.Act365FTest=1416772734361
+org.quantintel.ql.time.daycounters.ThirtySIA=1416772734192
+org.quantintel.ql.time.daycounters.Thirty360BMA=1416772734341
+org.quantintel.ql.time.daycounters.Thirty360ISDA=1416772734334
+org.quantintel.ql.time.calendars.CzechRepublicTest=1416772734243
+org.quantintel.ql.time.daycounters.ActActISDATest=1416772734334
+org.quantintel.ql.time.calendars.ChinaTest=1416772734266
+org.quantintel.ql.time.daycounters.Act365L_=1416772734172
+org.quantintel.ql.time.daycounters.Thirty360USNASD=1416772734348
+org.quantintel.ql.currencies.AfricaTest=1416772734238
+org.quantintel.ql.time.calendars.CanadaTest=1416772734248
+org.quantintel.ql.time.daycounters.ActActISMATest=1416772734274
+org.quantintel.ql.time.calendars.BrazilTest=1416772734239
+org.quantintel.ql.indexes.RegionTest=1416772734321
+org.quantintel.ql.time.daycounters.ThirtyE360ISDA=1416772734345
+org.quantintel.lang.collections.CollectionsTest=1416772734271
+org.quantintel.ql.time.daycounters.ActActAFBTest=1416772734381
+org.quantintel.ql.time.TimeUnitTest=1416772734250

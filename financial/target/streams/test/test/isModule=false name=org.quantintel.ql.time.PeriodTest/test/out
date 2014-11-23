@@ -1,0 +1,123 @@
+[0m[[0minfo[0m] [0m[32mPeriodTest:[0m[0m
+[0m[[0minfo[0m] [0m[32m1. Period Equality Years[0m[0m
+[0m[[0minfo[0m] [0m[32m- should true[0m[0m
+[0m[[0minfo[0m] [0m[32m1a. Period Equality Years[0m[0m
+[0m[[0minfo[0m] [0m[32m- should true[0m[0m
+[0m[[0minfo[0m] [0m[32m2. Period inequality Years[0m[0m
+[0m[[0minfo[0m] [0m[32m- should true[0m[0m
+[0m[[0minfo[0m] [0m[32m2a. Period inequality Years[0m[0m
+[0m[[0minfo[0m] [0m[32m- should true[0m[0m
+[0m[[0minfo[0m] [0m[32m3. Period equality months[0m[0m
+[0m[[0minfo[0m] [0m[32m- should true[0m[0m
+[0m[[0minfo[0m] [0m[32m4. Period equality months[0m[0m
+[0m[[0minfo[0m] [0m[32m- should true[0m[0m
+[0m[[0minfo[0m] [0m[32m3a. Period iequality months[0m[0m
+[0m[[0minfo[0m] [0m[32m- should true[0m[0m
+[0m[[0minfo[0m] [0m[32m4a. Period iequality months[0m[0m
+[0m[[0minfo[0m] [0m[32m- should true[0m[0m
+[0m[[0minfo[0m] [0m[32m5. Period equality weeks[0m[0m
+[0m[[0minfo[0m] [0m[32m- should true[0m[0m
+[0m[[0minfo[0m] [0m[32m6. Period equality weeks[0m[0m
+[0m[[0minfo[0m] [0m[32m- should true[0m[0m
+[0m[[0minfo[0m] [0m[32m5. Period inequality weeks[0m[0m
+[0m[[0minfo[0m] [0m[32m- should true[0m[0m
+[0m[[0minfo[0m] [0m[32m6. Period inequality weeks[0m[0m
+[0m[[0minfo[0m] [0m[32m- should true[0m[0m
+[0m[[0minfo[0m] [0m[32m7. Period equality days[0m[0m
+[0m[[0minfo[0m] [0m[32m- should true[0m[0m
+[0m[[0minfo[0m] [0m[32m8. Period equality days[0m[0m
+[0m[[0minfo[0m] [0m[32m- should true[0m[0m
+[0m[[0minfo[0m] [0m[32m7a. Period inequality days[0m[0m
+[0m[[0minfo[0m] [0m[32m- should true[0m[0m
+[0m[[0minfo[0m] [0m[32m8a. Period inequality days[0m[0m
+[0m[[0minfo[0m] [0m[32m- should true[0m[0m
+[0m[[0minfo[0m] [0m[32m9. Period < years[0m[0m
+[0m[[0minfo[0m] [0m[32m- should true[0m[0m
+[0m[[0minfo[0m] [0m[32m10. Period < years[0m[0m
+[0m[[0minfo[0m] [0m[32m- should true[0m[0m
+[0m[[0minfo[0m] [0m[32m10a. Period < years[0m[0m
+[0m[[0minfo[0m] [0m[32m- should true[0m[0m
+[0m[[0minfo[0m] [0m[32m11. Period < months[0m[0m
+[0m[[0minfo[0m] [0m[32m- should true[0m[0m
+[0m[[0minfo[0m] [0m[32m12. Period < months[0m[0m
+[0m[[0minfo[0m] [0m[32m- should true[0m[0m
+[0m[[0minfo[0m] [0m[32m12a. Period < months[0m[0m
+[0m[[0minfo[0m] [0m[32m- should true[0m[0m
+[0m[[0minfo[0m] [0m[32m13. Period < weeks[0m[0m
+[0m[[0minfo[0m] [0m[32m- should true[0m[0m
+[0m[[0minfo[0m] [0m[32m14. Period < weeks[0m[0m
+[0m[[0minfo[0m] [0m[32m- should true[0m[0m
+[0m[[0minfo[0m] [0m[32m15. Period < weeks[0m[0m
+[0m[[0minfo[0m] [0m[32m- should true[0m[0m
+[0m[[0minfo[0m] [0m[32m16. Period < days[0m[0m
+[0m[[0minfo[0m] [0m[32m- should true[0m[0m
+[0m[[0minfo[0m] [0m[32m17. Period < days[0m[0m
+[0m[[0minfo[0m] [0m[32m- should true[0m[0m
+[0m[[0minfo[0m] [0m[32m18. Period < days[0m[0m
+[0m[[0minfo[0m] [0m[32m- should true[0m[0m
+[0m[[0minfo[0m] [0m[32m19. Period + years[0m[0m
+[0m[[0minfo[0m] [0m[32m- should true[0m[0m
+[0m[[0minfo[0m] [0m[32m20. Period + months[0m[0m
+[0m[[0minfo[0m] [0m[32m- should true[0m[0m
+[0m[[0minfo[0m] [0m[32m21. Period + weeks[0m[0m
+[0m[[0minfo[0m] [0m[32m- should true[0m[0m
+[0m[[0minfo[0m] [0m[32m21. Period + days[0m[0m
+[0m[[0minfo[0m] [0m[32m- should true[0m[0m
+[0m[[0minfo[0m] [0m[32m22. Period - years[0m[0m
+[0m[[0minfo[0m] [0m[32m- should true[0m[0m
+[0m[[0minfo[0m] [0m[32m23. Period - months[0m[0m
+[0m[[0minfo[0m] [0m[32m- should true[0m[0m
+[0m[[0minfo[0m] [0m[32m24. Period - weeks[0m[0m
+[0m[[0minfo[0m] [0m[32m- should true[0m[0m
+[0m[[0minfo[0m] [0m[32m25. Period - days[0m[0m
+[0m[[0minfo[0m] [0m[32m- should true[0m[0m
+[0m[[0minfo[0m] [0m[32m26. Period * years[0m[0m
+[0m[[0minfo[0m] [0m[32m- should true[0m[0m
+[0m[[0minfo[0m] [0m[32m27. Period * months[0m[0m
+[0m[[0minfo[0m] [0m[32m- should true[0m[0m
+[0m[[0minfo[0m] [0m[32m28. Period * weeks[0m[0m
+[0m[[0minfo[0m] [0m[32m- should true[0m[0m
+[0m[[0minfo[0m] [0m[32m29. Period * days[0m[0m
+[0m[[0minfo[0m] [0m[32m- should true[0m[0m
+[0m[[0minfo[0m] [0m[32m30. Period * years[0m[0m
+[0m[[0minfo[0m] [0m[32m- should true[0m[0m
+[0m[[0minfo[0m] [0m[32m31. Period * months[0m[0m
+[0m[[0minfo[0m] [0m[32m- should true[0m[0m
+[0m[[0minfo[0m] [0m[32m32. Period * weeks[0m[0m
+[0m[[0minfo[0m] [0m[32m- should true[0m[0m
+[0m[[0minfo[0m] [0m[32m33. Period * days[0m[0m
+[0m[[0minfo[0m] [0m[32m- should true[0m[0m
+[0m[[0minfo[0m] [0m[32m34. Period negate[0m[0m
+[0m[[0minfo[0m] [0m[32m- should true[0m[0m
+[0m[[0minfo[0m] [0m[32m35. Period > years[0m[0m
+[0m[[0minfo[0m] [0m[32m- should true[0m[0m
+[0m[[0minfo[0m] [0m[32m36. Period > years[0m[0m
+[0m[[0minfo[0m] [0m[32m- should true[0m[0m
+[0m[[0minfo[0m] [0m[32m37 Period > years[0m[0m
+[0m[[0minfo[0m] [0m[32m- should true[0m[0m
+[0m[[0minfo[0m] [0m[32m38. Period > months[0m[0m
+[0m[[0minfo[0m] [0m[32m- should true[0m[0m
+[0m[[0minfo[0m] [0m[32m39. Period > months[0m[0m
+[0m[[0minfo[0m] [0m[32m- should true[0m[0m
+[0m[[0minfo[0m] [0m[32m40. Period > months[0m[0m
+[0m[[0minfo[0m] [0m[32m- should true[0m[0m
+[0m[[0minfo[0m] [0m[32m41. Period > weeks[0m[0m
+[0m[[0minfo[0m] [0m[32m- should true[0m[0m
+[0m[[0minfo[0m] [0m[32m42. Period > weeks[0m[0m
+[0m[[0minfo[0m] [0m[32m- should true[0m[0m
+[0m[[0minfo[0m] [0m[32m43. Period > weeks[0m[0m
+[0m[[0minfo[0m] [0m[32m- should true[0m[0m
+[0m[[0minfo[0m] [0m[32m44. Period > days[0m[0m
+[0m[[0minfo[0m] [0m[32m- should true[0m[0m
+[0m[[0minfo[0m] [0m[32m45. Period > days[0m[0m
+[0m[[0minfo[0m] [0m[32m- should true[0m[0m
+[0m[[0minfo[0m] [0m[32m46. Period > days[0m[0m
+[0m[[0minfo[0m] [0m[32m- should true[0m[0m
+[0m[[0minfo[0m] [0m[32m47. Period += days[0m[0m
+[0m[[0minfo[0m] [0m[32m- should true[0m[0m
+[0m[[0minfo[0m] [0m[32m48. Period -= days[0m[0m
+[0m[[0minfo[0m] [0m[32m- should true[0m[0m
+[0m[[0minfo[0m] [0m[32m49. Period /= 5[0m[0m
+[0m[[0minfo[0m] [0m[32m- should true[0m[0m
+[0m[[0minfo[0m] [0m[32m50. Period /= 5[0m[0m
+[0m[[0minfo[0m] [0m[32m- should true[0m[0m

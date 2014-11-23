@@ -1,0 +1,10 @@
+<classpath>
+  <classpathentry kind="src" path="src" output="target/scala-2.10/classes"/>
+  <classpathentry kind="src" path="src/main/java" output="target/scala-2.10/classes"/>
+  <classpathentry kind="src" path="test" output="target/scala-2.10/test-classes"/>
+  <classpathentry kind="src" path="src/test/java" output="target/scala-2.10/test-classes"/>
+  <classpathentry kind="con" path="org.scala-ide.sdt.launching.SCALA_CONTAINER"/>
+  <classpathentry kind="src" path="/financial" exported="true" combineaccessrules="false"/>
+  <classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+  <classpathentry kind="output" path="bin"/>
+</classpath>

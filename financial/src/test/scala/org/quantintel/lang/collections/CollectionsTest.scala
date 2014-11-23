@@ -2,6 +2,7 @@ package org.quantintel.lang.collections
 
 import org.scalatest.{Matchers, FlatSpec}
 
+
 /**
  * @author Paul Bernard
  */
