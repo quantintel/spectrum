@@ -15,6 +15,7 @@
  *
  * Spectrum Finance is based in part on:
  *        QuantLib. http://quantlib.org/
+ *
  */
 
 package org.quantintel.ql.time.calendars
