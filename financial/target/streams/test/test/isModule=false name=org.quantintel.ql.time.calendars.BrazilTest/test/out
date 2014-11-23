@@ -1,7 +1,0 @@
-[0m[[0minfo[0m] [0m[32mBrazilTest:[0m[0m
-[0m[[0minfo[0m] [0m[32m1. Brazil Calendar - default apply[0m[0m
-[0m[[0minfo[0m] [0m[32m- should be Brazil[0m[0m
-[0m[[0minfo[0m] [0m[32m2. Brazil Calendar - parameterized apply(BRAZIL)[0m[0m
-[0m[[0minfo[0m] [0m[32m- should be Brazil[0m[0m
-[0m[[0minfo[0m] [0m[32m3. Brazil Calendar - parameterized apply(BOVESPA)[0m[0m
-[0m[[0minfo[0m] [0m[32m- should be BOVESPA[0m[0m

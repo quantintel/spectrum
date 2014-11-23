@@ -1,7 +1,0 @@
-[0m[[0minfo[0m] [0m[32mCanadaTest:[0m[0m
-[0m[[0minfo[0m] [0m[32m1. Canada Calendar - default apply[0m[0m
-[0m[[0minfo[0m] [0m[32m- should be Canada[0m[0m
-[0m[[0minfo[0m] [0m[32m2. Canada Calendar - parameterized apply(CANADA)[0m[0m
-[0m[[0minfo[0m] [0m[32m- should be Canada[0m[0m
-[0m[[0minfo[0m] [0m[32m3. Canada Calendar - parameterized apply(TSX)[0m[0m
-[0m[[0minfo[0m] [0m[32m- should be TSX[0m[0m
