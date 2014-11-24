@@ -24,7 +24,6 @@ resolvers ++= Seq(
 libraryDependencies <<= scalaVersion { scala_version => Seq(
   "org.scala-lang" % "scala-library" % "2.11.4",
   "org.scala-lang" % "scala-compiler" % "2.11.4",
-  "org.scala-lexiang" % "scala-reflect" % "2.11.4",
   "org.scala-lang" % "scalap" % "2.11.4",
   "org.scalatest" % "scalatest_2.11" % "2.2.2" % "test",
   "org.scalastyle" % "scalastyle_2.11" % "0.6.0" % "test")
