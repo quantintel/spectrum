@@ -13,20 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *
+ * Spectrum Finance is based in part on:
+ *        QuantLib. http://quantlib.org/
  *
  */
 
 
-/*
- *  Data from http://fx.sauder.ubc.ca/currency_table.html
- *  and http://www.thefinancials.com/vortex/CurrencyFormats.html
-*/
+
 
 package org.quantintel.ql.currencies
 
 import org.quantintel.ql.math.Rounding
 
-
+/*
+ *  Data from http://fx.sauder.ubc.ca/currency_table.html
+ *  and http://www.thefinancials.com/vortex/CurrencyFormats.html
+*/
 object AsiaEnum extends Enumeration {
 
   type AsiaEnum = Value
@@ -48,7 +50,7 @@ object AsiaEnum extends Enumeration {
   val TWD = Value(16)
 
 
-  def valueOf(currencies: Int)  = currencies match {
+  def valueOf(currencies: Int) : AsiaEnum  = currencies match {
     case 1 => BDT
     case 2 => CNY
     case 3 => HKD

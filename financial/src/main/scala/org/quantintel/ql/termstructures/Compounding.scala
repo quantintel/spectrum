@@ -26,13 +26,13 @@ package org.quantintel.ql.termstructures
 
 object Compounding extends Enumeration {
 
-  type Compounding= Value
+  type Compounding = Value
   val SIMPLE = Value(1)
   val COMPOUNDED = Value(2)
   val CONTINUOUS = Value(3)
   val SIMPLE_THEN_COMPOUNDED = Value(4)
 
-  def valueOf(compounding: Int)  = compounding match {
+  def valueOf(compounding: Int) : Compounding  = compounding match {
     case 1 => SIMPLE
     case 2 => COMPOUNDED
     case 3 => CONTINUOUS

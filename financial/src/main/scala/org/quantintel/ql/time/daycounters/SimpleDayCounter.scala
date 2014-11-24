@@ -33,7 +33,7 @@ object SimpleDayCounter {
 
     private val fallback = Thirty360()
 
-    override def name = "Simple"
+    override def name : String = "Simple"
 
     override def dayCount(dateStart: Date, dateEnd: Date) : Long = {
       fallback.dayCount(dateStart, dateEnd)

@@ -30,7 +30,7 @@ object SouthKoreaEnum extends Enumeration {
   val SETTLEMENT = Value(1)
   val KRX = Value(2)
 
-  def valueOf(market: Int) = market match {
+  def valueOf(market: Int) : SouthKoreaEnum = market match {
     case 1 => SETTLEMENT
     case 2 => KRX
     case _ => throw new Exception("Valid units = 1 or 2")
@@ -103,7 +103,7 @@ class SouthKorea extends Calendar {
 
   private class Settlement extends Impl {
 
-    override def name = "South-Korean settlement"
+    override def name : String = "South-Korean settlement"
 
     override def isWeekend(w: Weekday) : Boolean = w ==SATURDAY || w == SUNDAY
 
@@ -162,7 +162,7 @@ class SouthKorea extends Calendar {
 
   private class Krx extends Settlement {
 
-    override def name = "South-Korean exchange"
+    override def name : String = "South-Korean exchange"
 
     override def isBusinessDay(date: Date): Boolean = {
 

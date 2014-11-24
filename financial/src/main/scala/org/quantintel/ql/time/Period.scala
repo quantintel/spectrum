@@ -75,19 +75,19 @@ object Period {
    !(Period.<(p1,p2) || p2 < p1)
   }
 
-  def !=(p1: Period, p2: Period) : Boolean = {
+  def != (p1: Period, p2: Period) : Boolean = {
     !(p1 == p2)
   }
 
-  def >(p1: Period, p2: Period): Boolean = {
+  def > (p1: Period, p2: Period): Boolean = {
     Period.<(p2,p1)
   }
 
-  def <=(p1: Period, p2: Period) : Boolean = {
+  def <= (p1: Period, p2: Period) : Boolean = {
     !(p1 > p2)
   }
 
-  def >=(p1: Period, p2: Period) : Boolean = {
+  def >= (p1: Period, p2: Period) : Boolean = {
     !Period.<(p1, p2)
   }
 
@@ -124,7 +124,7 @@ object Period {
   }
 
 
-  def years(p: Period) : Double = {
+  def years (p: Period) : Double = {
 
     p.units match {
       case DAYS | WEEKS => throw new IllegalArgumentException(UNDECIDABLE_COMPARISON)
@@ -135,7 +135,7 @@ object Period {
 
   }
 
-  def months(p: Period) : Double = {
+  def months (p: Period) : Double = {
 
     if (p.length == 0) return 0.0
 
@@ -147,7 +147,7 @@ object Period {
     }
   }
 
-  def weeks(p: Period): Double = {
+  def weeks (p: Period): Double = {
 
     if (p.length == 0) return 0.0
 
@@ -171,7 +171,7 @@ object Period {
     }
   }
 
-  private def daysMinMax(p: Period) : (Int, Int) = {
+  private def daysMinMax (p: Period) : (Int, Int) = {
     p match {
       case DAYS => (p.length, p.length)
       case WEEKS => (7*p.length, 7*p.length)
@@ -264,7 +264,7 @@ class Period  {
     }
   }
 
-  def += (p: Period) = {
+  def += (p: Period) : Period = {
 
     if (length == 0){
       length = p.length
@@ -317,7 +317,7 @@ class Period  {
 
   }
 
-  def -=(p: Period): Period = {
+  def -= (p: Period): Period = {
     this += negate(p)
   }
 
@@ -350,7 +350,7 @@ class Period  {
   }
 
 
-  def normalize() {
+  def normalize () {
     if(length!=0){
       units match {
         case DAYS =>
@@ -374,43 +374,43 @@ class Period  {
   }
 
   def >= (p2: Period) : Boolean = {
-    Period.>=(this, p2)
+    Period >= (this, p2)
   }
 
   def <= (p2: Period) : Boolean = {
-    Period.<=(this, p2)
+    Period <= (this, p2)
   }
 
   def < (p2: Period) : Boolean = {
-     Period.<(this, p2)
+     Period < (this, p2)
   }
 
   def > (p2: Period) : Boolean = {
-    Period.>(this, p2)
+    Period > (this, p2)
   }
 
   def == (p2: Period) : Boolean = {
-    Period.==(this, p2)
+    Period == (this, p2)
   }
 
   def != (p2: Period) : Boolean = {
-    Period.!=(this, p2)
+    Period != (this, p2)
   }
 
   def + (p2: Period) : Period = {
-    Period.+(this, p2)
+    Period + (this, p2)
   }
 
   def - (p2: Period) : Period = {
-    Period.-(this, p2)
+    Period - (this, p2)
   }
 
   def * (n: Int) : Period = {
-    Period.*(this, n)
+    Period * (this, n)
   }
 
   def / (n: Int) : Period = {
-    Period./(this, n)
+    Period / (this, n)
   }
 
 

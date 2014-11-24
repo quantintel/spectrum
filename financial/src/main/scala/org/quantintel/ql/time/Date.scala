@@ -445,7 +445,7 @@ class Date() extends Comparable[Date] with Observable with Observability {
     val d : Int = cal.get(JCalendar.DAY_OF_MONTH)
     val m : Int = cal.get(JCalendar.MONTH)
     val y : Int = cal.get(JCalendar.YEAR)
-    serialNumber == Date.fromDMY(d, m+1, y) // java months are 0 based and require adjustment
+    serialNumber == Date.fromDMY(d, m + 1, y) // java months are 0 based and require adjustment
   }
 
   def longDate: JDate = new LongDate()
@@ -481,7 +481,7 @@ class Date() extends Comparable[Date] with Observable with Observability {
 
   protected def fEquals(other: Date): Boolean = eq(other)
 
-  override def toString = longDate.toString
+  override def toString : String = longDate.toString
 
   override def clone : Date = {
     super.clone.asInstanceOf[Date]
@@ -499,7 +499,7 @@ class Date() extends Comparable[Date] with Observable with Observability {
     val d : Int = cal.get(JCalendar.DAY_OF_MONTH)
     val m : Int = cal.get(JCalendar.MONTH)
     val y : Int = cal.get(JCalendar.YEAR)
-    Date.fromDMY(d, m+1, y)
+    Date.fromDMY(d, m + 1, y)
   }
 
   /**
@@ -644,7 +644,7 @@ class Date() extends Comparable[Date] with Observable with Observability {
         val formatter = new JFormatter(sb, JLocale.US)
         val c = JCalendar.getInstance
         c.setTime(this)
-        formatter.format("%04d-%02d-%02d", List(c.get(JCalendar.YEAR), c.get(JCalendar.MONTH)+1,
+        formatter.format("%04d-%02d-%02d", List(c.get(JCalendar.YEAR), c.get(JCalendar.MONTH) + 1,
           c.get(JCalendar.DAY_OF_MONTH)))
         sb.toString
       }
@@ -665,19 +665,19 @@ class Date() extends Comparable[Date] with Observable with Observability {
 
 object Date {
 
-  def apply()  = new Date()
+  def apply() : Date = new Date()
 
-  def apply(serialNumber: Long) = {
+  def apply(serialNumber: Long)  : Date = {
     new Date(serialNumber)
   }
 
-  def apply(date: JDate) = {
+  def apply(date: JDate) : Date = {
     new Date(date)
   }
 
 
 
-  def apply(d: Int, m: Month, y: Int)  = new Date(d, m, y)
+  def apply(d: Int, m: Month, y: Int) : Date = new Date(d, m, y)
 
   def apply(dayOfMonth: Int, month: Int, year: Int) : Date = {
 

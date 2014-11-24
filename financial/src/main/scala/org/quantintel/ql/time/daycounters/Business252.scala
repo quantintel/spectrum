@@ -21,6 +21,7 @@
 package org.quantintel.ql.time.daycounters
 
 
+import org.quantintel.ql.time.daycounters.DayCounter
 import org.quantintel.ql.time.{Date, Calendar}
 
 /**
@@ -30,9 +31,9 @@ object Business252 {
 
  import org.quantintel.ql.time.calendars._
 
-  def apply() = new Business252(Brazil())
+  def apply() : DayCounter= new Business252(Brazil())
 
-  def apply(calendar: Calendar) = {
+  def apply(calendar: Calendar) : DayCounter = {
     new Business252(calendar)
   }
 
@@ -57,7 +58,7 @@ object Business252 {
    */
   class Business252 (calendar: Calendar) extends DayCounter {
 
-    override def name = "Business/252(" + calendar.name + ")"
+    override def name : String = "Business/252(" + calendar.name + ")"
 
     override def dayCount(d1: Date, d2: Date): Long = {
 

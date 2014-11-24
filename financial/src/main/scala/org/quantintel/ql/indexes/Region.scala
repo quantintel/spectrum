@@ -79,7 +79,7 @@ class Region(var name: String, var code: String) {
 object Region {
 
   def apply() : Region = new Region()
-  def apply(name: String, code: String) = new Region(name, code)
+  def apply(name: String, code: String) : Region = new Region(name, code)
 
   def == (r1: Region, r2: Region) : Boolean = r1.name == r2.name
   def != (r1: Region, r2: Region) : Boolean = r1.name != r2.name

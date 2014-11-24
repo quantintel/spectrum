@@ -31,7 +31,7 @@ object Actual365Convention extends Enumeration {
   val ACT365NL  = Value(3)
 
 
-  def valueOf(market: Int)  = market match {
+  def valueOf(market: Int) : Actual365Convention   = market match {
     case 1 => ACT365F
     case 2 => ACT365L
     case 3 => ACT365NL
@@ -70,7 +70,7 @@ object Actual365 {
    */
   class Actual365Fixed extends DayCounter {
 
-    override def name = "Actual/365 (fixed)"
+    override def name : String = "Actual/365 (fixed)"
 
     override def yearFraction (dateStart: Date, dateEnd: Date,
               refPeriodStart: Date, refPeriodEnd: Date): Double =
@@ -86,7 +86,7 @@ object Actual365 {
    */
   class ACT365L extends DayCounter {
 
-    override def name = "actual/365 no leap, NL365"
+    override def name : String = "actual/365 no leap, NL365"
 
     override def yearFraction(dateStart: Date, dateEnd: Date,
                               refPeriodStart: Date, refPeriodEnd: Date): Double = {
@@ -107,7 +107,7 @@ object Actual365 {
    */
   class ACT365NL extends DayCounter {
 
-    override def name = "actual/365 no leap, NL365"
+    override def name : String = "actual/365 no leap, NL365"
 
     override def yearFraction(dateStart: Date, dateEnd: Date,
                               refPeriodStart: Date, refPeriodEnd: Date): Double = {

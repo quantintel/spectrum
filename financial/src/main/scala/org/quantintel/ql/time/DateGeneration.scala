@@ -38,7 +38,7 @@ object DateGeneration extends Enumeration {
                          //   coupon period.
   val CDS = Value(8)    // credit derivatives standard rule
 
-  def valueOf(market: Int)  = market match {
+  def valueOf(market: Int) : DateGeneration = market match {
     case 1 => BACKWARD
     case 2 => FORWARD
     case 3 => ZERO

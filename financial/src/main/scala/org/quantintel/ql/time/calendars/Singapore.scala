@@ -29,7 +29,7 @@ object SingaporeEnum extends Enumeration {
   type SingaporeEnum = Value
   val SGX = Value(1)
 
-  def valueOf(market: Int) = market match {
+  def valueOf(market: Int) : SingaporeEnum  = market match {
     case 1 => SGX
     case _ => throw new Exception("Valid units = 1")
   }
@@ -89,7 +89,7 @@ class Singapore extends Calendar {
 
   private class Sgx extends Western {
 
-    override def name = "Singapore Exchange"
+    override def name : String = "Singapore Exchange"
 
     override def isBusinessDay(date: Date): Boolean = {
 

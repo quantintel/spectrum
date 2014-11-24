@@ -29,7 +29,7 @@ object TargetEnum extends Enumeration {
   type TargetEnum = Value
   val TARGET = Value(1)
 
-  def valueOf(market: Int) = market match {
+  def valueOf(market: Int) : TargetEnum  = market match {
     case 1 => TARGET
     case _ => throw new Exception("Valid units = 1")
   }
@@ -85,7 +85,7 @@ class Target extends Calendar  {
 
   private class Target extends Western  {
 
-    override def name = "TARGET"
+    override def name : String = "TARGET"
 
     override def isBusinessDay(date: Date): Boolean = {
 

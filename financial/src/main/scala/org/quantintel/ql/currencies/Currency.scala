@@ -52,7 +52,7 @@ object Data{
     new Data(name, code, numericCode, symbol, fractionSymbol, fractionPerUnit, rounding, formatString)
   }
 
-  def apply = new Data()
+  def apply : Data = new Data()
 
 }
 
@@ -162,7 +162,7 @@ class Currency {
   def fractionPerUnit: Int = data.fractionPerUnit
   def rounding: Rounding = data.rounding
   def formatString: String = data.formatString
-  def triangulationCurrency = data.triangulationCurrency
+  def triangulationCurrency : Currency = data.triangulationCurrency
   def == (currency: Currency) : Boolean = equals(currency)
   def != (currency: Currency) : Boolean = !eq(currency)
 

@@ -56,7 +56,7 @@ object RoundingMethods extends Enumeration  {
     val FLOOR = Value(5)
     val CEILING = Value(6)
 
-    def valueOf(methods: Int) = methods match {
+    def valueOf(methods: Int) : RoundingMethods = methods match {
       case 1 => NONE
       case 2 => UP
       case 3 => DOWN

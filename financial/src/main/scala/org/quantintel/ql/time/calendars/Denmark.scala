@@ -26,10 +26,11 @@ import org.quantintel.ql.time.{Impl, Date, Western, Calendar}
 
 
 object DenmarkEnum extends Enumeration {
+
   type DenmarkEnum = Value
   val DENMARK = Value(1)
 
-  def valueOf(market: Int) = market match {
+  def valueOf(market: Int) : DenmarkEnum  = market match {
     case 1 => DENMARK
     case _ => throw new Exception("Valid units = 1")
   }
@@ -87,7 +88,7 @@ class Denmark extends Calendar {
 
   private class Denmark extends Western {
 
-    override def name = "Denmark"
+    override def name : String = "Denmark"
 
     override def isBusinessDay(date: Date): Boolean = {
 
@@ -99,12 +100,12 @@ class Denmark extends Calendar {
       val em: Int = easterMonday(y)
 
       if (isWeekend(w)                      // Maunday Thursday
-        || (dd == em-4)                     // Good Friday
-        || (dd == em-3)                     // Easter Monday
+        || (dd == em - 4)                     // Good Friday
+        || (dd == em - 3)                     // Easter Monday
         || (dd == em)                       // General Prayer Day
-        || (dd == em+25)
-        || (dd == em+38)                    // Ascension
-        || (dd == em+49)                    // Whit Monday
+        || (dd == em + 25)
+        || (dd == em + 38)                    // Ascension
+        || (dd == em + 49)                    // Whit Monday
         || (d == 1  && m == JANUARY)        // New Year's Day
         || (d == 5  && m == JUNE)           // Constitution Day, June 5th
         || (d == 25 && m == DECEMBER)       // Christmas

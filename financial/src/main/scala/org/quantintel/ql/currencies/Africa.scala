@@ -13,6 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *
+ * Spectrum Finance is based in part on:
+ *        QuantLib. http://quantlib.org/
+ *
  */
 
 package org.quantintel.ql.currencies
@@ -24,7 +27,7 @@ object AfricaEnum extends Enumeration {
 type AfricaEnum = Value
   val ZAR = Value(1)
 
-  def valueOf(currencies: Int)  = currencies match {
+  def valueOf(currencies: Int) : AfricaEnum = currencies match {
     case 1 => ZAR
     case _ => throw new Exception("Valid units = 1")
   }

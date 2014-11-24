@@ -33,7 +33,7 @@ object BusinessDayConvention extends Enumeration {
   val MODIFIED_PRECEDING = Value(5)
   val UNADJUSTED = Value(6)
 
-  def valueOf(market: Int)  = market match {
+  def valueOf(market: Int) : BusinessDayConventionEnum   = market match {
     case 1 => FOLLOWING
     case 2 => MODIFIED_FOLLOWING
     case 3 => HALF_MONTH_MODIFIED_FOLLOWING

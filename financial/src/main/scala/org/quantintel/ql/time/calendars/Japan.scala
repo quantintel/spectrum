@@ -29,7 +29,7 @@ object JapanEnum extends Enumeration {
   type JapanEnum = Value
   val JAPAN = Value(1)
 
-  def valueOf(market: Int) = market match {
+  def valueOf(market: Int) : JapanEnum  = market match {
     case 1 => JAPAN
     case _ => throw new Exception("Valid units = 1")
   }
@@ -97,7 +97,7 @@ class Japan extends Calendar  {
 
   private class Japan extends Impl {
 
-    override def name = "Japan"
+    override def name : String = "Japan"
 
     override def isWeekend(w: Weekday) : Boolean = w == SATURDAY || w == SUNDAY
 
@@ -126,7 +126,7 @@ class Japan extends Calendar  {
         || (w == MONDAY && (d >= 8 && d <= 14) && m == JANUARY  && y >= 2000) // Coming of Age Day (2nd Monday in JANUARY),
         || ((d == 15 || (d == 16 && w == MONDAY)) && m == JANUARY && y < 2000)   // was JANUARY 15th until 2000
         || ((d == 11 || (d == 12 && w == MONDAY)) && m == FEBRUARY)   // National Foundation Day
-        || ((d == ve || (d == ve+1 && w == MONDAY)) && m == MARCH)  // Vernal Equinox
+        || ((d == ve || (d == ve + 1 && w == MONDAY)) && m == MARCH)  // Vernal Equinox
         || ((d == 29 || (d == 30 && w == MONDAY)) && m == APRIL)  // Greenery Day
         || (d == 3  && m == MAY)  // Constitution Memorial Day
         || (d == 4  && m == MAY)  // Holiday for a Nation
@@ -138,8 +138,8 @@ class Japan extends Calendar  {
         || ((d == 15 || (d == 16 && w == MONDAY)) && m == SEPTEMBER  && y < 2003)     // was September 15th until 2003
         // If a single day falls between Respect for the Aged Day
         // and the Autumnal Equinox, it is holiday
-        || (w == TUESDAY && d+1 == ae && d >= 16 && d <= 22 && m == SEPTEMBER && y >= 2003)
-        || ((d == ae || (d == ae+1 && w == MONDAY)) && m == SEPTEMBER) // Autumnal Equinox
+        || (w == TUESDAY && d + 1 == ae && d >= 16 && d <= 22 && m == SEPTEMBER && y >= 2003)
+        || ((d == ae || (d == ae + 1 && w == MONDAY)) && m == SEPTEMBER) // Autumnal Equinox
         // Health and Sports Day (2nd MONDAY in October),
         // was October 10th until 2000
         || (w == MONDAY && (d >= 8 && d <= 14) && m == OCTOBER && y >= 2000)

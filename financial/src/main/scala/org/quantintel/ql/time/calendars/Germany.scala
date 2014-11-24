@@ -25,6 +25,7 @@ import org.quantintel.ql.time.Weekday._
 import org.quantintel.ql.time.{Impl, Date, Western, Calendar}
 
 object GermanyEnum extends Enumeration {
+
   type GermanyEnum = Value
   val SETTLEMENT = Value(1)
   val FRANKFURTSTOCKEXCHANGE = Value(2)
@@ -32,7 +33,7 @@ object GermanyEnum extends Enumeration {
   val EUREX = Value(4)
 
 
-  def valueOf(market: Int) = market match {
+  def valueOf(market: Int) : GermanyEnum = market match {
     case 1 => SETTLEMENT
     case 2 => FRANKFURTSTOCKEXCHANGE
     case 3 => XETRA
@@ -138,7 +139,7 @@ class Germany extends Calendar {
 
   private class Settlement extends Western {
 
-    override def name = "German Settlement"
+    override def name : String = "German Settlement"
 
     override def isBusinessDay(date: Date): Boolean = {
 
@@ -169,7 +170,7 @@ class Germany extends Calendar {
 
   private class FrankfurtStockExchange extends Western {
 
-    override def name = "Frankfurt stock exchange"
+    override def name : String = "Frankfurt stock exchange"
 
     override def isBusinessDay(date: Date): Boolean = {
 
@@ -196,7 +197,7 @@ class Germany extends Calendar {
 
   private class Xetra extends Western {
 
-    override def name = "Xetra"
+    override def name : String = "Xetra"
 
     override def isBusinessDay(date: Date): Boolean = {
 
@@ -224,7 +225,7 @@ class Germany extends Calendar {
 
   private class Eurex extends Western {
 
-    override def name = "Eurex"
+    override def name : String = "Eurex"
 
     override def isBusinessDay(date: Date): Boolean = {
 

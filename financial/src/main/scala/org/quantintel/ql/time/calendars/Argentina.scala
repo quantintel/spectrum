@@ -32,7 +32,7 @@ object ArgentinaEnum extends Enumeration {
   type ArgentinaEnum = Value
   val MERVAL = Value(1)
 
-  def valueOf(market: Int)  = market match {
+  def valueOf(market: Int) : ArgentinaEnum = market match {
     case 1 => MERVAL
     case _ => throw new Exception("Valid units = 1")
   }
@@ -93,7 +93,7 @@ class Argentina extends Calendar {
 
   private class MERVAL extends Western {
 
-    override def name = "Buenos Aires stock exchange"
+    override def name : String = "Buenos Aires stock exchange"
 
     override def isBusinessDay(date: Date) : Boolean = {
 

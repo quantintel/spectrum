@@ -39,7 +39,7 @@ object Thirty360Convention extends Enumeration {
   val ISDA = Value(13)
   val EP = Value(14)
 
-  def valueOf(market: Int)  = market match {
+  def valueOf(market: Int) : Thirty360Convention  = market match {
     case 1 => USA
     case 2 => BONDBASIS
     case 3 => EUROPEAN
@@ -127,7 +127,7 @@ object Thirty360 {
    */
   class USA extends DayCounter {
 
-    override def name = "30/360 (Bond Basis)"
+    override def name : String = "30/360 (Bond Basis)"
 
     override def yearFraction(dateStart : Date, dateEnd :Date, refStartDate: Date, refEndDate: Date) : Double = {
       dayCount(dateStart, dateEnd) / 360.0
@@ -157,7 +157,7 @@ object Thirty360 {
 
   class EU extends DayCounter {
 
-    override def name = "30E/360 (Eurobond Basis)"
+    override def name : String  = "30E/360 (Eurobond Basis)"
 
     override def yearFraction(dateStart : Date, dateEnd :Date, refStartDate: Date, refEndDate: Date) : Double = {
       dayCount(dateStart, dateEnd) / 360.0
@@ -180,7 +180,7 @@ object Thirty360 {
 
   class IT extends DayCounter {
 
-    override def name = "30/360 (Italian)"
+    override def name : String = "30/360 (Italian)"
 
     override def yearFraction(dateStart : Date, dateEnd :Date, refStartDate: Date, refEndDate: Date) : Double = {
       dayCount(dateStart, dateEnd) / 360.0
@@ -214,7 +214,7 @@ object Thirty360 {
    */
   class THIRTY360US extends DayCounter {
 
-    override def name = "30/360 US"
+    override def name : String = "30/360 US"
 
     override def yearFraction(dateStart : Date, dateEnd :Date, refStartDate: Date, refEndDate: Date) : Double = {
       dayCount(dateStart, dateEnd) / 360.0
@@ -249,7 +249,7 @@ object Thirty360 {
    */
   class BMA extends DayCounter {
 
-    override def name = "30/360 BMA"
+    override def name : String = "30/360 BMA"
 
     override def yearFraction(dateStart : Date, dateEnd :Date, refStartDate: Date, refEndDate: Date) : Double = {
       dayCount(dateStart, dateEnd) / 360.0
@@ -284,7 +284,7 @@ object Thirty360 {
    */
   class SIA extends DayCounter {
 
-    override def name = "30/360 SIA"
+    override def name : String = "30/360 SIA"
 
     override def yearFraction(dateStart : Date, dateEnd :Date, refStartDate: Date, refEndDate: Date) : Double = {
       dayCount(dateStart, dateEnd) / 360.0
@@ -319,7 +319,7 @@ object Thirty360 {
    */
   class ISDA extends DayCounter {
 
-    override def name = "30/360 ISDA"
+    override def name : String = "30/360 ISDA"
 
     override def yearFraction(dateStart : Date, dateEnd :Date, refStartDate: Date, refEndDate: Date) : Double = {
       dayCount(dateStart, dateEnd) / 360.0
@@ -350,7 +350,7 @@ object Thirty360 {
    */
   class EP extends DayCounter {
 
-    override def name = "30E+/360"
+    override def name : String = "30E+/360"
 
     override def yearFraction(dateStart : Date, dateEnd :Date, refStartDate: Date, refEndDate: Date) : Double = {
       dayCount(dateStart, dateEnd) / 360.0

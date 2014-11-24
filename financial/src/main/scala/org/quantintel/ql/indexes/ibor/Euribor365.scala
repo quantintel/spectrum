@@ -54,7 +54,7 @@ class Euribor365 extends IborIndex {
 
 object Euribor365 {
 
-  def apply() = new Euribor()
+  def apply() : Euribor365 = new Euribor365()
 
 
 }

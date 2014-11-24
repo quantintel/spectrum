@@ -29,7 +29,7 @@ object Actual360Convention extends Enumeration {
   val ACTUAL360 = Value(1)
   val FRENCH  = Value(2)
 
-  def valueOf(market: Int)  = market match {
+  def valueOf(market: Int) : Actual360Convention = market match {
     case 1 => ACTUAL360
     case 2 => FRENCH
     case _ => throw new Exception("Valid units = 1 to 2")
@@ -54,7 +54,7 @@ object Actual360 {
 
   class Actual360 extends DayCounter {
 
-    override def name ="Actual/360"
+    override def name : String ="Actual/360"
 
     override def yearFraction(dateStart: Date, dateEnd: Date,
                               refPeriodStart: Date, refPeriodEnd: Date) : Double =

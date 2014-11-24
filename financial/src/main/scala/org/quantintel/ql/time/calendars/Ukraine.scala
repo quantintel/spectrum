@@ -29,7 +29,7 @@ object UkraineEnum extends Enumeration {
   type UkraineEnum = Value
   val USE = Value(1)
 
-  def valueOf(market: Int) = market match {
+  def valueOf(market: Int) : UkraineEnum = market match {
     case 1 => USE
     case _ => throw new Exception("Valid units = 1")
   }
@@ -84,7 +84,7 @@ class Ukraine extends Calendar  {
 
   private class Use extends Orthodox {
 
-    override def name = "Ukrainian stock exchange"
+    override def name : String = "Ukrainian stock exchange"
 
     override def isBusinessDay(date: Date): Boolean = {
 

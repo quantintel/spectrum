@@ -29,7 +29,7 @@ object TaiwanEnum extends Enumeration {
   type TaiwanEnum = Value
   val TSEC = Value(1)
 
-  def valueOf(market: Int) = market match {
+  def valueOf(market: Int) : TaiwanEnum = market match {
     case 1 => TSEC
     case _ => throw new Exception("Valid units = 1")
   }
@@ -84,9 +84,9 @@ class Taiwan extends Calendar {
 
   private class Tsec extends Impl {
 
-    override def name = "Taiwan stock exchange"
+    override def name : String = "Taiwan stock exchange"
 
-    def isWeekend(w: Weekday) = w == SATURDAY || w == SUNDAY
+    def isWeekend(w: Weekday) : Boolean = w == SATURDAY || w == SUNDAY
 
     override def isBusinessDay(date: Date): Boolean = {
 

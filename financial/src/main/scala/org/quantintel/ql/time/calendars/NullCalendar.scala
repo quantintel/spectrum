@@ -29,7 +29,7 @@ object NullCalendarEnum extends Enumeration {
   type NullCalendarEnum = Value
   val NULLCALENDAR = Value(1)
 
-  def valueOf(market: Int) = market match {
+  def valueOf(market: Int) : NullCalendarEnum = market match {
     case 1 => NULLCALENDAR
     case _ => throw new Exception("Valid units = 1")
   }
@@ -70,7 +70,7 @@ class NullCalendar extends Calendar  {
 
   private class NullCalendar extends Western {
 
-    override def name = "Null"
+    override def name : String = "Null"
 
     override def isWeekend(w: Weekday) : Boolean = false
 

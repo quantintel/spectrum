@@ -30,7 +30,7 @@ object ChinaEnum extends Enumeration {
   type ChinaEnum = Value
   val SSE = Value(1)
 
-  def valueOf(market: Int) = market match {
+  def valueOf(market: Int) : ChinaEnum = market match {
     case 1 => SSE
     case _ => throw new Exception("Valid units = 1")
   }
@@ -83,7 +83,7 @@ class China extends Calendar  {
 
   private class SSE extends Western {
 
-    override def name = "Shanghai stock exchange"
+    override def name : String = "Shanghai stock exchange"
 
     override def isWeekend(w: Weekday) : Boolean = {
       w == SATURDAY || w == SUNDAY

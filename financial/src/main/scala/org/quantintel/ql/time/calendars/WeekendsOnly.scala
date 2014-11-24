@@ -29,7 +29,7 @@ object WeekendsOnlyEnum extends Enumeration {
   type WeekendsOnlyEnum = Value
   val WEEKENDSONLY = Value(1)
 
-  def valueOf(market: Int) = market match {
+  def valueOf(market: Int) : WeekendsOnlyEnum = market match {
     case 1 => WEEKENDSONLY
     case _ => throw new Exception("Valid units = 1")
   }
@@ -66,7 +66,7 @@ class WeekendsOnly extends Calendar {
 
   private class WeekendsOnly extends Impl {
 
-    override def name = "WeekendsOnly"
+    override def name : String = "WeekendsOnly"
 
     override def isWeekend(w: Weekday) : Boolean = {
       w == SATURDAY || w == SUNDAY

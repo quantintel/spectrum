@@ -13,6 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *
+ * Spectrum Finance is based in part on:
+ *        QuantLib. http://quantlib.org/
+ *
  */
 
 package org.quantintel.ql.currencies
@@ -63,7 +66,7 @@ object EuropeEnum extends Enumeration {
 
 
 
-  def valueOf(currencies: Int)  = currencies match {
+  def valueOf(currencies: Int) : EuropeEnum   = currencies match {
     case 1 => BGL
     case 2 => BYR
     case 3 => CHF

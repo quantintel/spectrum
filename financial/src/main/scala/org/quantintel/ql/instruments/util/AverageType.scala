@@ -29,7 +29,7 @@ object AverageType extends Enumeration {
   val ARITHMETIC = Value(1)
   val GEOMETRIC  = Value(2)
 
-  def valueOf(market: Int)  = market match {
+  def valueOf(market: Int) : Average  = market match {
   case 1 => ARITHMETIC
   case 2 => GEOMETRIC
   case _ => throw new Exception("Valid units = 1 to 2")

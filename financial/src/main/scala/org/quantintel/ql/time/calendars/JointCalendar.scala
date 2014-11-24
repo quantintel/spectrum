@@ -30,7 +30,7 @@ object JointCalendarRule extends Enumeration {
   val JOINHOLIDAYS = Value(1)
   val JOINBUSINESSDAYS = Value(2)
 
-  def valueOf(market: Int) = market match {
+  def valueOf(market: Int) : JointCalendarRule = market match {
     case 1 => JOINHOLIDAYS
     case 2 => JOINBUSINESSDAYS
     case _ => throw new Exception("Valid units = 1 to 2")

@@ -249,7 +249,7 @@ abstract class Calendar {
 
 abstract class Western extends Impl {
 
-  override def name = "Western"
+  override def name : String = "Western"
 
   val easterMondayData = Array[Short](
     98,  90, 103,  95, 114, 106,  91, 111, 102,
@@ -302,7 +302,7 @@ abstract class Western extends Impl {
 
 abstract class Orthodox extends Impl {
 
-  override def name = "Orthodox"
+  override def name : String = "Orthodox"
 
   val easterMondayData = Array[Short] (
     105, 118, 110, 102, 121, 106, 126, 118, 102,        // 1901-1909

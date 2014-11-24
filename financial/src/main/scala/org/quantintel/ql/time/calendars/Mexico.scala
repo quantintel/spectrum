@@ -29,7 +29,7 @@ object MexicoEnum extends Enumeration {
   type MexicoEnum = Value
   val BMV = Value(1)
 
-  def valueOf(market: Int) = market match {
+  def valueOf(market: Int) : MexicoEnum  = market match {
     case 1 => BMV
     case _ => throw new Exception("Valid units = 1")
   }
@@ -83,7 +83,7 @@ class Mexico extends Calendar {
 
   private class Bmv extends Western {
 
-    override def name = "Mexican Stock Exchange"
+    override def name : String = "Mexican Stock Exchange"
 
     override def isBusinessDay(date: Date): Boolean = {
 

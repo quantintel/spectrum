@@ -46,7 +46,7 @@ object BarrierType extends Enumeration {
   val UP_OUT = Value(3)
   val UNKNOWN = Value(4)
 
-  def valueOf(unit: Int) = unit match {
+  def valueOf(unit: Int) : BarrierType = unit match {
     case 0 => DOWN_IN
     case 1 => UP_IN
     case 2 => DOWN_OUT

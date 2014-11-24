@@ -25,10 +25,11 @@ import org.quantintel.ql.time.Weekday._
 import org.quantintel.ql.time.{Impl, Western, Date, Calendar}
 
 object HungaryEnum extends Enumeration {
+
   type HungaryEnum = Value
   val HUNGARY = Value(1)
 
-  def valueOf(market: Int) = market match {
+  def valueOf(market: Int) : HungaryEnum  = market match {
     case 1 => HUNGARY
     case _ => throw new Exception("Valid units = 1")
   }
@@ -83,7 +84,7 @@ class Hungary extends Calendar {
 
   private class Hungary extends Western {
 
-    override def name = "Hungary"
+    override def name : String = "Hungary"
 
     override def isBusinessDay(date: Date): Boolean = {
 
@@ -96,7 +97,7 @@ class Hungary extends Calendar {
 
       if (isWeekend(w)
         || (dd == em)     // Easter Monday
-        || (dd == em+49)  // Whit Monday
+        || (dd == em + 49)  // Whit Monday
         || (d == 1  && m == JANUARY)   // New Year's Day
         || (d == 15  && m == MARCH) // National Day
         || (d == 1  && m == MAY)  // Labour Day

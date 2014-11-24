@@ -27,7 +27,7 @@ import org.quantintel.ql.time.Date
  */
 abstract class DayCounter {
 
-  def name = "NO_IMPLEMENTATION_PROVIDED"
+  def name : String = "NO_IMPLEMENTATION_PROVIDED"
 
   def dayCount(dateStart: Date, dateEnd: Date) : Long = dateEnd - dateStart
 

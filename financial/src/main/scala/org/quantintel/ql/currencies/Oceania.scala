@@ -13,6 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *
+ * Spectrum Finance is based in part on:
+ *        QuantLib. http://quantlib.org/
+ *
  */
 
 package org.quantintel.ql.currencies
@@ -26,7 +29,7 @@ object OceaniaEnum extends Enumeration {
   val AUD = Value(1)
   val NZD = Value(2)
 
-  def valueOf(currencies: Int)  = currencies match {
+  def valueOf(currencies: Int) : OceaniaEnum  = currencies match {
     case 1 => AUD
     case 2 => NZD
     case _ => throw new Exception("Valid units = 1 or 2")

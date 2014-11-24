@@ -81,7 +81,7 @@ class IborIndex  extends InterestRateIndex {
   override def termStructure() : Handle[YieldTermStructure] = mTermStructure
 
 
-  def businessDayConvention() = {
+  def businessDayConvention() : BusinessDayConventionEnum = {
     convention
   }
 }
@@ -90,7 +90,8 @@ object IborIndex {
 
   def apply(familyName: String, tenor: Period, fixingDays: Int, currency: Currency,
             fixingCalendar: Calendar, convention: BusinessDayConventionEnum,
-            endOfMonth: Boolean, dayCounter: DayCounter, h: Handle[YieldTermStructure]) = {
+            endOfMonth: Boolean, dayCounter: DayCounter, h: Handle[YieldTermStructure])
+        : IborIndex  = {
 
     new IborIndex(familyName, tenor, fixingDays, currency, fixingCalendar,
       convention, endOfMonth, dayCounter, h)

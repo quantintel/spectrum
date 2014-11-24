@@ -25,7 +25,7 @@ import org.quantintel.ql.time.{Month, Period, TimeUnit, Date}
 
 object ActualActualConvention extends Enumeration {
 
-  type ActualActualConvention= Value
+  type ActualActualConvention = Value
   // day count conventions based upon the actual number of days (implemented in quantlib)
   val ISMA = Value(1)
   val BOND = Value(2)
@@ -37,7 +37,7 @@ object ActualActualConvention extends Enumeration {
 
 
 
-  def valueOf(market: Int)  = market match {
+  def valueOf(market: Int) : ActualActualConvention = market match {
     case 1 => ISMA
     case 2 => BOND
     case 3 => ISDA
@@ -100,7 +100,7 @@ object ActualActualConvention extends Enumeration {
  */
 object ActualActual  {
 
-  def apply() = new ISDA
+  def apply() : DayCounter = new ISDA
 
   import org.quantintel.ql.time.daycounters.ActualActualConvention._
 
@@ -115,7 +115,7 @@ object ActualActual  {
 
   class ISMA extends DayCounter {
 
-    override def name = "Actual/Actual (ISMA)"
+    override def name : String = "Actual/Actual (ISMA)"
 
     override def yearFraction(d1: Date,
                               d2: Date,
@@ -205,7 +205,7 @@ object ActualActual  {
 
   class ISDA extends DayCounter {
 
-    override def name = "Actual/Actual (ISDA)"
+    override def name : String = "Actual/Actual (ISDA)"
 
     override def yearFraction(dateStart: Date, dateEnd: Date, refPeriodStart: Date, refPeriodEnd: Date): Double = {
       if (dateStart equals dateEnd) return 0.0
@@ -229,7 +229,7 @@ object ActualActual  {
 
   class AFB extends DayCounter {
 
-    override def name = "Actual/Actual (AFB)"
+    override def name : String = "Actual/Actual (AFB)"
 
     override def yearFraction(dateStart: Date, dateEnd: Date,
                               refPeriodStart: Date, refPeriodEnd: Date): Double = {

@@ -88,7 +88,7 @@ class Settings {
 
   import org.quantintel.ql.Settings._
 
-  implicit def b2B(x: Boolean) = java.lang.Boolean.valueOf(x)
+  implicit def b2B(x: Boolean) : Boolean = java.lang.Boolean.valueOf(x)
 
   def isNegativeRates : Boolean = {
     val varr : Object = attrs.get.get(NEGATIVE_RATES)

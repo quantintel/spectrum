@@ -39,7 +39,7 @@ object Month extends Enumeration {
   val NOVEMBER = Value(11)
   val DECEMBER = Value(12)
 
-  def valueOf(month: Int) = month match {
+  def valueOf(month: Int) : Month = month match {
     case 1 => Month.JANUARY
     case 2 => Month.FEBRUARY
     case 3 => Month.MARCH

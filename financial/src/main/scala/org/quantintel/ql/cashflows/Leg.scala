@@ -24,11 +24,11 @@ import scala.collection.mutable.ArrayBuffer
 
 object Leg {
 
-  def apply() = {
+  def apply() : Leg = {
     new Leg(0)
   }
 
-  def apply(n: Int) = {
+  def apply(n: Int) : Leg = {
     new Leg(n)
   }
 

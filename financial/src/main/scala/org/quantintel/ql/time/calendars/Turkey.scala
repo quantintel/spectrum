@@ -29,7 +29,7 @@ object TurkeyEnum extends Enumeration {
   type TurkeyEnum = Value
   val TURKEY = Value(1)
 
-  def valueOf(market: Int) = market match {
+  def valueOf(market: Int) : TurkeyEnum = market match {
     case 1 => TURKEY
     case _ => throw new Exception("Valid units = 1")
   }
@@ -74,7 +74,7 @@ class Turkey extends Calendar {
 
   private class Turkey extends Impl {
 
-    override def name = "Turkey"
+    override def name  : String = "Turkey"
 
     def isWeekend(w: Weekday) : Boolean =  w == SATURDAY || w == SUNDAY
 

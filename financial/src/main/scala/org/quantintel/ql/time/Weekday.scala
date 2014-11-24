@@ -34,7 +34,7 @@ object Weekday extends Enumeration {
   val FRIDAY = Value(6)
   val SATURDAY = Value(7)
 
-  def valueOf(weekday: Int) = weekday match {
+  def valueOf(weekday: Int) : Weekday = weekday match {
 
     case 1 => Weekday.SUNDAY
     case 2 => Weekday.MONDAY

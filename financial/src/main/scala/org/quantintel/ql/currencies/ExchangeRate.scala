@@ -13,6 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *
+ * Spectrum Finance is based in part on:
+ *        QuantLib. http://quantlib.org/
+ *
  */
 
 package org.quantintel.ql.currencies
@@ -24,7 +27,7 @@ object RateTypeEnum extends Enumeration {
   val DIRECT= Value(1)
   val DERIVED = Value(2)
 
-  def valueOf(currencies: Int)  = currencies match {
+  def valueOf(currencies: Int) : RateTypeEnum  = currencies match {
     case 1 => DIRECT
     case 2 => DERIVED
     case _ => throw new Exception("Valid units = 1 or 2")

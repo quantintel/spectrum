@@ -29,7 +29,7 @@ object PolandEnum extends Enumeration {
   type PolandEnum = Value
   val POLAND = Value(1)
 
-  def valueOf(market: Int) = market match {
+  def valueOf(market: Int) : PolandEnum = market match {
     case 1 => POLAND
     case _ => throw new Exception("Valid units = 1")
   }
@@ -84,7 +84,7 @@ class Poland extends Calendar  {
 
   private class Poland extends Western {
 
-    override def name = "Poland"
+    override def name : String = "Poland"
 
     override def isBusinessDay(date: Date): Boolean = {
 
@@ -98,7 +98,7 @@ class Poland extends Calendar  {
 
       if (isWeekend(w)
         || (dd == em) // Easter Monday
-        || (dd == em+59)  // Corpus Christi
+        || (dd == em + 59)  // Corpus Christi
         || (d == 1  && m == JANUARY) // New Year's Day
         || (d == 1  && m == MAY)   // May Day
         || (d == 3  && m == MAY)  // Constitution Day

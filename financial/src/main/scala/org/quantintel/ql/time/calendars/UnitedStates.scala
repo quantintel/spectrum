@@ -33,7 +33,7 @@ object UnitedStatesEnum extends Enumeration {
   val GOVERNMENTBOND = Value(3)
   val NERC = Value(4)
 
-  def valueOf(market: Int) = market match {
+  def valueOf(market: Int) : UnitedStatesEnum = market match {
     case 1 => SETTLEMENT
     case 2 => NYSE
     case 3 => GOVERNMENTBOND
@@ -160,7 +160,7 @@ class UnitedStates extends Calendar {
 
   private class Settlement extends Western {
 
-   override def name = "US Settlement"
+   override def name : String = "US Settlement"
 
    override def isBusinessDay(date: Date): Boolean = {
 
@@ -188,7 +188,7 @@ class UnitedStates extends Calendar {
 
   private class NYSE extends Western {
 
-    override def name = "New York stock exchange"
+    override def name : String = "New York stock exchange"
 
     override def isBusinessDay(date: Date): Boolean = {
 
@@ -238,7 +238,7 @@ class UnitedStates extends Calendar {
 
   private class GovernmentBond extends Western {
 
-    override def name = "US government bond market"
+    override def name : String = "US government bond market"
 
     override def isBusinessDay(date: Date): Boolean = {
 
@@ -271,7 +271,7 @@ class UnitedStates extends Calendar {
 
   private class Nerc extends Western {
 
-    override def name = "North American Energy Reliability Council"
+    override def name : String = "North American Energy Reliability Council"
 
     override def isBusinessDay(date: Date): Boolean = {
 

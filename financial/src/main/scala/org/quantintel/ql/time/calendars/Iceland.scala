@@ -25,10 +25,11 @@ import org.quantintel.ql.time.Weekday._
 import org.quantintel.ql.time.{Impl, Date, Western, Calendar}
 
 object IcelandEnum extends Enumeration {
+
   type IcelandEnum = Value
   val ICEX= Value(1)
 
-  def valueOf(market: Int) = market match {
+  def valueOf(market: Int) : IcelandEnum = market match {
     case 1 => ICEX
     case _ => throw new Exception("Valid units = 1")
   }
@@ -86,7 +87,7 @@ class Iceland extends Calendar {
 
   private class Iceland extends Western {
 
-    override def name = "Iceland stock exchange"
+    override def name : String = "Iceland stock exchange"
 
     override def isBusinessDay(date: Date): Boolean = {
 

@@ -40,7 +40,7 @@ object Frequency extends Enumeration {
   val DAILY = Value(365)
   val OTHER_FREQUENCY = Value(999)
 
-  def valueOf(market: Int)  = market match {
+  def valueOf(market: Int) : Frequency  = market match {
     case -1 => NO_FREQUENCY
     case 0 => ONCE
     case 1 => ANNUAL

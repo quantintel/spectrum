@@ -13,8 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *
+ * Spectrum Finance is based in part on:
+ *        QuantLib. http://quantlib.org/
+ *
  */
-
 package org.quantintel.ql.currencies
 
 import org.quantintel.ql.Settings

@@ -27,10 +27,10 @@ import scala.math.BigDecimal
  */
 package object numeric {
 
-  implicit def unboxInt(i: java.lang.Integer) = i.intValue
+  implicit def unboxInt(i: java.lang.Integer) : Int = i.intValue
 
   implicit class ExtendedDouble(d: Double) {
-    def rounded(l: Int) = {
+    def rounded(l: Int) : BigDecimal = {
       BigDecimal(d).setScale(l, BigDecimal.RoundingMode.HALF_UP).toDouble
     }
   }

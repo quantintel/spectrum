@@ -13,7 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *
+ * Spectrum Finance is based in part on:
+ *        QuantLib. http://quantlib.org/
+ *
  */
+
+
 package org.quantintel.ql.currencies
 
 import org.quantintel.ql.math.Rounding
@@ -41,7 +46,7 @@ object AmericaEnum extends Enumeration {
   val USD = Value(11)
   val VEB = Value(12)
 
-  def valueOf(currencies: Int)  = currencies match {
+  def valueOf(currencies: Int) : AmericaEnum  = currencies match {
     case 1 => ARS
     case 2 => BRL
     case 3 => CAD

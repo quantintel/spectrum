@@ -30,7 +30,7 @@ object UnitedKingdomEnum extends Enumeration {
   val EXCHANGE = Value(2)
   val METALS = Value(3)
 
-  def valueOf(market: Int) = market match {
+  def valueOf(market: Int) : UnitedKingdomEnum= market match {
     case 1 => SETTLEMENT
     case 2 => EXCHANGE
     case 3 => METALS
@@ -110,7 +110,7 @@ class UnitedKingdom extends Calendar {
 
   private class Settlement extends Western {
 
-    override def name = "UK settlement"
+    override def name : String = "UK settlement"
 
     override def isBusinessDay(date: Date): Boolean = {
 
@@ -155,7 +155,7 @@ class UnitedKingdom extends Calendar {
 
   private class Exchange extends Western {
 
-    override def name = "London stock exchange"
+    override def name : String = "London stock exchange"
 
     override def isBusinessDay(date: Date): Boolean = {
 
@@ -200,7 +200,7 @@ class UnitedKingdom extends Calendar {
 
   private class Metals extends Western {
 
-    override def name = "London metals exchange"
+    override def name : String = "London metals exchange"
 
     override def isBusinessDay(date: Date): Boolean = {
 

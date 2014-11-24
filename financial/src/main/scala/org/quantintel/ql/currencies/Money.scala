@@ -13,6 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *
+ * Spectrum Finance is based in part on:
+ *        QuantLib. http://quantlib.org/
+ *
  */
 
 package org.quantintel.ql.currencies
@@ -30,7 +33,7 @@ object ConversionTypeEnum extends Enumeration {
   val BASE_CURRENCY_CONVERSION = Value(2)
   val AUTOMATED_CONVERSION = Value(3)
 
-  def valueOf(currencies: Int)  = currencies match {
+  def valueOf(currencies: Int)  : ConversionTypeEnum = currencies match {
     case 1 => NO_CONVERSION
     case 2 => BASE_CURRENCY_CONVERSION
     case 3 => AUTOMATED_CONVERSION
@@ -309,7 +312,7 @@ class Money {
 
   }
 
-  override def toString = {
+  override def toString : String = {
     val currency: Currency = m_currency
     val args :Array[Object] = Array(rounded.value.asInstanceOf[Object],
         currency.code.asInstanceOf[Object], currency.symbol.asInstanceOf[Object])
