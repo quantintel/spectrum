@@ -1,1 +1,38 @@
 /bin/
+
+# Scala
+target
+*.class
+*.log
+
+# sbt specific
+.cache/
+.history/
+.lib/
+dist/*
+target/
+lib_managed/
+src_managed/
+project/boot/
+project/plugins/project/
+
+# intellij Idea
+*.iml
+*.ipr
+*.iws
+.idea
+out
+
+# eclipse IDE
+.scala_dependencies
+.worksheet
+build
+.classpath
+.project
+.settings
+org.scala-ide.sdt.core/META-INF/MANIFEST.MF
+org.scala-ide.sdt.update-site/site.xml
+
+# OSX
+.DS_Store
+
