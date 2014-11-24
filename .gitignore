@@ -1,38 +1,39 @@
+out
+build
 /bin/
-
-# Scala
-target
-*.class
-*.log
-
-# sbt specific
-.cache/
-.history/
-.lib/
-dist/*
+/classes
+/dist
+/out
+/target
 target/
+dist/*
 lib_managed/
 src_managed/
 project/boot/
 project/plugins/project/
-
-# intellij Idea
 *.iml
 *.ipr
 *.iws
+*.class
+*.log
+.cache/
+.history/
+.lib/
 .idea
-out
-
-# eclipse IDE
+.idea/scopes/
+.idea/dictionaries/
+.idea/inspectionProfiles/
+.idea/libraries/
+.idea/modules/
+.idea/.name
+.idea/*.xml
 .scala_dependencies
 .worksheet
-build
 .classpath
 .project
 .settings
+.DS_Store
 org.scala-ide.sdt.core/META-INF/MANIFEST.MF
 org.scala-ide.sdt.update-site/site.xml
 
-# OSX
-.DS_Store
 
