@@ -1,6 +1,6 @@
 name := "spectrum"
 
-version := "0.1"	
+version := "0.0.1-SNAPSHOT"
 
 organization := "org.quantintel"
 
@@ -14,7 +14,7 @@ javacOptions ++= Seq("-source", "1.8", "-target", "1.8")
 
 scalacOptions ++= Seq("-unchecked", "-deprecation")
 
-scalacOptions in (Compile, doc) ++= Seq("-unchecked", "-deprecation", "-diagrams", "-implicits", "-skip-packages", "samples")
+scalacOptions in (Compile, doc) ++= Seq("-unchecked", "-deprecation", "-diagrams", "-groups", "-implicits", "-skip-packages", "samples")
 
 resolvers ++= Seq(
         "snapshots-repo" at "http://scala-tools.org/repo-snapshots",
