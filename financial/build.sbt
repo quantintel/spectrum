@@ -8,10 +8,8 @@ licenses     += ("Apache License, Version 2.0", url("http://www.apache.org/licen
 
 scalaVersion := "2.11.4"
 
-// set the main Scala source directory to be <base>/src
 scalaSource in Compile := baseDirectory.value / "src/main/scala"
 
-// set the Scala test source directory to be <base>/test
 scalaSource in Test := baseDirectory.value / "src/test/scala"
 
 libraryDependencies += "org.scalatest" % "scalatest_2.11" % "2.2.2" % "test"
@@ -28,7 +26,6 @@ publishTo <<= version { (v: String) =>
 
 credentials += Credentials(Path.userHome / ".ivy2" / ".credentials")
 
-//publishTo := Some("Sonatype Snapshots Nexus" at "https://oss.sonatype.org/content/repositories/snapshots")
 
 publishArtifact in Test := false
 
