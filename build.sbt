@@ -10,6 +10,12 @@ scalaVersion := "2.11.4"
 
 crossScalaVersions := Seq("2.11.0")
 
+javacOptions ++= Seq("-source", "1.8", "-target", "1.8")
+
+scalacOptions ++= Seq("-unchecked", "-deprecation")
+
+scalacOptions in (Compile, doc) ++= Seq("-unchecked", "-deprecation", "-diagrams", "-implicits", "-skip-packages", "samples")
+
 resolvers ++= Seq(
         "snapshots-repo" at "http://scala-tools.org/repo-snapshots",
 				"Scalaz Bintray Repo" at "http://dl.bintray.com/scalaz/releases",
@@ -21,30 +27,26 @@ resolvers ++= Seq(
 				"scala-tools.org" at "https://oss.sonatype.org/content/groups/scala-tools/")
 
 
-libraryDependencies <<= scalaVersion { scala_version => Seq(
-  "org.scala-lang" % "scala-library" % "2.11.4",
-  "org.scala-lang" % "scala-compiler" % "2.11.4",
-  "org.scala-lang" % "scalap" % "2.11.4",
-  "org.scalatest" % "scalatest_2.11" % "2.2.2" % "test",
-  "org.scalastyle" % "scalastyle_2.11" % "0.6.0" % "test")
+libraryDependencies ++= Seq(
+  "org.scala-lang"        % "scala-library"         % "2.11.4",
+  "org.scala-lang"        % "scala-compiler"        % "2.11.4",
+  "org.scala-lang"        % "scalap"                % "2.11.4",
+  "org.scalatest"         % "scalatest_2.11"        % "2.2.2"       % "test",
+  "org.scalastyle"        % "scalastyle_2.11"       % "0.6.0"       % "test"
+)
+
+instrumentSettings
+
+ScoverageKeys.minimumCoverage := 70
+
+ScoverageKeys.failOnMinimumCoverage := false
+
+ScoverageKeys.highlighting := {
+  if (scalaBinaryVersion.value == "2.11.4") false
+  else false
 }
 
+publishArtifact in Test := false
 
-publishArtifact in (Compile, packageDoc) := false
-
-publishArtifact in (Compile, packageSrc) := false
-
-javacOptions ++= Seq()
-
-javaOptions += "-Xmx2G"
-
-scalacOptions ++= Seq("-deprecation", "-unchecked")
-
-maxErrors := 20 
-
-pollInterval := 1000
-
-logBuffered := false
-
-cancelable := true
+parallelExecution in Test := false
 
