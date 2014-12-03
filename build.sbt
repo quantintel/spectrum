@@ -24,13 +24,16 @@ resolvers ++= Seq(
 				"central" at "http://repo1.maven.org/maven2/",
         "sonatype-releases" at "https://oss.sonatype.org/content/repositories/releases/",
 				"snapshots" at "http://oss.sonatype.org/content/repositories/snapshots",
-				"scala-tools.org" at "https://oss.sonatype.org/content/groups/scala-tools/")
+				"scala-tools.org" at "https://oss.sonatype.org/content/groups/scala-tools/",
+        "Typesafe Releases" at "https://repo.typesafe.com/typesafe/releases/",
+        "Typesafe Simple Repository" at "http://repo.typesafe.com/typesafe/simple/maven-releases/")
 
 
 libraryDependencies ++= Seq(
   "org.scala-lang"        % "scala-library"         % "2.11.4",
   "org.scala-lang"        % "scala-compiler"        % "2.11.4",
   "org.scala-lang"        % "scalap"                % "2.11.4",
+  "com.typesafe.play"     % "play_2.11"             % "2.3.5",
   "org.scalatest"         % "scalatest_2.11"        % "2.2.2"       % "test",
   "org.scalastyle"        % "scalastyle_2.11"       % "0.6.0"       % "test"
 )

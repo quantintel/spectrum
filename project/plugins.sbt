@@ -1,3 +1,8 @@
+import sbt._
+
+logLevel := Level.Warn
+
+
 addSbtPlugin("com.typesafe.sbteclipse" % "sbteclipse-plugin" % "2.4.0")
 
 addSbtPlugin("com.typesafe.sbt" % "sbt-site" % "0.7.0")
@@ -23,3 +28,6 @@ resolvers += Resolver.url("scalasbt",
 
 
 addSbtPlugin("com.jsuereth" % "sbt-pgp" % "1.0.0")
+
+resolvers += "Typesafe repository" at "http://repo.typesafe.com/typesafe/releases/"
+
