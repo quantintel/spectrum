@@ -38,16 +38,8 @@ libraryDependencies ++= Seq(
   "org.scalastyle"        % "scalastyle_2.11"       % "0.6.0"       % "test"
 )
 
-instrumentSettings
 
-ScoverageKeys.minimumCoverage := 70
 
-ScoverageKeys.failOnMinimumCoverage := false
-
-ScoverageKeys.highlighting := {
-  if (scalaBinaryVersion.value == "2.11.4") false
-  else false
-}
 
 publishArtifact in Test := false
 
