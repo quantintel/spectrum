@@ -1,6 +1,7 @@
 import sbt._
-import Process._
-import Keys._
+import sbt.Keys._
+import sbtassembly.Plugin._
+import sbtassembly.Plugin.AssemblyKeys._
 
 
 object Spectrum extends Build {
@@ -11,7 +12,7 @@ object Spectrum extends Build {
   
    lazy val financial = Project(id = "financial", 
        base = file("financial"))
-  
+
 
 
 
