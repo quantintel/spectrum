@@ -21,7 +21,7 @@ addSbtPlugin("com.timushev.sbt" % "sbt-updates" % "0.1.7")
 
 resolvers += Classpaths.sbtPluginReleases
 
-addSbtPlugin("org.scoverage" % "sbt-scoverage" % "0.99.7.1")
+addSbtPlugin("org.scoverage" % "sbt-scoverage" % "1.0.1")
 
 resolvers += Resolver.url("scalasbt",
   new URL("http://scalasbt.artifactoryonline.com/scalasbt/sbt-plugin-releases"))
