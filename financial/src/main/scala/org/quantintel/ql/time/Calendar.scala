@@ -86,7 +86,7 @@ abstract class Calendar {
   def isBusinessDay(d: Date) : Boolean = {
     if (addedHolidays.contains(d)) false
     else if (removedHolidays.contains(d)) true
-    else isBusinessDay(d)
+    else impl.isBusinessDay(d)
   }
 
   /** Indicates whether the given date represents a holiday.
