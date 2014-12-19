@@ -20,7 +20,8 @@
 
 package org.quantintel.ql.time
 
-/**
+/** Used to represent the named days of a typical calendar.
+ * 
  * @author Paul Bernard
  */
 object Weekday extends Enumeration {
