@@ -467,6 +467,32 @@ class DateTest extends FlatSpec with Matchers {
 
   }
 
+  "add" should " + 1 int" in {
+    val c: JCalendar = JCalendar.getInstance()
+    c.set(JCalendar.DAY_OF_MONTH, 1)
+    c.set(JCalendar.MONTH, JCalendar.JANUARY)
+    c.set(JCalendar.YEAR, 1901)
+    val date1 = Date(c.getTime)
+
+    val date2 = date1 + 1
+    assert(date2.dayOfMonth == 2)
+    assert(date2.month == Month.JANUARY)
+    assert(date2.year == 1901)
+  }
+
+  "add" should " + 1 period" in {
+    val c: JCalendar = JCalendar.getInstance()
+    c.set(JCalendar.DAY_OF_MONTH, 1)
+    c.set(JCalendar.MONTH, JCalendar.JANUARY)
+    c.set(JCalendar.YEAR, 1901)
+    val date1 = Date(c.getTime)
+
+    val date2 = date1 + Period.ONE_DAY_FORWARD
+    assert(date2.dayOfMonth == 2)
+    assert(date2.month == Month.JANUARY)
+    assert(date2.year == 1901)
+  }
+
   "addAssign" should " + 1 int" in {
     val c: JCalendar = JCalendar.getInstance()
     c.set(JCalendar.DAY_OF_MONTH, 1)
@@ -478,7 +504,7 @@ class DateTest extends FlatSpec with Matchers {
     assert(date1.dayOfMonth == 2)
   }
 
-  "addAssign" should " + 1 one month forward" in {
+  "addAssign" should " + 1 one day forward" in {
     val c: JCalendar = JCalendar.getInstance()
     c.set(JCalendar.DAY_OF_MONTH, 1)
     c.set(JCalendar.MONTH, JCalendar.JANUARY)
@@ -489,7 +515,18 @@ class DateTest extends FlatSpec with Matchers {
     assert(date1.dayOfMonth == 2)
   }
 
-  "addAssign" should " + 1 one day forward" in {
+  "addAssign" should " + 1 one week forward" in {
+    val c: JCalendar = JCalendar.getInstance()
+    c.set(JCalendar.DAY_OF_MONTH, 1)
+    c.set(JCalendar.MONTH, JCalendar.JANUARY)
+    c.set(JCalendar.YEAR, 1901)
+    val date1 = Date(c.getTime)
+
+    date1 += Period(1, TimeUnit.WEEKS)
+    assert(date1.dayOfMonth == 8)
+  }
+
+  "addAssign" should " + 1 one month forward" in {
     val c: JCalendar = JCalendar.getInstance()
     c.set(JCalendar.DAY_OF_MONTH, 1)
     c.set(JCalendar.MONTH, JCalendar.JANUARY)
@@ -498,6 +535,18 @@ class DateTest extends FlatSpec with Matchers {
 
     date1 += Period.ONE_MONTH_FORWARD
     assert(date1.month == Month.FEBRUARY)
+  }
+
+  "addAssign" should " + 1 one month forward past year end" in {
+    val c: JCalendar = JCalendar.getInstance()
+    c.set(JCalendar.DAY_OF_MONTH, 1)
+    c.set(JCalendar.MONTH, JCalendar.DECEMBER)
+    c.set(JCalendar.YEAR, 1901)
+    val date1 = Date(c.getTime)
+
+    date1 += Period.ONE_MONTH_FORWARD
+    assert(date1.month == Month.JANUARY)
+    assert(date1.year == 1902)
   }
 
   "addAssign" should " + 1 one year forward" in {
@@ -509,6 +558,90 @@ class DateTest extends FlatSpec with Matchers {
 
     date1 += Period.ONE_YEAR_FORWARD
     assert(date1.year == 1902)
+  }
+
+  "addAssign" should " roll past year end " in {
+    val c: JCalendar = JCalendar.getInstance()
+    c.set(JCalendar.DAY_OF_MONTH, 31)
+    c.set(JCalendar.MONTH, JCalendar.DECEMBER)
+    c.set(JCalendar.YEAR, 1901)
+    val date1 = Date(c.getTime)
+
+    date1 += 5
+    assert(date1.dayOfMonth == 5)
+    assert(date1.month == Month.JANUARY)
+    assert(date1.year == 1902)
+  }
+
+  "subtract" should " - 1 int" in {
+    val c: JCalendar = JCalendar.getInstance()
+    c.set(JCalendar.DAY_OF_MONTH, 2)
+    c.set(JCalendar.MONTH, JCalendar.JANUARY)
+    c.set(JCalendar.YEAR, 1901)
+    val date1 = Date(c.getTime)
+
+    val date2 = date1 - 1
+    assert(date2.dayOfMonth == 1)
+    assert(date2.month == Month.JANUARY)
+    assert(date2.year == 1901)
+  }
+
+  "subtract" should " - 1 period" in {
+    val c: JCalendar = JCalendar.getInstance()
+    c.set(JCalendar.DAY_OF_MONTH, 2)
+    c.set(JCalendar.MONTH, JCalendar.JANUARY)
+    c.set(JCalendar.YEAR, 1901)
+    val date1 = Date(c.getTime)
+
+    val date2 = date1 - Period.ONE_DAY_FORWARD 
+    assert(date2.dayOfMonth == 1)
+    assert(date2.month == Month.JANUARY)
+    assert(date2.year == 1901)
+  }
+
+
+  "subtractAssign" should " - 1 int" in {
+    val c: JCalendar = JCalendar.getInstance()
+    c.set(JCalendar.DAY_OF_MONTH, 2)
+    c.set(JCalendar.MONTH, JCalendar.JANUARY)
+    c.set(JCalendar.YEAR, 1901)
+    val date1 = Date(c.getTime)
+
+    date1 -= 1
+    assert(date1.dayOfMonth == 1)
+  }
+
+  "subtractAssign" should " - 1 one day forward" in {
+    val c: JCalendar = JCalendar.getInstance()
+    c.set(JCalendar.DAY_OF_MONTH, 2)
+    c.set(JCalendar.MONTH, JCalendar.JANUARY)
+    c.set(JCalendar.YEAR, 1901)
+    val date1 = Date(c.getTime)
+
+    date1 -= Period.ONE_DAY_FORWARD
+    assert(date1.dayOfMonth == 1)
+  }
+
+  "subtractAssign" should " - 1 one month forward" in {
+    val c: JCalendar = JCalendar.getInstance()
+    c.set(JCalendar.DAY_OF_MONTH, 1)
+    c.set(JCalendar.MONTH, JCalendar.FEBRUARY)
+    c.set(JCalendar.YEAR, 1901)
+    val date1 = Date(c.getTime)
+
+    date1 -= Period.ONE_MONTH_FORWARD
+    assert(date1.month == Month.JANUARY)
+  }
+
+  "subtractAssign" should " - 1 one year forward" in {
+    val c: JCalendar = JCalendar.getInstance()
+    c.set(JCalendar.DAY_OF_MONTH, 1)
+    c.set(JCalendar.MONTH, JCalendar.JANUARY)
+    c.set(JCalendar.YEAR, 1902)
+    val date1 = Date(c.getTime)
+
+    date1 -= Period.ONE_YEAR_FORWARD
+    assert(date1.year == 1901)
   }
 
   "lower bound" should "be 1" in {
