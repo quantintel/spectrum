@@ -173,13 +173,13 @@ class UnitedStates extends Calendar {
         || (d == 31 && w == FRIDAY && m == DECEMBER)                                                            // (or to Friday if on Saturday)
         || ((d >= 15 && d <= 21) && w == MONDAY && m == JANUARY)                                                // Martin Luther King's birthday (third Monday in January)
         || ((d >= 15 && d <= 21) && w == MONDAY && m == FEBRUARY)                                               // Washington's birthday (third Monday in February)
-        || (d >= 25 && w == MONDAY && m == MAY)
+        || (d >= 25 && w == MONDAY && m == MAY)																	// Memorial Day (last Monday in May)
         || ((d == 4 || (d == 5 && w == MONDAY) || (d == 3 && w == FRIDAY)) && m == JULY)                        // Independence Day (Monday if Sunday or Friday if Saturday)
         || (d <= 7 && w == MONDAY && m == SEPTEMBER)                                                            // Labor Day (first Monday in September)
         || ((d >= 8 && d <= 14) && w == MONDAY && m == OCTOBER)                                                 // Columbus Day (second Monday in October)
-        || ((d == 11 || (d == 12 && w == MONDAY) || (d == 10 && w == FRIDAY)) && m == NOVEMBER)                 // Veteran's Day (Monday if Sunday or Friday if Saturday)
+        || ((d == 11 || (d == 12 && w == MONDAY) || (d == 10 && w == FRIDAY)) && m == NOVEMBER)                 // Veteran's Day (Nov 11, Monday if Sunday or Friday if Saturday)
         || ((d >= 22 && d <= 28) && w == THURSDAY && m == NOVEMBER)                                             // Thanksgiving Day (fourth Thursday in November)
-        || ((d == 25 || (d == 26 && w == MONDAY) ||  (d == 24 && w == FRIDAY)) && m == DECEMBER))               // Christmas (Monday if Sunday or Friday if Saturday)
+        || ((d == 25 || (d == 26 && w == MONDAY) ||  (d == 24 && w == FRIDAY)) && m == DECEMBER))               // Christmas (Dec 25, Monday if Sunday or Friday if Saturday)
         false else true
 
     }

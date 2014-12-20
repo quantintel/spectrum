@@ -55,12 +55,12 @@ class CanadaTest extends FlatSpec with Matchers {
   // holiday testing
   "Canada settlement calendar" must "observe the New Year's Holiday" in {
     // new year's - select dates
-    assert(cal.isHoliday(new Date(1, 1, 2000)))
+    assert(cal.isHoliday(CalendarTestFixture.NewYears_OnSaturday))
     assert(cal.isHoliday(new Date(1, 1, 1901)))
     // new year's Monday
-    assert(cal.isHoliday(new Date(1, 1, 2007)))
+    assert(cal.isHoliday(CalendarTestFixture.NewYears_OnMonday))
     // new year's Monday on the 2nd
-    assert(cal.isHoliday(new Date(2, 1, 2011)))
+    assert(cal.isHoliday(CalendarTestFixture.NewYears_ObservedOnMondayJan2))
     // make sure no other 2nd's are marked as holiday
     assert(!cal.isHoliday(new Date(2, 1, 2007)))
     // note - Jan 2, 2000 is a Sunday, so this will return true, even though it's not a holiday
@@ -129,9 +129,9 @@ class CanadaTest extends FlatSpec with Matchers {
   }
   
   it must "observe the Christmas Holiday" in {
-    assert(cal.isHoliday(new Date(25, 12, 1997)))
+    assert(cal.isHoliday(CalendarTestFixture.Christmas_OnThursday))
     // or the following Monday
-    assert(cal.isHoliday(new Date(27, 12, 1993)))
+    assert(cal.isHoliday(CalendarTestFixture.Christmas_ObservedOnMonday_FallOnSat))
   }
 
   it must "observe the Boxing Day Holiday" in {
