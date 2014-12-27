@@ -118,6 +118,112 @@ class UnitedStatesTest extends FlatSpec with Matchers {
     "US Calendar - NYSE" should "be New York stock exchange" in {
       assert(cal.name == "New York stock exchange")
     }
+    
+    it should "observe New Year's Day" in {
+      // on a standard business day (Monday)
+      assert(cal.isHoliday(CalendarTestFixture.NewYears_OnMonday))
+      // observed on a Monday if it occurs on Sunday)
+      assert(cal.isHoliday(CalendarTestFixture.NewYears_ObservedOnMondayJan2))
+      // NOT observed on the prev Friday if it occurs on Saturday
+      assert(!cal.isHoliday(CalendarTestFixture.NewYears_ObservedOnFridayDec31))
+    }
+
+    it should "observe Martin Luther King Jr.s Birthday after/including 1998" in {
+      // third Monday in Jan
+      assert(cal.isHoliday(new Date(19, 1, 2009)))
+      assert(!cal.isHoliday(new Date(20, 1, 1997)))
+      assert(cal.isHoliday(new Date(19, 1, 1998)))
+    }
+
+    it should "observe Washington's Birthday" in {
+      // third Monday in Feb
+      assert(cal.isHoliday(new Date(16, 2, 2009)))
+    }    
+    
+    it should "observe Good Friday" in {
+      // TODO: fill in based on Easter Monday 
+    }
+    
+    it should "observe Memorial Day" in {
+      // last Monday in May
+      assert(cal.isHoliday(new Date(30, 5, 2004)))
+    }
+
+    it should "observe Independence Day" in {
+      // july 4
+      assert(cal.isHoliday(new Date(4, 7, 2014)))
+      // or july 5 if july 4 is Sunday
+      assert(cal.isHoliday(new Date(5, 7, 1993)))
+      // or july 3 if july 4 is Saturday
+      assert(cal.isHoliday(new Date(3, 7, 1998)))
+    }
+
+    it should "observe Labor Day" in {
+      // first Monday in Sep
+      assert(cal.isHoliday(new Date(5, 9, 2005)))
+    }
+
+    it should "NOT observe Columbus Day" in {
+      // second Monday in Oct
+      assert(!cal.isHoliday(new Date(11, 10, 2010)))
+    }
+
+    it should "NOT observe Veteran's Day" in {
+      // Nov 11
+    }
+    
+    it should "observe Thanksgiving Day" in {
+      // 4th Thu in Nov
+      assert(cal.isHoliday(new Date(27, 11, 2014)))
+    }
+
+    it should "observe Christmas Day" in {
+      // Dec 25
+      assert(cal.isHoliday(CalendarTestFixture.Christmas_OnThursday))
+      // or the previous Friday, if on Sat
+      assert(cal.isHoliday(CalendarTestFixture.Christmas_ObservedOnFriday_FallOnSat))
+      // or the next Monday, if on Sun
+      assert(cal.isHoliday(CalendarTestFixture.Christmas_ObservedOnMonday_FallOnSun))
+    }
+    
+    // date-based NYSE holidays
+    it should "observe President Reagan's funeral" in {
+      assert(cal.isHoliday(new Date(11, 6, 2004)))
+    }
+    
+    it should "observe September 11" in {
+      assert(cal.isHoliday(new Date(11, 9, 2001)))
+      assert(cal.isHoliday(new Date(12, 9, 2001)))
+      assert(cal.isHoliday(new Date(13, 9, 2001)))
+      assert(cal.isHoliday(new Date(14, 9, 2001)))
+    }
+    
+    it should "observe President Ford's funeral" in {
+      assert(cal.isHoliday(new Date(2, 1, 2007)))
+    }
+    
+    // holidays prior to 1980
+    it should "observe election day prior to 1980" in {
+      // between 1969 and 1980, election day was observed in presidential election years;
+      // 1968 and prior observed it every election day
+      assert(cal.isHoliday(new Date(3, 11, 1992)))
+      assert(cal.isHoliday(new Date(5, 11, 1968)))
+      assert(cal.isHoliday(new Date(4, 11, 1974)))
+    }
+    
+    it should "observe the 1977 blackout" in {
+      assert(cal.isHoliday(new Date(14, 7, 1977)))
+    }
+    
+    it should "observe Lyndon Johnson's funeral" in {
+      assert(cal.isHoliday(new Date(25, 1, 1973)))
+    }
+    
+    it should "observe Harry Truman's funeral" in {
+      assert(cal.isHoliday(new Date(18, 12, 1973)))
+    }
+    
+    
   }
 
   // US Government Bond Calendar
