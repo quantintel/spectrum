@@ -219,6 +219,7 @@ class UnitedStates extends Calendar {
       ) false
       else if ((y <= 1980) &&
         (((y % 4 == 0) && m == NOVEMBER && d <= 7 && w == TUESDAY)      // presidential election days
+          || ((y <= 1968) && m == NOVEMBER && d <= 7 && w == TUESDAY)   // election days - 1968 or earlier 
           || (y == 1977 && m == JULY && d == 14)                        // 1977 Blackout
           || (y == 1973 && m == JANUARY && d == 25)                     // Funeral of former President Lyndon B. Johnson.
           || (y == 1972 && m == DECEMBER && d == 28)                    // Funeral of former President Harry S. Truman
