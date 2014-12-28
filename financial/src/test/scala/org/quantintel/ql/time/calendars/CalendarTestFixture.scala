@@ -21,7 +21,7 @@ object CalendarTestFixture {
   // observed in Monday in some countries, if it falls on Saturday
   val Christmas_ObservedOnMonday_FallOnSun = new Date(26, 12, 2005)
   // observed in Friday in some countries, if it falls on Saturday
-  val Christmas_ObservedOnFriday_FallOnSat = new Date(25, 12, 1993)
+  val Christmas_ObservedOnFriday_FallOnSat = new Date(24, 12, 1993)
   val Christmas_OnThursday = new Date(25, 12, 1997)
   val Christmas_OnFriday = new Date(25, 12, 1992)
   val Christmas_OnSaturday = new Date(25, 12, 1993)
