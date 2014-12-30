@@ -10,7 +10,7 @@ scalaVersion := "2.11.4"
 
 crossScalaVersions := Seq("2.11.0")
 
-javacOptions ++= Seq("-source", "1.8", "-target", "1.8")
+javacOptions ++= Seq("-source", "1.7", "-target", "1.7")
 
 scalacOptions ++= Seq("-unchecked", "-deprecation")
 
