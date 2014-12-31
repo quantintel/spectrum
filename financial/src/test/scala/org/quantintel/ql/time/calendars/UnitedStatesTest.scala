@@ -128,13 +128,6 @@ class UnitedStatesTest extends FlatSpec with Matchers {
       assert(!cal.isHoliday(CalendarTestFixture.NewYears_ObservedOnFridayDec31))
     }
 
-    it should "observe Martin Luther King Jr.s Birthday after/including 1998" in {
-      // third Monday in Jan
-      assert(cal.isHoliday(new Date(19, 1, 2009)))
-      assert(!cal.isHoliday(new Date(20, 1, 1997)))
-      assert(cal.isHoliday(new Date(19, 1, 1998)))
-    }
-
     it should "observe Washington's Birthday" in {
       // third Monday in Feb
       assert(cal.isHoliday(new Date(16, 2, 2009)))
@@ -186,7 +179,7 @@ class UnitedStatesTest extends FlatSpec with Matchers {
       assert(cal.isHoliday(CalendarTestFixture.Christmas_ObservedOnMonday_FallOnSun))
     }
 
-    // date-based NYSE holidays
+    // date-based NYSE holidays including / after 1998
     it should "observe President Reagan's funeral" in {
       assert(cal.isHoliday(new Date(11, 6, 2004)))
     }
@@ -202,6 +195,11 @@ class UnitedStatesTest extends FlatSpec with Matchers {
       assert(cal.isHoliday(new Date(2, 1, 2007)))
     }
 
+    it should "observe Hurricane Sandy shutdown" in {
+      assert(cal.isHoliday(new Date(29, 10, 2012)))
+      assert(cal.isHoliday(new Date(30, 10, 2012)))
+    }
+    
     // holidays prior to 1980
     it should "observe election day prior to 1980" in {
       // between 1969 and 1980, election day was observed in presidential election years;
@@ -250,7 +248,34 @@ class UnitedStatesTest extends FlatSpec with Matchers {
       assert(cal.isHoliday(new Date(19, 6, 1968)))
       assert(cal.isHoliday(new Date(18, 12, 1968)))
     }
+    
+    it should "observe day of mourning for Martin Luther King, Jr." in {
+      assert(cal.isHoliday(new Date(9, 4, 1968)))
+    }
+    
+    it should "observe funeral of John F. Kennedy" in {
+      assert(cal.isHoliday(new Date(25, 11, 1963)))
+    }
+    
+    it should "observe the day before Decoration Day" in {
+      assert(cal.isHoliday(new Date(29, 5, 1961)))
+    }
+    
+    it should "observe the day after Christmas in 1958" in {
+      assert(cal.isHoliday(new Date(26, 12, 1958)))
+    }
+    
+    it should "observe the Christmas Eve holiday on certain years" in {
+      assert(cal.isHoliday(new Date(24, 12, 1954)))
+      assert(cal.isHoliday(new Date(24, 12, 1956)))
+      assert(cal.isHoliday(new Date(24, 12, 1965)))
+    }
 
+    // other one-off holidays
+    it should "observe Hurricane Gloria shutdown" in {
+      assert(cal.isHoliday(new Date(27, 9, 1985)))
+    }
+    
     it should "observe Nixon's funeral" in {
       assert(cal.isHoliday(new Date(27, 4, 1994)))
     }
