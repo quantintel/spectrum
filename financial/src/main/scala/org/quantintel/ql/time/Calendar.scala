@@ -54,9 +54,13 @@ object Calendar {
  *
  * A calendar should be defined for a specific exchange holiday schedule or for
  * general country holiday schedule. Legacy city holiday schedule calendars will
- * be moved to the exchange/country convention
+ * be moved to the exchange/country convention.
+ * 
+ * It is possible to create an arbitrary calendar by implementing a subclass, and
+ * overriding superclass methods as appropriate.
  *
  * @author Paul Bernard
+ * @author Peter Mularien
  */
 abstract class Calendar {
 
@@ -69,16 +73,35 @@ abstract class Calendar {
 
   def name : String = impl.name
 
+  /** Indicates whether the given date represents a business day. Typically,
+   *  business days are days which are not holidays, but this may differ
+   *  from calendar to calendar.
+   * 
+   *  This implementation of isBusinessDay will consult the set of
+   *  added and removed holidays first, before delegating to the implementation.
+   * 
+   *  @param d the date to check
+   *  @return true if the given day is a holiday
+   */
   def isBusinessDay(d: Date) : Boolean = {
     if (addedHolidays.contains(d)) false
     else if (removedHolidays.contains(d)) true
-    else isBusinessDay(d)
+    else impl.isBusinessDay(d)
   }
 
+  /** Indicates whether the given date represents a holiday.
+   *  @param d the date to check
+   *  @return true if the given day is a holiday
+   */
   def isHoliday(d: Date) : Boolean = {
     !isBusinessDay(d)
   }
 
+  /** Indicates whether the given [[Weekday]] represents a weekend in this
+   *  calendar.
+   *  @param w the weekday to check
+   *  @return true if the given weekday is a weekend day
+   */
   def isWeekend(w: Weekday): Boolean = impl.isWeekend(w)
 
   def isEndOfMonth(d: Date) : Boolean = {
@@ -108,6 +131,13 @@ abstract class Calendar {
   }
 
 
+  /** Given a calendar, and a date range, indicates the holidays contained within the date range.
+   *  Weekends may be optionally included or excluded from the returned list of holidays.
+   *  @param c the calendar to check
+   *  @param from the lower end of the date range to check
+   *  @param toDate the higher end of the date range to check (inclusive)
+   *  @param includeWeekEnds if true, should include weekends (if applicable)  
+   */
   def holidayList(c: Calendar, from: Date, toDate: Date, includeWeekEnds : Boolean)  : Seq[Date] = {
 
     var result = scala.collection.mutable.ArrayBuffer[Date]()
@@ -123,10 +153,21 @@ abstract class Calendar {
     result
   }
 
+  /** Adjust the given date to the next following business day. If the date provided is a 
+   *  valid business day in this calendar, no adjustment is made.
+   *  @param date the date to adjust
+   *  @return the next following business day
+   */
   def adjust(date: Date) : Date = {
     adjust(date, BusinessDayConvention.FOLLOWING)
   }
 
+  /** Adjust the given date to a business day based on the [[BusinessDayConventionEnum]]
+   *  provided. 
+   *  @param date the date to adjust
+   *  @param c the convention to follow for finalizing to a business day
+   *  @return the next following business day
+   */
   def adjust(d: Date, c: BusinessDayConventionEnum) : Date = {
     if (c == BusinessDayConvention.UNADJUSTED) return d.clone
     val d1: Date = d.clone
@@ -146,6 +187,13 @@ abstract class Calendar {
    d1
   }
 
+  /** Advance the given date by the [[Period]] specified, adjusting the resultant date
+   *  to a business day as per the convention specified.
+   *  @param date the date used as a starting point
+   *  @param period the period by which the date should be advanced
+   *  @param convention the convention to be used to arrive at a business day
+   *  @return the date, advanced by the time period, and adjusted to a business day
+   */
   def advance(date: Date, period: Period, convention: BusinessDayConventionEnum) : Date =
     advance(date, period, convention, endOfMonth = false)
 
@@ -192,7 +240,12 @@ abstract class Calendar {
 
   }
 
-
+  /** Indicates the number of business days between the date range given, inclusive of the start date,
+   *  and exclusive of the end date. 
+   *  @param from the start of the date range
+   *  @param to the end of the date range
+   *  @return the number of business days within the range
+   */
   def businessDaysBetween(from: Date, to: Date) : Int = {
     businessDaysBetween(from, to, includeFirst = true, includeLast = false)
   }
@@ -352,4 +405,3 @@ abstract class Orthodox extends Impl {
   }
 
 }
-

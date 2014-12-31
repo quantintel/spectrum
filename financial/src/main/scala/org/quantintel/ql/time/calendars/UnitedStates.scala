@@ -173,13 +173,13 @@ class UnitedStates extends Calendar {
         || (d == 31 && w == FRIDAY && m == DECEMBER)                                                            // (or to Friday if on Saturday)
         || ((d >= 15 && d <= 21) && w == MONDAY && m == JANUARY)                                                // Martin Luther King's birthday (third Monday in January)
         || ((d >= 15 && d <= 21) && w == MONDAY && m == FEBRUARY)                                               // Washington's birthday (third Monday in February)
-        || (d >= 25 && w == MONDAY && m == MAY)
+        || (d >= 25 && w == MONDAY && m == MAY)																	// Memorial Day (last Monday in May)
         || ((d == 4 || (d == 5 && w == MONDAY) || (d == 3 && w == FRIDAY)) && m == JULY)                        // Independence Day (Monday if Sunday or Friday if Saturday)
         || (d <= 7 && w == MONDAY && m == SEPTEMBER)                                                            // Labor Day (first Monday in September)
         || ((d >= 8 && d <= 14) && w == MONDAY && m == OCTOBER)                                                 // Columbus Day (second Monday in October)
-        || ((d == 11 || (d == 12 && w == MONDAY) || (d == 10 && w == FRIDAY)) && m == NOVEMBER)                 // Veteran's Day (Monday if Sunday or Friday if Saturday)
+        || ((d == 11 || (d == 12 && w == MONDAY) || (d == 10 && w == FRIDAY)) && m == NOVEMBER)                 // Veteran's Day (Nov 11, Monday if Sunday or Friday if Saturday)
         || ((d >= 22 && d <= 28) && w == THURSDAY && m == NOVEMBER)                                             // Thanksgiving Day (fourth Thursday in November)
-        || ((d == 25 || (d == 26 && w == MONDAY) ||  (d == 24 && w == FRIDAY)) && m == DECEMBER))               // Christmas (Monday if Sunday or Friday if Saturday)
+        || ((d == 25 || (d == 26 && w == MONDAY) ||  (d == 24 && w == FRIDAY)) && m == DECEMBER))               // Christmas (Dec 25, Monday if Sunday or Friday if Saturday)
         false else true
 
     }
@@ -213,12 +213,14 @@ class UnitedStates extends Calendar {
       ) false
       else if ((y >= 1998) &&
         (((d >= 15 && d <= 21) && w == MONDAY && m == JANUARY)   // Martin Luther King's birthday (third Weekday.MONDAY in JANUARY)
-            || (y == 2004 && m == JUNE && d == 11)                        // President Reagan's funeral
-            || (y == 2001 && m == SEPTEMBER && (11 <= d && d <= 14))      // Month.SEPTEMBER 11, 2001
-            || (y == 2007 && m == JANUARY && d == 2))                    // President Ford's funeral
+    		|| (y == 2012 && m == OCTOBER && (29 == d || 30 == d))        // Hurricane Sandy
+    		|| (y == 2007 && m == JANUARY && d == 2))                     // President Ford's funeral
+    		|| (y == 2004 && m == JUNE && d == 11)                        // President Reagan's funeral
+       		|| (y == 2001 && m == SEPTEMBER && (11 <= d && d <= 14))      // Month.SEPTEMBER 11, 2001
       ) false
       else if ((y <= 1980) &&
         (((y % 4 == 0) && m == NOVEMBER && d <= 7 && w == TUESDAY)      // presidential election days
+          || ((y <= 1968) && m == NOVEMBER && d <= 7 && w == TUESDAY)   // election days - 1968 or earlier 
           || (y == 1977 && m == JULY && d == 14)                        // 1977 Blackout
           || (y == 1973 && m == JANUARY && d == 25)                     // Funeral of former President Lyndon B. Johnson.
           || (y == 1972 && m == DECEMBER && d == 28)                    // Funeral of former President Harry S. Truman
@@ -227,10 +229,17 @@ class UnitedStates extends Calendar {
           || (y == 1969 && m == FEBRUARY && d == 10)                    // Closed all day - heavy snow.
           || (y == 1968 && m == JULY && d == 5)                         // Day after Independence Day.
           || (y == 1968 && dd >= 163 && w == WEDNESDAY)                 // Month.JUNE 12-Dec. 31, 1968
-                                                                       // Four day week (closed on Wednesdays) - Paperwork Crisis
+                                                                        // Four day week (closed on Wednesdays) - Paperwork Crisis
+          || (y == 1968 && m == APRIL && d == 9)                        // Day of mourning for Martin Luther King, Jr. 
+          || (y == 1963 && m == NOVEMBER && d == 25)                    // Funeral of John F. Kennedy, Jr. 
+          || (y == 1961 && m == MAY && d == 29)                         // Decoration day 
+          || (y == 1958 && m == DECEMBER && d == 26)                    // Day after Christmas, 1958 
+          || ((y == 1954 || y == 1956 || y == 1965)
+              && m == DECEMBER && d == 24)                               // Christmas Eve, 1965, 1956, 1954 
           )) false
-        else if  (y == 1994 && m == APRIL && d == 27)                   // Nixon's funeral
-          false else true
+      else if (y == 1985 && m == SEPTEMBER && d == 27) false            // Hurricane Gloria
+      else if (y == 1994 && m == APRIL && d == 27)                      // Nixon's funeral
+        false else true
 
     }
 

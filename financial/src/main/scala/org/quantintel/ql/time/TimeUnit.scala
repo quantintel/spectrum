@@ -20,6 +20,9 @@
 
 package org.quantintel.ql.time
 
+/** Enumeration representing a valid measurement unit for a period
+ *  of time. 
+ */
 object TimeUnit extends Enumeration {
 
   type TimeUnit = Value

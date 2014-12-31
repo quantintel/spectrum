@@ -28,8 +28,19 @@ import org.quantintel.ql.time.TimeUnit._
 import java.util.Locale
 
 
-/**
- * @author Paul Bernard
+/** 
+ *  Intended to represent a logical time period, given a length and relevant
+ *  number of units - for example, "3 weeks". Representing time periods as
+ *  structured data allows us to perform computations without lossy or
+ *  unnecessary conversion.
+ *  
+ *  Binary operators are supported, so that natural mathematical computations
+ *  may be performed using time periods as the operands. Although the notion of
+ *  a negative time period is supported by this construct, in practical use
+ *  it may be confusing and use should be limited.
+ *  
+ *  @author Paul Bernard
+ *  @author Peter Mularien
  */
 object Period {
 
@@ -40,17 +51,31 @@ object Period {
   val UNDECIDABLE_COMPARISON = "undecidable comparison"
   val DIVISION_BY_ZERO_ERROR = "cannot be divided by zero"
 
+  /** Represents a single year. */
   val ONE_YEAR_FORWARD = new Period(1, YEARS)
+  /** Represents a single year in reverse (negative). */
   val ONE_YEAR_BACKWARD = new Period(-1, YEARS)
+  /** Represents a single month. */
   val ONE_MONTH_FORWARD = new Period(1, MONTHS)
+  /** Represents a single month in reverse (negative). */
   val ONE_MONTH_BACKWARD = new Period(-1, MONTHS)
+  /** Represents a single day. */
   val ONE_DAY_FORWARD = new Period(1, DAYS)
+  /** Represents a single day in reverse (negative). */
   val ONE_DAY_BACKWARD = new Period(-1, DAYS)
 
+  /** Create a new period with the given length and time unit.
+   *  @param l length of the period (in the given units)
+   *  @param p the relevant [[TimeUnit]] for the period 
+   */
   def apply(l : Int, p: TimeUnit) : Period = {
     new Period(l, p)
   }
 
+  /** Negate the length of the given period.
+   * @param p the period to negate
+   * @return the negation of the given period
+   */
   def negate (p: Period) : Period = {
     Period(-p.length, p.units)
   }
@@ -124,6 +149,10 @@ object Period {
   }
 
 
+  /** Given a Period, return the number of years it represents.
+   *  @return the number of years in the given period
+   *  @throws IllegalArgumentException [[UNDECIDABLE_COMPARISON]] if this period can't be represented in years 
+   */
   def years (p: Period) : Double = {
 
     p.units match {
@@ -135,6 +164,10 @@ object Period {
 
   }
 
+  /** Given a Period, return the number of months it represents.
+   *  @return the number of months in the given period
+   *  @throws IllegalArgumentException [[UNDECIDABLE_COMPARISON]] if this period can't be represented in months
+   */
   def months (p: Period) : Double = {
 
     if (p.length == 0) return 0.0
@@ -147,6 +180,10 @@ object Period {
     }
   }
 
+  /** Given a Period, return the number of weeks it represents.
+   *  @return the number of weeks in the given period
+   *  @throws IllegalArgumentException [[UNDECIDABLE_COMPARISON]] if this period can't be represented in weeks 
+   */
   def weeks (p: Period): Double = {
 
     if (p.length == 0) return 0.0
@@ -159,6 +196,10 @@ object Period {
     }
   }
 
+  /** Given a Period, return the number of days it represents.
+   *  @return the number of days in the given period
+   *  @throws IllegalArgumentException [[UNDECIDABLE_COMPARISON]] if this period can't be represented in days 
+   */
   def days (p: Period) : Double = {
 
     if (p.length == 0) return 0.0
@@ -171,6 +212,8 @@ object Period {
     }
   }
 
+  // used to represent the minimum and maximum number of days which may exist
+  // in the given time period unit
   private def daysMinMax (p: Period) : (Int, Int) = {
     p match {
       case DAYS => (p.length, p.length)
@@ -198,6 +241,10 @@ class Period  {
 
   import org.quantintel.ql.time.Period._
 
+  /** Create a new period with the given length and time unit.
+   *  @param l length of the period (in the given units)
+   *  @param u the relevant [[TimeUnit]] for the period 
+   */
   def this(l : Int, u : TimeUnit) {
     this()
     length = l
@@ -205,6 +252,11 @@ class Period  {
   }
 
 
+  /** Used to construct a Period representing a given logical [[Frequency]]. Depending on the
+   *  frequency, the length and [[TimeUnit]] of the Period will be constructed accordingly.
+   * 
+   * @param f the frequency to represent in the new Period instance
+   */
   def this(f: Frequency)  {
     this()
     f match {
@@ -241,6 +293,12 @@ class Period  {
   }
 
 
+  /** Represent this Period as a [[Frequency]], if there is a direct mapping based on the
+   *  current period length and [[TimeUnit]]. If no appropriate mapping exists, returns
+   *  [[Frequency#OTHER_FREQUENCY]].
+   *  
+   *  @return this Period represented as a [[Frequency]], or [[Frequency#OTHER_FREQUENCY]]
+   */
   def frequency : Frequency = {
 
     val length : Int = this.length.abs
@@ -350,6 +408,10 @@ class Period  {
   }
 
 
+  /** Normalize this Period into a higher order Period, where possible. For example,
+   *  if this Period represents "7 days", this method would normalize the Period to
+   *  a higher order value of "1 week".
+   */
   def normalize () {
     if(length!=0){
       units match {
