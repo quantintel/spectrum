@@ -213,9 +213,10 @@ class UnitedStates extends Calendar {
       ) false
       else if ((y >= 1998) &&
         (((d >= 15 && d <= 21) && w == MONDAY && m == JANUARY)   // Martin Luther King's birthday (third Weekday.MONDAY in JANUARY)
-            || (y == 2004 && m == JUNE && d == 11)                        // President Reagan's funeral
-            || (y == 2001 && m == SEPTEMBER && (11 <= d && d <= 14))      // Month.SEPTEMBER 11, 2001
-            || (y == 2007 && m == JANUARY && d == 2))                    // President Ford's funeral
+    		|| (y == 2012 && m == OCTOBER && (29 == d || 30 == d))        // Hurricane Sandy
+    		|| (y == 2007 && m == JANUARY && d == 2))                     // President Ford's funeral
+    		|| (y == 2004 && m == JUNE && d == 11)                        // President Reagan's funeral
+       		|| (y == 2001 && m == SEPTEMBER && (11 <= d && d <= 14))      // Month.SEPTEMBER 11, 2001
       ) false
       else if ((y <= 1980) &&
         (((y % 4 == 0) && m == NOVEMBER && d <= 7 && w == TUESDAY)      // presidential election days
@@ -228,10 +229,17 @@ class UnitedStates extends Calendar {
           || (y == 1969 && m == FEBRUARY && d == 10)                    // Closed all day - heavy snow.
           || (y == 1968 && m == JULY && d == 5)                         // Day after Independence Day.
           || (y == 1968 && dd >= 163 && w == WEDNESDAY)                 // Month.JUNE 12-Dec. 31, 1968
-                                                                       // Four day week (closed on Wednesdays) - Paperwork Crisis
+                                                                        // Four day week (closed on Wednesdays) - Paperwork Crisis
+          || (y == 1968 && m == APRIL && d == 9)                        // Day of mourning for Martin Luther King, Jr. 
+          || (y == 1963 && m == NOVEMBER && d == 25)                    // Funeral of John F. Kennedy, Jr. 
+          || (y == 1961 && m == MAY && d == 29)                         // Decoration day 
+          || (y == 1958 && m == DECEMBER && d == 26)                    // Day after Christmas, 1958 
+          || ((y == 1954 || y == 1956 || y == 1965)
+              && m == DECEMBER && d == 24)                               // Christmas Eve, 1965, 1956, 1954 
           )) false
-        else if  (y == 1994 && m == APRIL && d == 27)                   // Nixon's funeral
-          false else true
+      else if (y == 1985 && m == SEPTEMBER && d == 27) false            // Hurricane Gloria
+      else if (y == 1994 && m == APRIL && d == 27)                      // Nixon's funeral
+        false else true
 
     }
 
