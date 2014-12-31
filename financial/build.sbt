@@ -20,6 +20,8 @@ scalacOptions ++= Seq("-unchecked", "-deprecation")
 
 scalacOptions in (Compile, doc) ++= Seq("-unchecked", "-deprecation", "-diagrams", "-groups", "-implicits", "-skip-packages", "samples")
 
+testOptions += Tests.Argument(TestFrameworks.ScalaTest, "-u", "target/test-reports")
+
 resolvers ++= Seq(
   "snapshots-repo" at "http://scala-tools.org/repo-snapshots",
   "Scalaz Bintray Repo" at "http://dl.bintray.com/scalaz/releases",
