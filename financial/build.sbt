@@ -29,7 +29,7 @@ resolvers ++= Seq(
   "oss-sonatype-releases" at "http://oss.sonatype.org/content/repositories/releases",
   "central" at "http://repo1.maven.org/maven2/",
   "sonatype-releases" at "https://oss.sonatype.org/content/repositories/releases/",
-  "snapshots" at "http://oss.sonatype.org/content/repositories/snapshots",
+  "snapshots" at "https://oss.sonatype.org/content/repositories/snapshots",
   "scala-tools.org" at "https://oss.sonatype.org/content/groups/scala-tools/",
   "Typesafe Releases" at "https://repo.typesafe.com/typesafe/releases/",
   "Typesafe Simple Repository" at "http://repo.typesafe.com/typesafe/simple/maven-releases/")
