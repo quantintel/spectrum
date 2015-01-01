@@ -91,8 +91,8 @@ object Actual365 {
     override def yearFraction(dateStart: Date, dateEnd: Date,
                               refPeriodStart: Date, refPeriodEnd: Date): Double = {
 
-      var d = 0.0
-      if (dateEnd.isLeapYear) d = 366.0 else 365.0
+      var d : Double = 0
+      if (dateEnd.isLeapYear) d = 366.0 else d = 365.0
       dayCount(dateStart, dateEnd) / d
     }
   }
