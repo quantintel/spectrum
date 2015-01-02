@@ -23,20 +23,36 @@ package org.quantintel.ql.time.daycounters
 import org.quantintel.ql.time.Date
 import org.quantintel.ql.time.Month._
 
-
+/**
+ * Enumeration of supported daycount conventions. These enum values are used when constructing
+ * a new instance of the [[Thirty360]] class.
+ * 
+ * @author Paul Bernard
+ * @author Peter Mularien 
+ */
 object Thirty360Convention extends Enumeration {
 
   type Thirty360Convention = Value
+  /** "30/360 (Bond Basis)" */
   val USA = Value(1)
+  /** "30/360 (Bond Basis)" */
   val BONDBASIS = Value(2)
+  /** "30E/360 (Eurobond Basis)" */
   val EUROPEAN = Value(3)
+  /** "30E/360 (Eurobond Basis)" */
   val EUROBONDBASIS = Value(4)
+  /** "30/360 (Italian)" */
   val ITALIAN = Value(5)
 
+  /** 30/360 (US) */
   val THIRTY360US = Value(10)
+  /** 30/360 BMA */
   val BMA = Value(11)
+  /** 30/360 SIA */
   val SIA = Value(12)
+  /** 30/360 ISDA */
   val ISDA = Value(13)
+  /** 30E+/360 */
   val EP = Value(14)
 
   def valueOf(market: Int) : Thirty360Convention  = market match {
@@ -69,7 +85,7 @@ object Thirty360Convention extends Enumeration {
  *  Also known as: 30E/360, Eurobond Basis
  *
  * IT
- *  Primarily knows as: Italian
+ *  Primarily known as: Italian
  *
  * Implementation Notes:
  *
@@ -88,7 +104,10 @@ object Thirty360Convention extends Enumeration {
  */
 object Thirty360 {
 
-
+  /** Default convention to be applied is 30/360 (Bond Basis). 
+   *
+   * To use other conventions, please use [[Thirty360.apply(convention)]].
+   **/
   def apply() : DayCounter = new USA
 
   import org.quantintel.ql.time.daycounters.Thirty360Convention._
@@ -112,13 +131,12 @@ object Thirty360 {
   }
 
 
-  /**
+  /** USA day count convention.
    *
    * Also known as:
-   * 30/360 Bond Basis
-   * 360/360
-   * 30/360 US (NASD)
-   *
+   *  * 30/360 Bond Basis
+   *  * 360/360
+   *  * 30/360 US (NASD)
    *
    * If the first date falls on the 31st, it is changed to the 30th.
    * If the second date falls on the 31st and the first date is earlier
@@ -344,8 +362,10 @@ object Thirty360 {
   }
 
   /**
+   * 30E+/360 ISDA day count method.
+   * 
    * If the first date falls on the 31st, it is changed to the 30th.
-   * If the second date falls on the 31th, it is changed to the 1st and the
+   * If the second date falls on the 31st, it is changed to the 1st and the
    * month is increased by one.
    */
   class EP extends DayCounter {
@@ -363,14 +383,17 @@ object Thirty360 {
       val mm1 : Int = d1.month.id
       var mm2 : Int = d2.month.id
       val yy1 : Int = d1.year
-      val yy2 : Int = d2.year
+      var yy2 : Int = d2.year
 
       if (dd1 == 31) dd1 = 30
       if (dd2 ==31) {
         dd2 = 1
         if(mm2 != 12){
           mm2 = mm2 + 1
-        } else mm2 = 1
+        } else { // 1st of next year
+          mm2 = 1
+          yy2 = yy2 + 1
+        }
       }
 
       360*(yy2-yy1) + 30*(mm2-mm1-1) + Math.max(0, 30-dd1) + Math.min(30, dd2)
