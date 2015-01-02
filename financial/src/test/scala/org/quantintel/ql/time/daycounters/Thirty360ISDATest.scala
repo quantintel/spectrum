@@ -9,7 +9,7 @@ import org.scalatest.{FlatSpec, Matchers}
  * @author Paul Bernard
  * @author Peter Mularien
  */
-class Thirty360ISDA extends FlatSpec with Matchers {
+class Thirty360ISDATest extends FlatSpec with Matchers {
 
 
   import org.quantintel.lang.numeric._
