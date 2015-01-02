@@ -50,7 +50,7 @@ object Thirty360Convention extends Enumeration {
   val BMA = Value(11)
   /** 30/360 SIA */
   val SIA = Value(12)
-  /** 30/360 ISDA */
+  /** 30E/360 ISDA */
   val ISDA = Value(13)
   /** 30E+/360 */
   val EP = Value(14)
@@ -328,7 +328,7 @@ object Thirty360 {
   }
 
   /**
-   * 30/360 ISDA
+   * 30E/360 ISDA
    * Also known as: 30/360 German
    * If the first date falls on the 31st or if it's the last day of February,
    * it is changed to the 30th.
@@ -337,7 +337,7 @@ object Thirty360 {
    */
   class ISDA extends DayCounter {
 
-    override def name : String = "30/360 ISDA"
+    override def name : String = "30E/360 ISDA"
 
     override def yearFraction(dateStart : Date, dateEnd :Date, refStartDate: Date, refEndDate: Date) : Double = {
       dayCount(dateStart, dateEnd) / 360.0
