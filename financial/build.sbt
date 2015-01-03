@@ -71,7 +71,7 @@ pomExtra := (
       </license>
     </licenses>
     <scm>
-      <url>git@github.com:pauljbernard/scala-arm.git</url>
+      <url>git@github.com:pauljbernard/quantintel/spectrum.git</url>
       <connection>scm:git:git@github.com:pauljbernard/quantintel/spectrum.git</connection>
     </scm>
     <developers>
