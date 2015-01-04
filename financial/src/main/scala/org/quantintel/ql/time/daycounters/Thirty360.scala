@@ -55,6 +55,10 @@ object Thirty360Convention extends Enumeration {
   /** 30E+/360 */
   val EP = Value(14)
 
+  val THIRTY360ISDA = Value(15)
+
+  val THIRTY360USNASD = Value(16)
+
   def valueOf(market: Int) : Thirty360Convention  = market match {
     case 1 => USA
     case 2 => BONDBASIS
@@ -67,6 +71,8 @@ object Thirty360Convention extends Enumeration {
     case 12 => SIA
     case 13 => ISDA
     case 14 => EP
+    case 15 => THIRTY360ISDA
+    case 16 => THIRTY360USNASD
     case _ => throw new Exception("Valid units = 1 to 5, 10 to 14")
   }
 
@@ -114,17 +120,28 @@ object Thirty360 {
 
   def apply(convention: Thirty360Convention) : DayCounter = {
     convention match {
+
+      // 30/360
       case USA => new USA
       case BONDBASIS => new USA
+      // 30E/360
       case EUROPEAN => new EU
       case EUROBONDBASIS => new EU
-      case ITALIAN => new IT
-
-      case THIRTY360US => new THIRTY360US
-      case BMA => new BMA
-      case SIA => new SIA
-      case ISDA => new ISDA
+      // 30E+/360
       case EP => new EP
+      case THIRTY360ISDA => new THIRTY360ISDA
+      case THIRTY360USNASD => new THIRTY360USNASD
+
+      // 30E/360 ISDA
+      case ISDA => new ISDA
+      // 30/360 US
+      case THIRTY360US => new THIRTY360US
+      // 30/360 SIA
+      case SIA => new SIA
+        // 30/360 BMA
+      case BMA => new BMA
+      // 30/360 IT
+      case ITALIAN => new IT
 
       case _ => throw new Exception("unknown 30/360 convention")
     }
@@ -252,6 +269,72 @@ object Thirty360 {
 
 
       360*(yy2-yy1) + 30*(mm2-mm1-1) + Math.max(0, 30-dd1) + Math.min(30, dd2)
+    }
+
+  }
+
+  /**
+   * If the first date falls on the 31st, it is changed to the 30th.
+   * If after the previous test the first day is the 30th and the second date falls on the 31st,
+   * it is changed to the 30th.
+   */
+  class THIRTY360ISDA extends DayCounter {
+
+    override def name : String = "30/360 ISDA"
+
+    override def yearFraction(dateStart : Date, dateEnd :Date, refStartDate: Date, refEndDate: Date) : Double = {
+      dayCount(dateStart, dateEnd) / 360.0
+    }
+
+    override def dayCount(d1: Date, d2: Date): Long = {
+
+      var dd1: Int = d1.dayOfMonth
+      var dd2: Int = d2.dayOfMonth
+      val mm1: Int = d1.month.id
+      val mm2: Int = d2.month.id
+      val yy1: Int = d1.year
+      val yy2: Int = d2.year
+
+      if (dd1==31) dd1 =30
+      if (dd1==30 && dd2==31) dd2 = 30
+
+
+      (360 * (yy2 - yy1) + 30 * (mm2-mm1) + (dd2-dd1))
+    }
+
+
+  }
+
+  /**
+   * If the first date falls on the 31st, it is changed to the 30th.
+   * If the second date falls on the 31st and the first date is earlier than the 30th, then the
+   * second date is changed to the 1st of the next month, otherwise it is changed to the 30th.
+   */
+  class THIRTY360USNASD extends DayCounter {
+
+    override def name : String = "30/360 US (NASD)"
+
+    override def yearFraction(dateStart : Date, dateEnd :Date, refStartDate: Date, refEndDate: Date) : Double = {
+      dayCount(dateStart, dateEnd) / 360.0
+    }
+
+    override def dayCount(d1: Date, d2: Date): Long = {
+
+      var dd1: Int = d1.dayOfMonth
+      var dd2: Int = d2.dayOfMonth
+      val mm1: Int = d1.month.id
+      var mm2: Int = d2.month.id
+      val yy1: Int = d1.year
+      val yy2: Int = d2.year
+
+      if (dd1==31) dd1 = 30
+      if (dd2==31 && dd1 < 30) {
+        dd2 = 1
+        mm2 = mm2 + 1
+      } else if (dd2 == 31) dd2 = 30
+
+      (360 * (yy2 - yy1) + 30 * (mm2-mm1) + (dd2-dd1))
+
     }
 
   }
