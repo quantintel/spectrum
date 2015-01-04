@@ -78,7 +78,7 @@ object Thirty360Convention extends Enumeration {
  * depending upon US, European or Italian conventions.
  *
  * US
- *  Also known as : US (NASD), 30/360, 360/360, or Bond Basis
+ *  Also known as : 30/360 or Bond Basis
  *  - 30/360 "30-day months, end of month adjustments"
  *
  * EU
@@ -135,8 +135,6 @@ object Thirty360 {
    *
    * Also known as:
    *  * 30/360 Bond Basis
-   *  * 360/360
-   *  * 30/360 US (NASD)
    *
    * If the first date falls on the 31st, it is changed to the 30th.
    * If the second date falls on the 31st and the first date is earlier
