@@ -1,22 +1,31 @@
 package org.quantintel.lang.collections.distributed
 
+import org.quantintel.ql.time.Calendar
+
 /**
  * @author Paul Bernard
  */
 trait Collection[K, V] {
 
   def get(key: K): Option[V]
-  def getAll(keys: List[K]): Option[List[V]]
   def put(key: K, obj: V)
-  def putIfAbsent(key: K, obj: V): Boolean
+  def putIfAbsent(key: K, obj: V) : Option[V]
   def putAll(map : Map[K, V])
-  def remove(key: K): Boolean
-  def removeAll(keys: List[K]) : Boolean
-  def removeAll()
+  def remove(key: K): Option[V]
   def clear()
-  def getAndRemove(key: K) : Option[V]
-  def contains(key: K)
+  def clearAsync()
+  def containsKey(key: K) : Boolean
+  def containsValue(value: V): Boolean
   def replace(key: K, oldValue: V, newValue: V): Boolean
-  def replace(key: K, value: V): Boolean
+  def replace(key: K, value: V): Option[V]
+
+}
+
+object Cache {
+
+  import org.quantintel.lang.collections.distributed.infinispan.InfinispanCollectionImpl
+
+  val calendar : Collection[String, Calendar] = new InfinispanCollectionImpl[String, Calendar]("calendar")
+
 
 }
