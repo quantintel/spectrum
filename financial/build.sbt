@@ -20,9 +20,10 @@ scalacOptions ++= Seq("-unchecked", "-deprecation")
 
 scalacOptions in (Compile, doc) ++= Seq("-unchecked", "-deprecation", "-diagrams", "-groups", "-implicits", "-skip-packages", "samples")
 
-testOptions += Tests.Argument(TestFrameworks.ScalaTest, "-u", "target/test-reports")
+// testOptions += Tests.Argument(TestFrameworks.ScalaTest, "-u", "target/test-reports")
 
 resolvers ++= Seq(
+  "JBoss Repository" at "https://repository.jboss.org/nexus/content/groups/public/",
   "snapshots-repo" at "http://scala-tools.org/repo-snapshots",
   "Scalaz Bintray Repo" at "http://dl.bintray.com/scalaz/releases",
   "apache-releases" at "http://repository.apache.org/content/repositories/releases/",
@@ -32,7 +33,8 @@ resolvers ++= Seq(
   "snapshots" at "https://oss.sonatype.org/content/repositories/snapshots",
   "scala-tools.org" at "https://oss.sonatype.org/content/groups/scala-tools/",
   "Typesafe Releases" at "https://repo.typesafe.com/typesafe/releases/",
-  "Typesafe Simple Repository" at "http://repo.typesafe.com/typesafe/simple/maven-releases/")
+  "Typesafe Simple Repository" at "http://repo.typesafe.com/typesafe/simple/maven-releases/"
+)
 
 
 libraryDependencies ++= Seq(
@@ -40,6 +42,8 @@ libraryDependencies ++= Seq(
   "org.scala-lang"        % "scala-compiler"        % "2.11.4",
   "org.scala-lang"        % "scalap"                % "2.11.4",
   "com.typesafe.play"     % "play_2.11"             % "2.3.5",
+  "org.jboss.spec.javax.transaction" % "jboss-transaction-api_1.1_spec" % "1.0.1.Final",
+  "org.infinispan"        % "infinispan-embedded"   % "7.0.3.Final",
   "org.scalatest"         % "scalatest_2.11"        % "2.2.2"       % "test",
   "org.scalastyle"        % "scalastyle_2.11"       % "0.6.0"       % "test"
 )
