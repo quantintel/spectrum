@@ -107,7 +107,7 @@ class Schedule(val fullInterface: Boolean,
 
     var convention = pconvention
 
-    import org.quantintel.lang.collections.insertAt
+    import org.quantintel.lang.collect.insertAt
 
     this.tenor = tenor
     this.rule = rule
