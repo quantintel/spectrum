@@ -41,14 +41,14 @@ libraryDependencies ++= Seq(
   "org.scalastyle"        % "scalastyle_2.11"       % "0.6.0"       % "test"
 )
 
-ScoverageSbtPlugin.ScoverageKeys.coverageMinimum := 70
+//ScoverageSbtPlugin.ScoverageKeys.coverageMinimum := 70
 
-ScoverageSbtPlugin.ScoverageKeys.coverageFailOnMinimum := false
+//ScoverageSbtPlugin.ScoverageKeys.coverageFailOnMinimum := false
 
-ScoverageSbtPlugin.ScoverageKeys.coverageHighlighting := {
-  if (scalaBinaryVersion.value == "2.11.4") true
-  else false
-}
+//ScoverageSbtPlugin.ScoverageKeys.coverageHighlighting := {
+//  if (scalaBinaryVersion.value == "2.11.4") true
+//  else false
+//}
 
 publishArtifact in Test := false
 
