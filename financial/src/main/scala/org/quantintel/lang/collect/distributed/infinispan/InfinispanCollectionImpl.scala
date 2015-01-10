@@ -1,9 +1,9 @@
-package org.quantintel.lang.collections.distributed.infinispan
+package org.quantintel.lang.collect.distributed.infinispan
 
 import org.infinispan.Cache
 import org.infinispan.configuration.cache.{ConfigurationBuilder, Configuration}
 import org.infinispan.manager.{EmbeddedCacheManager, DefaultCacheManager}
-import org.quantintel.lang.collections.distributed.Collection
+import org.quantintel.lang.collect.distributed.Collection
 import collection.JavaConversions._
 
 
