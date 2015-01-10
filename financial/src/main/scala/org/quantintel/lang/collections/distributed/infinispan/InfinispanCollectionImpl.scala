@@ -5,33 +5,33 @@ import org.quantintel.lang.collections.distributed.Collection
 /**
  * @author Paul Bernard
  */
-class InfinispanCollectionImpl[K, V] extends Collection {
+class InfinispanCollectionImpl[K, V] extends Collection[K, V] {
 
   //val cache  = new DefaultCacheManager().getCache()
+  def get(key: K): Option[V] = None
 
-  def get(key: K): V = ???
+  def removeAll(keys: List[K]): Boolean = false
 
-  def removeAll(keys: List[K]): Unit = ???
+  def removeAll(): Unit = {}
 
-  def removeAll(): Unit = ???
+  def replace(key: K, oldValue: V, newValue: V): Boolean = false
 
-  def replace(key: K, oldValue: V, newValue: V): Boolean = ???
+  def replace(key: K, value: V): Boolean = false
 
-  def replace(key: K, value: V): Boolean = ???
+  def clear(): Unit = {}
 
-  def clear(): Unit = ???
+  def put(key: K, obj: V): Unit = {}
 
-  def put(key: K, obj: V): Unit = ???
+  def getAndRemove(key: K): Option[V] = None
 
-  def getAndRemove(key: K): V = ???
+  def remove(key: K): Boolean = false
 
-  def remove(key: K): Boolean = ???
+  def putIfAbsent(key: K, obj: V): Boolean = false
 
-  def putIfAbsent(key: K, obj: V): Boolean = ???
+  def contains(key: K): Unit = {}
 
-  def contains(key: K): Unit = ???
+  def putAll(map: Map[K, V]): Unit = {}
 
-  def putAll(map: Map[K, V]): Unit = ???
+  def getAll(keys: List[K]): Option[List[V]] = None
 
-  def getAll(keys: List[K]): List[V] = ???
 }
