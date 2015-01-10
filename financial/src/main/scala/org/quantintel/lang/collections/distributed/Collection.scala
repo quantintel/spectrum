@@ -1,4 +1,4 @@
-package org.quantintel.lang.collect.distributed
+package org.quantintel.lang.collections.distributed
 
 import org.quantintel.ql.time.Calendar
 
@@ -23,7 +23,7 @@ trait Collection[K, V] {
 
 object Cache {
 
-  import org.quantintel.lang.collect.distributed.infinispan.InfinispanCollectionImpl
+  import org.quantintel.lang.collections.distributed.infinispan.InfinispanCollectionImpl
 
   val calendar : Collection[String, Calendar] = new InfinispanCollectionImpl[String, Calendar]("calendar")
 

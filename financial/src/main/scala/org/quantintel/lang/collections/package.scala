@@ -23,7 +23,7 @@ package org.quantintel.lang
 /**
  * Paul Bernard
  */
-package object collect {
+package object collections {
 
   def insertAt[A](e: A, n: Int, ls: List[A]): List[A] = ls.splitAt(n) match {
     case (pre, post) => pre ::: e :: post
