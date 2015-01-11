@@ -32,6 +32,7 @@ project/plugins/project/
 .classpath
 .project
 .settings
+.cache
 .DS_Store
 org.scala-ide.sdt.core/META-INF/MANIFEST.MF
 org.scala-ide.sdt.update-site/site.xml
