@@ -4,7 +4,8 @@ import org.quantintel.ql.time.Date
 
 
 /**
- * Created by Paul Bernard on 8/4/14.
+ * Test for ACT/365 Fixed method. Validates behavior on a variety of specifically chosen
+ * date ranges.
  *
  * 1.  01/31/90 - 03/16/91
  * 2.  05/06/94 - 10/30/94
@@ -25,6 +26,8 @@ import org.quantintel.ql.time.Date
  * 17. 12/15/93 - 12/31/93
  * 18. 12/15/93 - 12/30/93
  *
+ * @author Paul Bernard
+ * @author Peter Mularien
  */
 class Act365FTest extends FlatSpec with Matchers {
 
