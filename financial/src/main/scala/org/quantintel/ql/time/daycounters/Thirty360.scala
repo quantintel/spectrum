@@ -24,8 +24,8 @@ import org.quantintel.ql.time.Date
 import org.quantintel.ql.time.Month._
 
 /**
- * Enumeration of supported daycount conventions. These enum values are used when constructing
- * a new instance of the [[Thirty360]] class.
+ * Enumeration of supported 30/360 family daycount conventions. These enum values are used when 
+ * constructing a new instance of the [[Thirty360]] class.
  * 
  * @author Paul Bernard
  * @author Peter Mularien 
@@ -55,8 +55,9 @@ object Thirty360Convention extends Enumeration {
   /** 30E+/360 */
   val EP = Value(14)
 
+  /** 30/360 ISDA */
   val THIRTY360ISDA = Value(15)
-
+  /** 30/360 US (NASD) */
   val THIRTY360USNASD = Value(16)
 
   def valueOf(market: Int) : Thirty360Convention  = market match {
@@ -118,6 +119,11 @@ object Thirty360 {
 
   import org.quantintel.ql.time.daycounters.Thirty360Convention._
 
+  /** Factory method used to create a day counter based on the supplied convention.
+   *  
+   * @param convention the convention to use
+   * @return an 30/360 day counter based on the requested convention type
+   */
   def apply(convention: Thirty360Convention) : DayCounter = {
     convention match {
 
