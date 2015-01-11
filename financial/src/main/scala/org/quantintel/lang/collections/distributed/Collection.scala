@@ -21,11 +21,32 @@ trait Collection[K, V] {
 
 }
 
-object Cache {
+class SessionBasedCollection(sid: String){
 
   import org.quantintel.lang.collections.distributed.infinispan.InfinispanCollectionImpl
 
   val calendar : Collection[String, Calendar] = new InfinispanCollectionImpl[String, Calendar]("calendar")
+  // add other object caches as required
+
+}
+
+object Cache {
+
+  import scala.collection.mutable.{Map, HashMap}
+
+    val sessionCaches : Map[String, SessionBasedCollection] = new HashMap[String, SessionBasedCollection]
+
+    def get(sid: String) : SessionBasedCollection = {
+      val v = sessionCaches.get(sid)
+      v match {
+        case Some(res) => { res }
+        case None => {
+          sessionCaches.put(sid, new SessionBasedCollection(sid))
+          Cache.get(sid)
+        }
+      }
+    }
+
 
 
 }
