@@ -22,12 +22,22 @@ package org.quantintel.ql.time.daycounters
 
 import org.quantintel.ql.time.Date
 
+/**
+ * Enumeration of supported daycount conventions. These enum values are used when constructing
+ * a new instance of the [[Actual365]] class.
+ * 
+ * @author Paul Bernard
+ * @author Peter Mularien 
+ */
 object Actual365Convention extends Enumeration {
 
   type Actual365Convention = Value
 
+  /** Actual/365 Fixed. */
   val ACT365F  = Value(1)
+  /** Actual/365L (ISMA-Year). */
   val ACT365L  = Value(2)
+  /** NL/365 (ACT365 No Leap Year). */
   val ACT365NL  = Value(3)
 
 
@@ -41,13 +51,29 @@ object Actual365Convention extends Enumeration {
 }
 
 
-
+/** Used to construct instances of an Actual/365-based day counter. The apply method should be used,
+ *  along with the appropriate [[Actual365Convention]], to construct the desired day counter.
+ *  
+ * @author Paul Bernard
+ * @author Peter Mularien 
+ */
 object Actual365 {
 
+  /** Default factory method, constructs an ACT/365 Fixed day counter. 
+   *
+   * To use other conventions, please use [[Actual365.apply(convention)]].
+   * 
+   * @return an ACT/365 Fixed day counter
+   **/
   def apply() : DayCounter = new Actual365Fixed
 
   import org.quantintel.ql.time.daycounters.Actual365Convention._
 
+  /** Factory method used to create a day counter based on the supplied convention.
+   *  
+   * @param convention the convention to use
+   * @return an ACT/365 day counter based on the requested convention type
+   */
   def apply(convention: Actual365Convention) : DayCounter = {
     convention match {
       case ACT365F => new Actual365Fixed
@@ -65,12 +91,11 @@ object Actual365 {
    *    ISDA 2006 Section 4.16(d)
    *    Mayle 1993
    *
-   *
    * @author Paul Bernard
    */
   class Actual365Fixed extends DayCounter {
 
-    override def name : String = "Actual/365 (fixed)"
+    override def name : String = "Actual/365 (Fixed)"
 
     override def yearFraction (dateStart: Date, dateEnd: Date,
               refPeriodStart: Date, refPeriodEnd: Date): Double =
@@ -86,7 +111,7 @@ object Actual365 {
    */
   class ACT365L extends DayCounter {
 
-    override def name : String = "actual/365 no leap, NL365"
+    override def name : String = "Actual/365 Leap (ISMA Year)"
 
     override def yearFraction(dateStart: Date, dateEnd: Date,
                               refPeriodStart: Date, refPeriodEnd: Date): Double = {
@@ -107,7 +132,7 @@ object Actual365 {
    */
   class ACT365NL extends DayCounter {
 
-    override def name : String = "actual/365 no leap, NL365"
+    override def name : String = "Actual/365 No Leap (NL365)"
 
     override def yearFraction(dateStart: Date, dateEnd: Date,
                               refPeriodStart: Date, refPeriodEnd: Date): Double = {
