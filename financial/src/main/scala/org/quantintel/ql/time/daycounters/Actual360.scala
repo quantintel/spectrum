@@ -22,11 +22,19 @@ package org.quantintel.ql.time.daycounters
 
 import org.quantintel.ql.time.Date
 
-
+/**
+ * Enumeration of supported daycount conventions. These enum values are used when constructing
+ * a new instance of the [[Actual360]] class.
+ * 
+ * @author Paul Bernard
+ * @author Peter Mularien 
+ */
 object Actual360Convention extends Enumeration {
 
   type Actual360Convention = Value
+  /** Actual/360. */
   val ACTUAL360 = Value(1)
+  /** French (maps to Actual/360). */
   val FRENCH  = Value(2)
 
   def valueOf(market: Int) : Actual360Convention = market match {
@@ -36,15 +44,29 @@ object Actual360Convention extends Enumeration {
   }
 
 }
-/**
+/** Used to construct instances of an Actual/360-based day counter. The apply method should be used,
+ *  along with the appropriate [[Actual360Convention]], to construct the desired day counter.
+ *  
  * @author Paul Bernard
+ * @author Peter Mularien 
  */
 object Actual360 {
 
+  /** Default factory method, constructs an ACT/360 day counter. 
+   *
+   * To use other conventions, please use [[Actual360.apply(convention)]].
+   * 
+   * @return an ACT/360 day counter
+   **/
   def apply() : DayCounter = new Actual360
 
   import org.quantintel.ql.time.daycounters.Actual360Convention._
 
+  /** Factory method used to create a day counter based on the supplied convention.
+   *  
+   * @param convention the convention to use
+   * @return an ACT/360 day counter based on the requested convention type
+   */
   def apply(convention: Actual360Convention) : DayCounter = {
     convention match {
       case ACTUAL360 | FRENCH => new Actual360
@@ -52,6 +74,12 @@ object Actual360 {
     }
   }
 
+  /** Implementation class of ACT/360 day count method. Also known as MM (Money Market) basis, 
+   *  Actual 360, French. Day count is always the actual day count with a denominator of 360.
+   *  
+   *  References:
+   *    4.16(e) 2006 ISDA Definitions.
+   */
   class Actual360 extends DayCounter {
 
     override def name : String ="Actual/360"

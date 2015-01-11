@@ -32,7 +32,13 @@ import org.scalatest.{FlatSpec, Matchers}
 class Act360Test extends FlatSpec with Matchers {
 
   import org.quantintel.lang.numeric._
+  import org.quantintel.ql.time.daycounters.Actual360Convention._
 
+  "Actual360" should "have only one implementation" in {
+    assert(Actual360().name == Actual360(ACTUAL360).name)
+    assert(Actual360().name == Actual360(FRENCH).name)
+  }
+  
   "1. 01/31/1990 - 03/16/1991" should "be 1.136111111" in {
 
     val d1 = Date(31, 1, 1990)
