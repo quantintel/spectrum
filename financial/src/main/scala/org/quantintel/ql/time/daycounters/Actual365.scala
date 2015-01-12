@@ -141,7 +141,7 @@ object Actual365 {
       val endNum = dateEnd.serialNumber
 
       var sum = 0.0
-      for(i <- startNum to endNum){
+      for(i <- startNum until endNum){
         val dt = Date(i)
         val ld : Boolean = if (dt.month.id ==2 && dt.dayOfMonth==29) false else true
         if (ld) sum = sum + 1
