@@ -130,6 +130,11 @@ object Thirty360 {
       // 30/360
       case USA => new USA
       case BONDBASIS => new USA
+
+      // 30/360 US
+      case THIRTY360US => new THIRTY360US
+
+
       // 30E/360
       case EUROPEAN => new EU
       case EUROBONDBASIS => new EU
@@ -140,8 +145,7 @@ object Thirty360 {
 
       // 30E/360 ISDA
       case ISDA => new ISDA
-      // 30/360 US
-      case THIRTY360US => new THIRTY360US
+
       // 30/360 SIA
       case SIA => new SIA
         // 30/360 BMA
@@ -190,6 +194,42 @@ object Thirty360 {
 
       360*(yy2-yy1) + 30*(mm2-mm1-1) + Math.max(0, 30-dd1) + Math.min(30, dd2)
 
+    }
+
+  }
+
+  /**
+   * If both the first date and the second date are the last day of February,
+   * the second date is changed to the 30th.
+   * If the first date is the last day of February, it is changed to the 30th.
+   * If after the previous tests the second date is the 31st and the first date is
+   * the 30th or the 31st, the second date is changed to the 30th.
+   * If after the previous tests the first date is the 31st, it is changed to the 30th.
+   */
+  class THIRTY360US extends DayCounter {
+
+    override def name : String = "30/360 US"
+
+    override def yearFraction(dateStart : Date, dateEnd :Date, refStartDate: Date, refEndDate: Date) : Double = {
+      dayCount(dateStart, dateEnd) / 360.0
+    }
+
+    override def dayCount(d1: Date, d2: Date): Long = {
+
+      var dd1 : Int = d1.dayOfMonth
+      var dd2 : Int = d2.dayOfMonth
+      val mm1 : Int = d1.month.id
+      val mm2 : Int = d2.month.id
+      val yy1 : Int = d1.year
+      val yy2 : Int = d2.year
+
+      if ((mm1 == FEBRUARY.id && d1.isEndOfMonth) && (mm2 == FEBRUARY.id && d2.isEndOfMonth)) dd2 = 30
+      if (mm1 == FEBRUARY.id && d1.isEndOfMonth) dd1 = 30
+      if (dd2 == 31 && dd1 > 29) dd2 = 30
+      if (dd1 == 31) dd1 = 30
+
+
+      360*(yy2-yy1) + 30*(mm2-mm1-1) + Math.max(0, 30-dd1) + Math.min(30, dd2)
     }
 
   }
@@ -243,41 +283,7 @@ object Thirty360 {
 
   }
 
-  /**
-   * If both the first date and the second date are the last day of February,
-   * the second date is changed to the 30th.
-   * If the first date is the last day of February, it is changed to the 30th.
-   * If after the previous tests the second date is the 31st and the first date is
-   * the 30th or the 31st, the second date is changed to the 30th.
-   * If after the previous tests the first date is the 31st, it is changed to the 30th.
-   */
-  class THIRTY360US extends DayCounter {
 
-    override def name : String = "30/360 US"
-
-    override def yearFraction(dateStart : Date, dateEnd :Date, refStartDate: Date, refEndDate: Date) : Double = {
-      dayCount(dateStart, dateEnd) / 360.0
-    }
-
-    override def dayCount(d1: Date, d2: Date): Long = {
-
-      var dd1 : Int = d1.dayOfMonth
-      var dd2 : Int = d2.dayOfMonth
-      val mm1 : Int = d1.month.id
-      val mm2 : Int = d2.month.id
-      val yy1 : Int = d1.year
-      val yy2 : Int = d2.year
-
-      if ((mm1 == FEBRUARY.id && d1.isEndOfMonth) && (mm2 == FEBRUARY.id && d2.isEndOfMonth)) dd2 = 30
-      if (mm1 == FEBRUARY.id && d1.isEndOfMonth) dd1 = 30
-      if (dd2 == 31 && dd1 > 29) dd2 = 30
-      if (dd1 == 31) dd1 = 30
-
-
-      360*(yy2-yy1) + 30*(mm2-mm1-1) + Math.max(0, 30-dd1) + Math.min(30, dd2)
-    }
-
-  }
 
   /**
    * If the first date falls on the 31st, it is changed to the 30th.

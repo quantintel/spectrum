@@ -20,7 +20,7 @@
 
 package org.quantintel.ql.time.daycounters
 
-import org.quantintel.ql.time.Date
+import org.quantintel.ql.time.{Month, Date}
 
 /**
  * Enumeration of supported daycount conventions. These enum values are used when constructing
@@ -39,13 +39,16 @@ object Actual365Convention extends Enumeration {
   val ACT365L  = Value(2)
   /** NL/365 (ACT365 No Leap Year). */
   val ACT365NL  = Value(3)
+  /** ACT365A is Actual/365 Actual */
+  val ACT365A = Value(4)
 
 
   def valueOf(market: Int) : Actual365Convention   = market match {
     case 1 => ACT365F
     case 2 => ACT365L
     case 3 => ACT365NL
-    case _ => throw new Exception("Valid units = 1 to 3")
+    case 4 => ACT365A
+    case _ => throw new Exception("Valid units = 1 to 4")
   }
 
 }
@@ -79,7 +82,7 @@ object Actual365 {
       case ACT365F => new Actual365Fixed
       case ACT365L => new ACT365L
       case ACT365NL => new ACT365NL
-
+      case ACT365A => new ACT365A
       case _ => throw new Exception("unknown act/365 convention")
     }
   }
@@ -150,6 +153,38 @@ object Actual365 {
       sum / 365.0
 
     }
+  }
+
+  /**
+   * Num = Actual number of days within the accrual period
+   * Den = 366 if the Leap day (29th Feb) falls within the accrual period else 365
+   *
+   * also known as Actual/265 Actual.
+   */
+  class ACT365A extends DayCounter {
+
+    override def name : String = "Actual/265 Actual"
+
+    override def yearFraction(dateStart: Date, dateEnd: Date,
+        refPeriodStart: Date, refPeriodEnd: Date): Double = {
+
+      val startNum = dateStart.serialNumber
+      val endNum = dateEnd.serialNumber
+
+      var den = 365.0
+
+      var refDate : Date = dateStart
+      while(refDate <= dateEnd){
+        if (refDate.month== Month.FEBRUARY && refDate.isLeapYear && refDate.isEndOfMonth){}
+        den = 366
+        refDate = refDate + 1
+      }
+
+      dayCount(dateStart, dateEnd) / den
+
+
+    }
+
   }
 
 }

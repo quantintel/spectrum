@@ -30,31 +30,44 @@ import org.quantintel.lang.collections.distributed.{SessionBasedCollection}
 package object daycounters {
 
 
-
+  /**
+   *
+   * @param name name of day count method
+   * @param calendar open calendar
+   * @return the day counter associated with a given name and calendar
+   */
   private def dayCounter(name: String, calendar: Calendar): DayCounter = {
 
     import org.quantintel.ql.time.daycounters.Business252.Business252
 
     name match {
 
-      case "ACTUAL/360" => Actual360(Actual360Convention.ACTUAL360)
-      case "FRENCH" => Actual360(Actual360Convention.FRENCH)
-      case "ACT365F" => Actual365(Actual365Convention.ACT365F)
-      case "ACT365L" => Actual365(Actual365Convention.ACT365L)
-      case "ACT365NL" => Actual365(Actual365Convention.ACT365NL)
-      case x if x == "ISMA" || x == "BOND" => ActualActual(ActualActualConvention.ISMA)
-      case x if x == "ISDA" || x == "HISTORICAL" || x == "ACTUAL365"
-      => ActualActual(ActualActualConvention.ISDA)
-      case x if x == "AFB" || x == "EURO" => ActualActual(ActualActualConvention.AFB)
+      // common contemporary convention names
+      case x if x =="Act/Act" || x == "ISDA" || x == "HISTORICAL" || x == "ACTUAL365"
+                    => ActualActual(ActualActualConvention.ISDA)
+
+      case "Act/360" => Actual360(Actual360Convention.ACTUAL360)
+
+      case "Act/365L" => Actual365(Actual365Convention.ACT365L)
+      case "Act/365F" => Actual365(Actual365Convention.ACT365F)
+      case "Act/365A" => Actual365(Actual365Convention.ACT365A)
+      case "NL/365" => Actual365(Actual365Convention.ACT365NL)
+
       case "30/360" => Thirty360(Thirty360Convention.USA)
-      case "BOND BASIS" => Thirty360(Thirty360Convention.BONDBASIS)
-      case "30E/360" => Thirty360(Thirty360Convention.EUROPEAN)
-      case "EUROBOND BASIS" => Thirty360(Thirty360Convention.EUROBONDBASIS)
-      case "30E+/360" => Thirty360(Thirty360Convention.EP)
-      case "30/360 ISDA" => Thirty360(Thirty360Convention.THIRTY360ISDA)
-      case "30/360 US (NASD)" => Thirty360(Thirty360Convention.THIRTY360USNASD)
-      case "30E/360 ISDA" => Thirty360(Thirty360Convention.ISDA)
       case "30/360 US" => Thirty360(Thirty360Convention.THIRTY360US)
+      case "30/360 ISDA" => Thirty360(Thirty360Convention.THIRTY360ISDA)
+      case "30E/360" => Thirty360(Thirty360Convention.EUROPEAN)
+      case "30E+/360" => Thirty360(Thirty360Convention.EP)
+      case "30E/360 ISDA" => Thirty360(Thirty360Convention.ISDA)
+
+
+      // additional convention names
+      case "FRENCH" => Actual360(Actual360Convention.FRENCH)
+      case x if x == "ISMA" || x == "BOND" => ActualActual(ActualActualConvention.ISMA)
+      case x if x == "AFB" || x == "EURO" => ActualActual(ActualActualConvention.AFB)
+      case "BOND BASIS" => Thirty360(Thirty360Convention.BONDBASIS)
+      case "EUROBOND BASIS" => Thirty360(Thirty360Convention.EUROBONDBASIS)
+      case "30/360 US (NASD)" => Thirty360(Thirty360Convention.THIRTY360USNASD)
       case "30/360 SIA" => Thirty360(Thirty360Convention.SIA)
       case "30/360 BMA" => Thirty360(Thirty360Convention.BMA)
       case "30/360 (Italian)" => Thirty360(Thirty360Convention.ITALIAN)
