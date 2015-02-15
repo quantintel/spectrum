@@ -26,5 +26,5 @@ addSbtPlugin("com.typesafe.sbt" % "sbt-license-report" % "1.0.0")
 
 addSbtPlugin("com.timushev.sbt" % "sbt-updates" % "0.1.7")
 
-addSbtPlugin("org.scoverage" % "sbt-scoverage" % "1.0.1")
+addSbtPlugin("org.scoverage" % "sbt-scoverage" % "1.0.4")
 

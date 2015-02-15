@@ -37,8 +37,8 @@ libraryDependencies ++= Seq(
   "com.typesafe.play"     % "play_2.11"             % "2.3.5",
   "org.jboss.spec.javax.transaction" % "jboss-transaction-api_1.1_spec" % "1.0.1.Final",
   "org.infinispan"        % "infinispan-embedded"   % "7.0.3.Final",
-  "org.scalatest"         % "scalatest_2.11"        % "2.2.2"       % "test",
-  "org.scalastyle"        % "scalastyle_2.11"       % "0.6.0"       % "test"
+  "org.scalatest"         %% "scalatest"            % "2.2.2"       % "test",
+  "org.scalastyle"        %% "scalastyle"           % "0.6.0"       % "test"
 )
 
 ScoverageSbtPlugin.ScoverageKeys.coverageMinimum := 70
